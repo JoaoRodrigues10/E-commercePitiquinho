@@ -1,10 +1,10 @@
-package com.pitiquinho.web;
+package br.loja.pitiquinho;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class WebApplicationTests {
+class PitiquinhoApplicationTests {
 
 	@Test
 	void contextLoads() {
