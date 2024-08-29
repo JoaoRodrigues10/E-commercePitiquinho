@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-PitiquinhoApplication<pitiquinho>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "br.loja.pitiquinho.PitiquinhoApplication",
+            "projectName": "pitiquinho",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
