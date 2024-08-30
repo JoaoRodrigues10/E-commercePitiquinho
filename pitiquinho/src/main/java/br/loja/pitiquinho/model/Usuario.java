@@ -1,5 +1,11 @@
 package br.loja.pitiquinho.model;
 
+import java.util.Collection;
+import java.util.Collections;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,7 +15,8 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "TB_USUARIOS")
-public class Usuario {
+public class Usuario implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,6 +38,44 @@ public class Usuario {
 
     @Column(name = "grupo", nullable = false, length = 20)
     private String grupo;
+
+    // Getters e Setters
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // Converte o grupo do usuário para uma role Spring Security
+        return Collections.singletonList(() -> "ROLE_" + grupo);
+    }
+
+    @Override
+    public String getPassword() {
+        return senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return status;
+    }
 
     // Getters e Setters
     public Long getId() {

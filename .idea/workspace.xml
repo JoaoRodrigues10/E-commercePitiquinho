@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="74d92b44-478a-4e11-9445-348ba61f04fc" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pitiquinho/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/model/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/model/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/repository/UsuarioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/repository/UsuarioRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/service/UsuarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/service/UsuarioService.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2lM0EsEJ2hky4J9fb1fpp13hbk3" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="74d92b44-478a-4e11-9445-348ba61f04fc" name="Changes" comment="" />
+      <created>1724974539816</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1724974539816</updated>
+    </task>
+    <servers />
+  </component>
+</project>
