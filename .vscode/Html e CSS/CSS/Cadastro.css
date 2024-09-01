@@ -1,0 +1,96 @@
+body {
+    background-color: #ffffff;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: #E9C5A4;
+    padding: 20px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #000000;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+label {
+    font-size: 14px;
+    color: #000000;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"] {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.role-selection {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.role-selection input[type="button"] {
+    flex: 1;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background-color: #ccc;
+    color: #000;
+}
+
+.role-selection input[type="button"].selected {
+    background-color: #000000;
+    color: #fff;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 60px;
+    margin-top: 20px;
+    
+}
+
+.actions input[type="button"],
+.actions input[type="submit"] {
+    padding: 10px 30px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin-right: 15px; 
+    
+}
+
+.actions input[type="submit"] {
+    background-color: #CE8047;
+    color: #fff;
+}
+
+.actions input[type="button"] {
+    background-color: #f5f5f5;
+    color: #000;
+}
