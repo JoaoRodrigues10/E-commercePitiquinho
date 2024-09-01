@@ -15,8 +15,8 @@ public class ListarUsuariosBackoffice {
 
     @GetMapping("/listarusuariobackoffice")
     public String listarusuariobackoffice (){
-        List<Usuario> = usuario.listarUsuarios();
-        
+        //List<Usuario> = usuario.listarUsuarios();
+
         return "listarusuariobackoffice";
     }
 
