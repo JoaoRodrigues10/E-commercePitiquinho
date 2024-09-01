@@ -2,6 +2,8 @@ package br.loja.pitiquinho.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import br.loja.pitiquinho.service.UsuarioService;
 
@@ -9,8 +11,13 @@ import br.loja.pitiquinho.service.UsuarioService;
 public class ListarUsuariosBackoffice {
 
     @Autowired
-    private UsuarioService usuario;
+    private UsuarioService usuarioService;
 
+    @GetMapping("/listarusuariobackoffice")
+    public String listarUsuarios(Model model) {
+        model.addAttribute("usuarios", usuarioService.listarTodosUsuarios());
+        return "listarusuariobackoffice";
+    }
 
  
     

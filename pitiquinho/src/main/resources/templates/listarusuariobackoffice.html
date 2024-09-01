@@ -23,13 +23,16 @@
                     <th>Nome</th>
                     <th>E-mail</th>
                     <th>Status</th>
-                    <th>Alterar</th>
-                    <th>Habilitar/Desabilitar</th>
                     <th>Grupo</th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="usuarios : ${listusu}">
+                <tr th:each="usuarios : ${usuarios}">
+                    <td th:text="${usuarios.id}"></td>
+                    <td th:text="${usuarios.nome}"></td>
+                    <td th:text="${usuarios.email}"></td>
+                    <td th:text="${usuarios.status}"></td>
+                    <td th:text="${usuarios.grupo}"></td>
                     
                 </tr>
             </tbody>
