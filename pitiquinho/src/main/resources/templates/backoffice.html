@@ -5,14 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BackOffice</title>
     <link rel="stylesheet" href="CSS/Backoffice.css">
+
+    <script>
+        function redirectTo(url) {
+            window.location.href = url;
+        }
+    </script>
 </head>
 <body>
     <div class="login-container">
 
         <h1>BackOffice</h1>
-        <form>
+        
             <div class="button-container">
-                <button type="submit">LISTAR USUÁRIO</button>
+                <button type="button" onclick="redirectTo('/listarusuariobackoffice')">LISTAR USUÁRIO</button>
               </div>
               <div class="button-container">
 
@@ -24,7 +30,7 @@
             <div class="button-container">
                 <button type="button" class="cancel">Cancelar</button>
             </div>
-        </form>
+        
     </div>
 </body>
 </html>

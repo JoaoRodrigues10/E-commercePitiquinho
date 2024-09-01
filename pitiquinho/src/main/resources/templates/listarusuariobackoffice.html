@@ -14,6 +14,8 @@
             <button>Pesquisar</button>
             <button class="register-button">+ Cadastrar</button>
         </div>
+
+
         <table>
             <thead>
                 <tr>
@@ -27,14 +29,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>01</td>
-                    <td>Igor</td>
-                    <td>igor@gmail.com</td>
-                    <td>Ativo</td>
-                    <td><a href="#">Alterar</a></td>
-                    <td><a href="#">Inabilitar</a></td>
-                    <td>Administrador</td>
+                <tr th:each="listusu : ${listusu}">
+                    
                 </tr>
             </tbody>
         </table>

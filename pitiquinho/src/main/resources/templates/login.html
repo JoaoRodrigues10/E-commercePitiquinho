@@ -3,29 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./Login.css">
     <title>Login</title>
 </head>
 
 <body>
-    <h2>Login</h2>
-    <form action="/login" method="post">
-        <div>
-            <label for="username">E-mail:</label>
-            <input type="text" id="username" name="username" required>
-        </div>
-        <div>
-            <label for="password">Senha:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <div>
-            <button type="submit">Entrar</button>
-        </div>
-        <div>
-            <c:if test="${param.error}">
-                <p style="color: red;">Credenciais inválidas. Tente novamente.</p>
-            </c:if>
-        </div>
-    </form>
+
+
+    <div class="login-container">
+        <img src="" alt="Logo ">
+        <form action="/login" method="post">
+        <form>
+            <div class="input-container">
+                <label for="username">E-mail:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-container">
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="button-container">
+                <button type="submit">OK</button>
+                <button type="button" class="cancel">Cancelar</button>
+            </div>
+            <div>
+                <c:if test="${param.error}">
+                    <p style="color: red;">Credenciais inválidas. Tente novamente.</p>
+                </c:if>
+            </div>
+        </form>
+    </div>
+    
     
 </body>
 </html>
