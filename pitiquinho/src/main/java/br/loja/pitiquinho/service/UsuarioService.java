@@ -53,9 +53,10 @@ public class UsuarioService {
 
     public boolean verificarCredenciais(String email, String senha) {
         Usuario usuario = usuarioRepository.findByEmail(email);
-        if (usuario != null) {
-            return passwordEncoder.matches(senha, usuario.getSenha());
+        if (usuario != null && passwordEncoder.matches(senha, usuario.getSenha())) {
+            return "Administrador".equals(usuario.getGrupo());
         }
         return false;
     }
+    
 }

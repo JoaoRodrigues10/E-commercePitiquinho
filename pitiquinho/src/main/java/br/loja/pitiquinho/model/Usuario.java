@@ -14,37 +14,38 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "TB_USUARIOS")
+@Table(name = "tb_usuarios")  
 public class Usuario implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pk_id")  
     private Long id;
 
-    @Column(name = "nome", nullable = false, length = 100)
+    @Column(name = "ds_nome", nullable = false, length = 100)
     private String nome;
 
-    @Column(name = "cpf", nullable = false, unique = true, length = 14)
+    @Column(name = "ds_cpf", nullable = false, unique = true, length = 14)
     private String cpf;
 
-    @Column(name = "email", nullable = false, unique = true, length = 100)
+    @Column(name = "ds_email", nullable = false, unique = true, length = 100)
     private String email;
 
-    @Column(name = "senha", nullable = false, length = 255)
+    @Column(name = "ds_senha", nullable = false, length = 255)
     private String senha;
 
-    @Column(name = "status", nullable = false)
-    private Boolean status;
+    @Column(name = "bo_status", nullable = false)
+    private Boolean status = false;
 
-    @Column(name = "grupo", nullable = false, length = 20)
+    @Column(name = "ds_grupo", nullable = false, length = 20)
     private String grupo;
 
-    // Getters e Setters
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Converte o grupo do usuário para uma role Spring Security
-        return Collections.singletonList(() -> "ROLE_" + grupo);
+
+        return Collections.singletonList(() -> "ROLE_" + grupo.toUpperCase());
     }
 
     @Override
@@ -77,7 +78,6 @@ public class Usuario implements UserDetails {
         return status;
     }
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }

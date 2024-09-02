@@ -22,7 +22,7 @@ public class LoginController {
     @PostMapping("/login")
     public String login(@RequestParam String username, @RequestParam String password) {
         if (usuarioService.verificarCredenciais(username, password)) {
-            return "redirect:/home";
+            return "redirect:/lista-telas";
         } else {
             return "redirect:/login?error";
         }

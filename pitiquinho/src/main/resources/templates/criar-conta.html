@@ -3,11 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Criar Conta</title>
-    <link rel="stylesheet" href="/css/styles.css"> <!-- Se você tiver estilos CSS -->
+    <link rel="stylesheet" href="css/criar-conta.css"> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-    <h1>Criar Conta</h1>
     <form th:action="@{/criar-conta}" method="post" th:object="${usuario}">
+        <h3>Criar Conta</h3>
+
+        <div th:if="${error}" class="alert alert-danger">
+            <p th:text="${error}"></p>
+        </div>
+
         <label for="nome">Nome:</label>
         <input type="text" id="nome" th:field="*{nome}" required />
 
@@ -26,7 +32,10 @@
             <option value="Estoquista">Estoquista</option>
         </select>
 
-        <button type="submit">Criar Conta</button>
+        <div class="button-container">
+            <button type="submit">Criar Conta</button>
+            <a href="/login">Login</a>
+        </div>
     </form>
 </body>
 </html>

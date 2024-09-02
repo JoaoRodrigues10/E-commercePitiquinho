@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.loja.pitiquinho.model.Usuario;
 import br.loja.pitiquinho.repository.UsuarioRepository;
+import br.loja.pitiquinho.service.UsuarioService;
 
 @RestController
 @RequestMapping("/api/usuarios")
@@ -25,6 +26,9 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     @GetMapping("/listarusuariobackoffice")
         public String listarUsuarios(Model model) {
@@ -40,11 +44,45 @@ public class UsuarioController {
         return usuario.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    public ResponseEntity<Usuario> criarUsuario(@RequestBody Usuario usuario) {
-        Usuario novoUsuario = usuarioRepository.save(usuario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(novoUsuario);
+
+    public UsuarioController(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
     }
+
+
+    @PostMapping("/criar-conta")
+    public String criarUsuario(@ModelAttribute Usuario usuario, Model model) {
+        if (usuarioRepository.existsByCpf(usuario.getCpf())) {
+            model.addAttribute("error", "CPF já cadastrado.");
+            model.addAttribute("usuario", usuario);
+            return "criar-conta";
+        }
+    
+        if (usuarioRepository.existsByEmail(usuario.getEmail())) {
+            model.addAttribute("error", "Email já cadastrado.");
+            model.addAttribute("usuario", usuario);
+         
+         
+           return "criar-conta";
+        }
+    
+        try {
+           // usuarioRepository.save(usuario);
+            return "redirect:/usuarios/lista";
+        } catch (Exception ex) {
+            model.addAttribute("error", "Ocorreu um erro inesperado.");
+            model.addAttribute("usuario", usuario);
+            return "criar-conta";
+        }
+    }
+    
+    @GetMapping("/lista-telas")
+    public String listarTelas(Model model) {
+        model.addAttribute("usuarios", usuarioRepository.findAll());
+        return "lista-telas"; 
+    }
+
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> atualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuario) {
