@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.loja.pitiquinho.model.Usuario;
 import br.loja.pitiquinho.service.UsuarioService;
-import javax.servlet.http.HttpSession;
+
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
 
 
 @Controller
@@ -23,11 +25,20 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String username, @RequestParam String password, HttpSession session) {
+    public String login(@RequestParam String username, @RequestParam String password, HttpServletRequest request) {
         Usuario usuario = usuarioService.buscarLogin(username, password);
+
         if (usuario != null) {
-            session.setAttribute("usuario", usuario);
-            return "redirect:/lista-telas";
+
+            if(usuario.getGrupo().equals("Administrador")){
+                HttpSession session = request.getSession();
+                session.setAttribute("usuario", usuario);
+                return "redirect:/lista-adm";
+            } else {
+                HttpSession session = request.getSession();
+                session.setAttribute("usuario", usuario);
+                return "redirect:/lista-estoque";
+            }
         } else {
             return "redirect:/login?error";
         }

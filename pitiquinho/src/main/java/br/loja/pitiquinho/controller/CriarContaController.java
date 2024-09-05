@@ -27,10 +27,10 @@ public class CriarContaController {
         return "criar-conta";
     }
 
-    @GetMapping("/lista-telas")
+    @GetMapping("/lista-adm")
     public String listarTelas(Model model) {
         model.addAttribute("usuarios", usuarioRepository.findAll());
-        return "lista-telas"; 
+        return "lista-adm"; 
     }
 
     @PostMapping
@@ -54,7 +54,7 @@ public class CriarContaController {
     
         try {
             usuarioRepository.save(usuario);
-            return "redirect:/lista-telas";
+            return "redirect:/lista-adm";
         } catch (Exception ex) {
             model.addAttribute("error", "Ocorreu um erro inesperado.");
             model.addAttribute("usuario", usuario);

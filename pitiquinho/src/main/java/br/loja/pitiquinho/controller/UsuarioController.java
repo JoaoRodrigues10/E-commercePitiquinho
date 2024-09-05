@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.loja.pitiquinho.model.Usuario;
 import br.loja.pitiquinho.repository.UsuarioRepository;
 import br.loja.pitiquinho.service.UsuarioService;
+import jakarta.servlet.http.HttpSession;
 
 
 
@@ -77,14 +78,6 @@ public class UsuarioController {
             return "criar-conta";
         }
     }
-    
-    @GetMapping("/lista-telas")
-    public String listarTelas(Model model) {
-        model.addAttribute("usuarios", usuarioRepository.findAll());
-        return "lista-telas"; 
-    }
-
-
 
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> atualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuario) {

@@ -14,9 +14,10 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     
     boolean existsByCpf(String cpf);
     boolean existsByEmail(String email);
-    Optional<Usuario> findByEmailOptional(String email);
 
-   @Query("SELECT u FROM Usuario u WHERE u.ds_email = :usuario AND u.ds_senha = :senha")
-    public Usuario buscarLogin(@Param("usuario") String usuario, @Param("senha") String senha);
+
+    @Query("SELECT u FROM Usuario u WHERE u.email = :email AND u.senha = :senha")
+    public Usuario findByEmailAndSenha(@Param("email") String email, @Param("senha") String senha);
+    
 
 }
