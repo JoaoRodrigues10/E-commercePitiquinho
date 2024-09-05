@@ -12,8 +12,8 @@ import br.loja.pitiquinho.service.UsuarioService;
 public class LoginController {
 
     @Autowired
-    private UsuarioService usuarioService;
-
+    private UsuarioService usuarioService; 
+    
     @GetMapping("/login")
     public String showLoginForm() {
         return "login";

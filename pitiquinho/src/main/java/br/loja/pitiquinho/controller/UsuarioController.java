@@ -20,6 +20,8 @@ import br.loja.pitiquinho.model.Usuario;
 import br.loja.pitiquinho.repository.UsuarioRepository;
 import br.loja.pitiquinho.service.UsuarioService;
 
+
+
 @RestController
 @RequestMapping("/api/usuarios")
 public class UsuarioController {
