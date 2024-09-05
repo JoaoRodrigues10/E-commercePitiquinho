@@ -51,12 +51,12 @@ public class UsuarioService {
         return passwordEncoder.encode(rawPassword);
     }
 
-    public boolean verificarCredenciais(String email, String senha) {
+    public Usuario buscarLogin(String email, String senha) {
         Usuario usuario = usuarioRepository.findByEmail(email);
         if (usuario != null && passwordEncoder.matches(senha, usuario.getSenha())) {
-            return "Administrador".equals(usuario.getGrupo());
+            return usuario;
         }
-        return false;
+        return null;
     }
     
 }

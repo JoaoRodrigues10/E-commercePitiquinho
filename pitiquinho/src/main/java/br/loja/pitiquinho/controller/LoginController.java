@@ -6,7 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import br.loja.pitiquinho.model.Usuario;
 import br.loja.pitiquinho.service.UsuarioService;
+import javax.servlet.http.HttpSession;
+
 
 @Controller
 public class LoginController {
@@ -20,11 +23,21 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String username, @RequestParam String password) {
-        if (usuarioService.verificarCredenciais(username, password)) {
+    public String login(@RequestParam String username, @RequestParam String password, HttpSession session) {
+        Usuario usuario = usuarioService.buscarLogin(username, password);
+        if (usuario != null) {
+            session.setAttribute("usuario", usuario);
             return "redirect:/lista-telas";
         } else {
             return "redirect:/login?error";
         }
     }
+
+    @PostMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate(); 
+        return "redirect:/login";
+    }
+
+
 }
