@@ -29,18 +29,10 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    public Usuario atualizarUsuario(Long id, String nome, String email, Boolean status, String grupo) {
-        Usuario usuarioExistente = usuarioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-    
-        usuarioExistente.setNome(nome);
-        usuarioExistente.setEmail(email);
-        usuarioExistente.setStatus(status);
-        usuarioExistente.setGrupo(grupo);
-    
-        return usuarioRepository.save(usuarioExistente);
+    public Usuario atualizarUsuario(Long id, Usuario usuario) {
+        usuario.setId(id);
+        return usuarioRepository.save(usuario);
     }
-    
 
     public void deletarUsuario(Long id) {
         usuarioRepository.deleteById(id);
