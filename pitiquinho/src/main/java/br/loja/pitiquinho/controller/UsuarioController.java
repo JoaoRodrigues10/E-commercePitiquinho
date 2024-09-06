@@ -33,11 +33,11 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @GetMapping("/listarusuariobackoffice")
+    @GetMapping("/listar-usuario")
         public String listarUsuarios(Model model) {
         List<Usuario> usuarios = usuarioRepository.findAll();
         model.addAttribute("usuarios", usuarios);
-        return "listarusuariobackoffice";
+        return "listar-usuario";
     }
 
 

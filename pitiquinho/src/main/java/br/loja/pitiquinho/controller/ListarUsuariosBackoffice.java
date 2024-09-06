@@ -13,10 +13,10 @@ public class ListarUsuariosBackoffice {
     @Autowired
     private UsuarioService usuarioService;
 
-    @GetMapping("/listarusuariobackoffice")
+    @GetMapping("/listar-usuario")
     public String listarUsuarios(Model model) {
         model.addAttribute("usuarios", usuarioService.listarTodosUsuarios());
-        return "listarusuariobackoffice";
+        return "listar-usuario";
     }
 
  
