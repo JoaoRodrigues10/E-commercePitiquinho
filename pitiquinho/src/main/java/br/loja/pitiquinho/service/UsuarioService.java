@@ -60,9 +60,6 @@ public class UsuarioService {
         return null;
     }
 
-
-
-    
     public Usuario buscarPorUsername(String username) {
         return usuarioRepository.findByEmail(username);
     }

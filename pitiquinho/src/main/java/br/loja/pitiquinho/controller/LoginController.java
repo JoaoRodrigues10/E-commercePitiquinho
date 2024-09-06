@@ -25,78 +25,26 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String username, @RequestParam String password, HttpServletRequest request) {
-        if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
-            return "redirect:/login?error=emptyFields";
-        }
-    
+    public String login(@RequestParam String username, @RequestParam String password, HttpSession session) {
+        Usuario usuario = usuarioService.buscarLogin(username, password);
 
-        Usuario usuario = usuarioService.buscarPorUsername(username);
-
-        if (usuario != null && usuarioService.verificarSenha(usuario, password)) {
-            // Validar CPF
-            if (!validarCPF(usuario.getCpf())) {
-                return "redirect:/login?error=invalidCPF";
-            }
-    
-
-            if (!senhaConfirmada(usuario.getSenha(), password)) {
-                return "redirect:/login?error=passwordMismatch";
-            }
-    
-          
-            HttpSession session = request.getSession(false);
-            if (session != null) {
-                session.invalidate();
-            }
-    
-
-            session = request.getSession(true);
+        if (usuario != null) {
             session.setAttribute("usuario", usuario);
-    
 
-            if (usuario.getGrupo().equals("Administrador")) {
+            if(usuario.getGrupo().equals("Administrador")){
                 return "redirect:/lista-adm";
-            } else {
+            } 
+            
+            if(usuario.getGrupo().equals("Estoquista")){
                 return "redirect:/lista-estoque";
-            }
+            } 
+
+            return "redirect:/lista-adm";
         } else {
-
-            return "redirect:/login?error=invalidCredentials";
+            return "redirect:/login?error";
         }
     }
-    
 
-    private boolean validarCPF(String Usuariocpf) {
-        String cpf = Usuariocpf.replaceAll("\\D", ""); 
-    
-        if (cpf.length() != 11 || cpf.chars().allMatch(c -> c == cpf.charAt(0))) {
-            return false;
-        }
-    
-        int soma = 0;
-        int resto;
-    
-        for (int i = 1; i <= 9; i++) {
-            soma += Character.getNumericValue(cpf.charAt(i - 1)) * (11 - i);
-        }
-        resto = (soma * 10) % 11;
-        if (resto == 10 || resto == 11) resto = 0;
-        if (resto != Character.getNumericValue(cpf.charAt(9))) return false;
-    
-        soma = 0;
-        for (int i = 1; i <= 10; i++) {
-            soma += Character.getNumericValue(cpf.charAt(i - 1)) * (12 - i);
-        }
-        resto = (soma * 10) % 11;
-        if (resto == 10 || resto == 11) resto = 0;
-        return resto == Character.getNumericValue(cpf.charAt(10));
-    }
-
-
-    private boolean senhaConfirmada(String senha, String senhaConfirmada) {
-        return senha.equals(senhaConfirmada);
-    }
 
     @PostMapping("/logout")
     public String logout(HttpSession session) {
