@@ -99,7 +99,7 @@ public class CriarContaController {
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
         usuarioRepository.save(usuario);
 
-        return "redirect:/login";
+        return "redirect:/adm/login";
     }
 
 }

@@ -6,11 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import br.loja.pitiquinho.config.JwtUtil;
 import br.loja.pitiquinho.model.Usuario;
 import br.loja.pitiquinho.service.UsuarioService;
-
 import jakarta.servlet.http.HttpSession;
-import jakarta.servlet.http.HttpServletRequest;
 
 
 @Controller
@@ -19,37 +18,40 @@ public class LoginController {
     @Autowired
     private UsuarioService usuarioService; 
     
-    @GetMapping("/login")
+    @GetMapping("/adm/login")
     public String showLoginForm() {
-        return "login";
+        return "/adm-login";
     }
 
-    @PostMapping("/login")
-    public String login(@RequestParam String username, @RequestParam String password, HttpSession session) {
-        Usuario usuario = usuarioService.buscarLogin(username, password);
-
+    @PostMapping("/adm/login")
+    public String login(@RequestParam String email, @RequestParam String password, HttpSession session) {
+        Usuario usuario = usuarioService.buscarLogin(email, password);
+    
         if (usuario != null) {
-            session.setAttribute("usuario", usuario);
+            String token = JwtUtil.generateToken(usuario);
 
-            if(usuario.getGrupo().equals("Administrador")){
+            session.setAttribute("usuario", usuario);
+            session.setAttribute("token", token); 
+    
+            if (usuario.getGrupo().equals("Administrador")) {
                 return "redirect:/lista-adm";
             } 
             
-            if(usuario.getGrupo().equals("Estoquista")){
+            if (usuario.getGrupo().equals("Estoquista")) {
                 return "redirect:/lista-estoque";
             } 
-
+    
             return "redirect:/lista-adm";
         } else {
-            return "redirect:/login?error";
+            return "redirect:/adm/login?error";
         }
     }
+    
 
-
-    @PostMapping("/logout")
+    @PostMapping("/adm/logout")
     public String logout(HttpSession session) {
         session.invalidate(); 
-        return "redirect:/login";
+        return "redirect:/adm/login";
     }
 
 

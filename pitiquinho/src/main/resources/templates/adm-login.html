@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/login.css">
+    <link rel="stylesheet" type="text/css" href="css/adm-login.css">
     <title>Login</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -17,10 +17,10 @@
     <div class="login-container">
         <img src="./logo.png" alt="Logo Pitiquinho">
         <h2>Login de Usuário</h2>
-        <form action="/login" method="post">
+        <form action="/adm/login" method="post">
             <div class="input-container">
-                <label for="username">E-mail:</label>
-                <input type="text" id="username" name="username" required>
+                <label for="email">E-mail:</label>
+                <input type="text" id="email" name="email" required>
             </div>
             <div class="input-container">
                 <label for="password">Senha:</label>
@@ -29,7 +29,6 @@
             
             <div class="button-container">
                 <button type="submit">OK</button>
-                <a href="/criar-conta">Criar Conta</a>
             </div>
 
             <div>

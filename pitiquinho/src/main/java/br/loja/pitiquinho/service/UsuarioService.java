@@ -4,13 +4,18 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import br.loja.pitiquinho.config.JwtUtil;
 import br.loja.pitiquinho.model.Usuario;
 import br.loja.pitiquinho.repository.UsuarioRepository;
-
 
 @Service
 public class UsuarioService {
@@ -18,6 +23,14 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    
     public List<Usuario> listarTodosUsuarios() {
         return usuarioRepository.findAll();
     }
@@ -39,7 +52,7 @@ public class UsuarioService {
         usuarioRepository.deleteById(id);
     }
 
-    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
 
     public Usuario save(Usuario usuario) {
         if (usuario.getStatus() == null) {
@@ -67,4 +80,25 @@ public class UsuarioService {
     public boolean verificarSenha(Usuario usuario, String senha) {
         return BCrypt.checkpw(senha, usuario.getSenha());
     }
+
+
+    public void authenticate(String username, String password) {
+        Authentication authentication = authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(username, password));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
+
+    public String autenticar(String email, String senha) {
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(email, senha)
+            );
+            Usuario usuario = (Usuario) authentication.getPrincipal();
+            return jwtUtil.generateToken(usuario);
+        } catch (BadCredentialsException e) {
+            throw new RuntimeException("Credenciais inválidas");
+        }
+    }
+    
 }
+
