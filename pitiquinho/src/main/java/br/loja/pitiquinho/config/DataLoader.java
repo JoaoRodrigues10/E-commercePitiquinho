@@ -19,30 +19,23 @@ public class DataLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        if (usuarioRepository.findByEmail("adm") == null) {
-
-            Usuario admin = new Usuario();
-            admin.setNome("adm");
-            admin.setCpf("12345678901");
-            admin.setEmail("admin@example.com");
-            admin.setSenha(passwordEncoder.encode("1234")); 
-            admin.setGrupo("Adm");
-            admin.setStatus(true); 
-
-            usuarioRepository.save(admin);
+        if (usuarioRepository.findByEmail("admin@example.com") == null) {
+            criarUsuario("adm", "12345678901", "admin@example.com", "1234", "Adm", true);
         }
 
-        if (usuarioRepository.findByEmail("estoque") == null) {
-          
-            Usuario estoquista = new Usuario();
-            estoquista.setNome("estoque");
-            estoquista.setCpf("09876543210");
-            estoquista.setEmail("estoquista@example.com");
-            estoquista.setSenha(passwordEncoder.encode("1234"));
-            estoquista.setGrupo("Estoquista"); 
-            estoquista.setStatus(true); 
-
-            usuarioRepository.save(estoquista);
+        if (usuarioRepository.findByEmail("estoquista@example.com") == null) {
+            criarUsuario("estoque", "09876543210", "estoquista@example.com", "1234", "Estoquista", true);
         }
+    }
+
+    private Usuario criarUsuario(String nome, String cpf, String email, String senha, String grupo, boolean status) {
+        Usuario usuario = new Usuario();
+        usuario.setNome(nome);
+        usuario.setCpf(cpf);
+        usuario.setEmail(email);
+        usuario.setSenha(passwordEncoder.encode(senha));
+        usuario.setGrupo(grupo);
+        usuario.setStatus(status);
+        return usuarioRepository.save(usuario);
     }
 }

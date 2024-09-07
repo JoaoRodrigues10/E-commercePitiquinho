@@ -75,24 +75,24 @@ public class CriarContaController {
         return senha != null && senha.equals(confirmarSenha);
     }
 
-    @PostMapping("/criar-conta")
+    @PostMapping
     public String CriarConta(@ModelAttribute @Valid Usuario usuario, @RequestParam String confirmarSenha,BindingResult bindingResult, Model model) {
 
         
         if (bindingResult.hasErrors()) {
-            return "register"; 
+            return "criar-conta"; 
         }
 
 
         if (!validarCPF(usuario.getCpf())) {
             bindingResult.rejectValue("cpf", "error.usuario", "CPF inválido");
-            return "register"; 
+            return "criar-conta"; 
         }
 
 
         if (!senhaConfirmada(usuario.getSenha(), confirmarSenha)) {
             bindingResult.rejectValue("confirmarSenha", "error.usuario", "As senhas não correspondem");
-            return "register"; 
+            return "criar-conta"; 
         }
 
 
