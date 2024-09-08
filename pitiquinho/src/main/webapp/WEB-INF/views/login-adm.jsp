@@ -1,5 +1,7 @@
 <%@ page session="true" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +14,7 @@
 <body>
     <div class="login-container">
         <h3>Login Administração</h3>
-        <form action="/adm/login" method="post">
+        <form action="/adm/login-adm" method="post">
             <div class="input-container">
                 <label for="email">E-mail:</label>
                 <input type="text" id="email" name="email" required>
