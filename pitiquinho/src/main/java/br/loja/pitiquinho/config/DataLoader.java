@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
 import br.loja.pitiquinho.model.Usuario;
 import br.loja.pitiquinho.repository.UsuarioRepository;
 
@@ -14,11 +15,10 @@ public class DataLoader implements CommandLineRunner {
     private UsuarioRepository usuarioRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;  // Injete o PasswordEncoder
 
     @Override
     public void run(String... args) throws Exception {
-
         if (usuarioRepository.findByEmail("admin@example.com") == null) {
             criarUsuario("adm", "12345678901", "admin@example.com", "1234", "Adm", true);
         }

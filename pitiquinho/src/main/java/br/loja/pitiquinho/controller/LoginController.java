@@ -19,8 +19,8 @@ public class LoginController {
     private UsuarioService usuarioService; 
     
     @GetMapping("/adm/login")
-    public String showLoginForm() {
-        return "/adm-login";
+    public String showLoginPage() {
+        return "login-adm"; 
     }
 
     @PostMapping("/adm/login")
@@ -32,16 +32,19 @@ public class LoginController {
 
             session.setAttribute("usuario", usuario);
             session.setAttribute("token", token); 
+
+            System.out.println(token);
     
             if (usuario.getGrupo().equals("Administrador")) {
-                return "redirect:/lista-adm";
+                return "lista-adm.jsp";
             } 
+            
             
             if (usuario.getGrupo().equals("Estoquista")) {
                 return "redirect:/lista-estoque";
             } 
     
-            return "redirect:/lista-adm";
+            return "lista-adm";
         } else {
             return "redirect:/adm/login?error";
         }

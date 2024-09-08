@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import br.loja.pitiquinho.model.Usuario;
 import br.loja.pitiquinho.repository.UsuarioRepository;
 import br.loja.pitiquinho.service.UsuarioService;
-import jakarta.servlet.http.HttpSession;
 
 
 
@@ -70,7 +69,7 @@ public class UsuarioController {
         }
     
         try {
-           // usuarioRepository.save(usuario);
+            usuarioRepository.save(usuario);
             return "redirect:/usuarios/lista";
         } catch (Exception ex) {
             model.addAttribute("error", "Ocorreu um erro inesperado.");

@@ -4,11 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class BackofficeController {
-    
-    @GetMapping("/backoffice")
-    public String backoffice() {
-        return "backoffice"; 
-    }
+public class TestController {
 
+    @GetMapping("/teste")
+    public String showTestPage() {
+        return "teste"; 
+    }
 }

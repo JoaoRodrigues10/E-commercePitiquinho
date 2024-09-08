@@ -8,7 +8,7 @@ public class HomeController {
 
     @GetMapping("/lista-adm")
     public String home() {
-        return "/lista-adm"; 
+        return "lista-adm.jsp"; 
     }
 
     @GetMapping("/lista-estoque")

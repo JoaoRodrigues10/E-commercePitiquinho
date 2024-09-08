@@ -41,18 +41,16 @@ public class CriarContaController {
     }
 
     private boolean validarCPF(String cpf2) {
-        // Remove todos os caracteres não numéricos
         String cpf = cpf2.replaceAll("\\D", "");
     
-        // Verifica se o CPF tem 11 dígitos e não é uma sequência repetitiva de dígitos
+        
         if (cpf.length() != 11 || cpf.chars().allMatch(c -> c == cpf.charAt(0))) {
             return false;
         }
     
         int soma = 0;
         int resto;
-    
-        // Calcula o primeiro dígito verificador
+
         for (int i = 1; i <= 9; i++) {
             soma += Character.getNumericValue(cpf.charAt(i - 1)) * (11 - i);
         }
@@ -62,7 +60,7 @@ public class CriarContaController {
     
         soma = 0;
     
-        // Calcula o segundo dígito verificador
+
         for (int i = 1; i <= 10; i++) {
             soma += Character.getNumericValue(cpf.charAt(i - 1)) * (12 - i);
         }
