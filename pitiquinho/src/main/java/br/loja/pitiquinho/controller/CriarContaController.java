@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.loja.pitiquinho.model.Usuario;
+import br.loja.pitiquinho.util.util;
 import br.loja.pitiquinho.repository.UsuarioRepository;
 import br.loja.pitiquinho.service.UsuarioService;
 import jakarta.validation.Valid;
@@ -25,6 +26,9 @@ public class CriarContaController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private util util;
 
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -40,39 +44,6 @@ public class CriarContaController {
         return "lista-adm";
     }
 
-    private boolean validarCPF(String cpf2) {
-        String cpf = cpf2.replaceAll("\\D", "");
-    
-        
-        if (cpf.length() != 11 || cpf.chars().allMatch(c -> c == cpf.charAt(0))) {
-            return false;
-        }
-    
-        int soma = 0;
-        int resto;
-
-        for (int i = 1; i <= 9; i++) {
-            soma += Character.getNumericValue(cpf.charAt(i - 1)) * (11 - i);
-        }
-        resto = (soma * 10) % 11;
-        if (resto == 10 || resto == 11) resto = 0;
-        if (resto != Character.getNumericValue(cpf.charAt(9))) return false;
-    
-        soma = 0;
-    
-
-        for (int i = 1; i <= 10; i++) {
-            soma += Character.getNumericValue(cpf.charAt(i - 1)) * (12 - i);
-        }
-        resto = (soma * 10) % 11;
-        if (resto == 10 || resto == 11) resto = 0;
-        return resto == Character.getNumericValue(cpf.charAt(10));
-    }
-
-    private boolean senhaConfirmada(String senha, String confirmarSenha) {
-        return senha != null && senha.equals(confirmarSenha);
-    }
-
     @PostMapping
     public String CriarConta(@ModelAttribute @Valid Usuario usuario, @RequestParam String confirmarSenha,BindingResult bindingResult, Model model) {
 
@@ -82,13 +53,13 @@ public class CriarContaController {
         }
 
 
-        if (!validarCPF(usuario.getCpf())) {
+        if (!util.validarCPF(usuario.getCpf())) {
             bindingResult.rejectValue("cpf", "error.usuario", "CPF inválido");
             return "criar-conta"; 
         }
 
 
-        if (!senhaConfirmada(usuario.getSenha(), confirmarSenha)) {
+        if (!util.senhaConfirmada(usuario.getSenha(), confirmarSenha)) {
             bindingResult.rejectValue("confirmarSenha", "error.usuario", "As senhas não correspondem");
             return "criar-conta"; 
         }
