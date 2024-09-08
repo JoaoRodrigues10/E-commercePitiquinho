@@ -15,7 +15,7 @@ public class DataLoader implements CommandLineRunner {
     private UsuarioRepository usuarioRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;  // Injete o PasswordEncoder
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception {

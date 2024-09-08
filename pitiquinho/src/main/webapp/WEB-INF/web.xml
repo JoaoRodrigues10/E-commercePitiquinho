@@ -1,0 +1,21 @@
+<servlet>
+    <servlet-name>jsp</servlet-name>
+    <servlet-class>org.apache.jasper.servlet.JspServlet</servlet-class>
+    <init-param>
+        <param-name>fork</param-name>
+        <param-value>false</param-value>
+    </init-param>
+    <load-on-startup>3</load-on-startup>
+</servlet>
+
+
+<taglib>
+<taglib-uri>http://jakarta.apache.org/taglibs/standard-1.2</taglib-uri>
+<taglib-location>/WEB-INF/tlds/c.tld</taglib-location>
+</taglib>
+
+
+<servlet-mapping>
+<servlet-name>jsp</servlet-name>
+<url-pattern>*.jsp</url-pattern>
+</servlet-mapping>

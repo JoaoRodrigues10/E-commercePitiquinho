@@ -25,11 +25,6 @@ public class LoginController {
     }
 
 
-    @GetMapping("/adm/lista-adm")
-    public String home(Model model) {
-        return "lista-adm";
-    }
-
     @PostMapping("/adm/logout")
     public String logout(HttpSession session) {
         session.invalidate();
@@ -46,7 +41,7 @@ public class LoginController {
             session.setAttribute("usuario", usuario);
             session.setAttribute("token", token);
 
-            return "redirect:/adm/lista-adm";
+            return "redirect:/adm/home";
         } else {
             return "redirect:/adm/login?error";
         }
