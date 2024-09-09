@@ -43,7 +43,7 @@
 
             <div class="mb-3">
                 <label for="grupo" class="form-label">Grupo</label>
-                <input type="text" class="form-control" id="grupo" name="grupo" required maxlength="50">
+                <input type="text" class="form-control" id="grupo" name="grupo" required maxlength="20">
             </div>
 
             <div class="mb-3">

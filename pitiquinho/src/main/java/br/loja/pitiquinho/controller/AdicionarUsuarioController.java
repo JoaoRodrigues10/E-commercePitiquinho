@@ -35,22 +35,44 @@ public class AdicionarUsuarioController {
     }
 
     @PostMapping("/adm/adicionar-usuario")
-    public String adicionarUsuario(@RequestParam String nome, @RequestParam String email, @RequestParam String cpf, @RequestParam String grupo, @RequestParam String senha, @RequestParam String confirmarSenha, RedirectAttributes redirectAttributes,Model model) {
+    public String adicionarUsuario(@RequestParam String nome, @RequestParam String email, @RequestParam String cpf,
+                                   @RequestParam String grupo, @RequestParam String senha,
+                                   @RequestParam String confirmarSenha, RedirectAttributes redirectAttributes, Model model) {
+
+        if (usuarioRepository.findByEmail(email) != null) {
+            redirectAttributes.addFlashAttribute("error", "O e-mail já está em uso");
+            redirectAttributes.addFlashAttribute("nome", nome);
+            redirectAttributes.addFlashAttribute("email", email);
+            redirectAttributes.addFlashAttribute("cpf", cpf);
+            redirectAttributes.addFlashAttribute("grupo", grupo);
+            return "redirect:/adm/adicionar-usuario";
+        }
 
         if (!senha.equals(confirmarSenha)) {
             redirectAttributes.addFlashAttribute("error", "As senhas não correspondem");
+            redirectAttributes.addFlashAttribute("nome", nome);
+            redirectAttributes.addFlashAttribute("email", email);
+            redirectAttributes.addFlashAttribute("cpf", cpf);
+            redirectAttributes.addFlashAttribute("grupo", grupo);
             return "redirect:/adm/adicionar-usuario";
         }
 
         if (!util.validarCPF(cpf)) {
             redirectAttributes.addFlashAttribute("error", "CPF inválido");
+            redirectAttributes.addFlashAttribute("nome", nome);
+            redirectAttributes.addFlashAttribute("email", email);
+            redirectAttributes.addFlashAttribute("cpf", cpf);
+            redirectAttributes.addFlashAttribute("grupo", grupo);
             return "redirect:/adm/adicionar-usuario";
         }
 
         Usuario usuario = new Usuario();
         usuario.setNome(nome);
         usuario.setEmail(email);
-        usuario.setCpf(cpf);
+
+        String cpfLimpo = cpf.replaceAll("[^\\d]", "");
+        usuario.setCpf(cpfLimpo);
+
         usuario.setGrupo(grupo);
         usuario.setSenha(passwordEncoder.encode(senha));
         usuario.setStatus(true);
@@ -60,6 +82,7 @@ public class AdicionarUsuarioController {
         redirectAttributes.addFlashAttribute("success", "Usuário adicionado com sucesso");
         return "redirect:/adm/lista-usuario";
     }
+
 }
 
 

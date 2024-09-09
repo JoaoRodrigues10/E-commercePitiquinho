@@ -43,7 +43,8 @@ public class AlterarUsuarioController {
         System.out.println("Grupo = " + grupo);
 
         usuario.setNome(nome);
-        usuario.setCpf(cpf);
+        String cpfLimpo = cpf.replaceAll("[^\\d]", "");
+        usuario.setCpf(cpfLimpo);
         usuario.setGrupo(grupo);
 
         if (!util.validarCPF(cpf)) {

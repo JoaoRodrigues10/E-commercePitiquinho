@@ -2,7 +2,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="br.loja.pitiquinho.model.Usuario" %>
 
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -11,11 +10,12 @@
     <title>Listar Usuário</title>
     <link rel="stylesheet" type="text/css" href="/css/adm-lista-usuario.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/jquery.inputmask.min.js"></script>
 </head>
 <body>
     <div class="container">
         <h1>Listar Usuário</h1>
-
 
         <%
             String errorMessage = (String) request.getAttribute("error");
@@ -75,12 +75,9 @@
                     <td><%= usuario.getNome() %></td>
                     <td><%= usuario.getEmail() %></td>
                     <td><%= usuario.getCpf() %></td>
-
                    <td>
                        <%= usuario.getStatus() ? "Ativado" : "Desativado" %>
                    </td>
-
-
                     <td><%= usuario.getGrupo() %></td>
                     <td>
                         <button type="button" class="btn btn-primary"
@@ -102,8 +99,6 @@
                                 <%= usuario.getStatus() ? "Desativar" : "Ativar" %>
                             </button>
                         </form>
-
-
                     </td>
                 </tr>
                 <%
@@ -123,51 +118,41 @@
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="staticBackdropLabel">Alterar Usuário</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-
                     </div>
                     <div class="modal-body">
-
                         <form id="modalForm" action="/adm/alterar-usuario" method="post">
-
                             <div class="mb-3">
                                 <label for="modalId" class="form-label">ID</label>
                                 <input type="text" class="form-control" id="modalId2" name="id2" disabled>
                                 <input type="hidden" class="form-control" id="modalId" name="id">
                             </div>
-
-
                             <div class="mb-3">
                                 <label for="modalNome" class="form-label">Nome</label>
-                                <input type="text" class="form-control" id="modalNome" name="nome">
+                                <input type="text" class="form-control" id="modalNome" name="nome" maxlength="100" required>
                             </div>
-
                             <div class="mb-3">
                                 <label for="modalEmail" class="form-label">E-mail</label>
                                 <input type="email" class="form-control" id="modalEmail2" name="email" disabled>
-                                <input type="hidden" class="form-control" id="modalEmail" name="email" >
+                                <input type="hidden" class="form-control" id="modalEmail" name="email">
                             </div>
-
                             <div class="mb-3">
                                 <label for="modalCpf" class="form-label">CPF</label>
-                                <input type="text" class="form-control" id="modalCpf" name="cpf">
+                                <input type="text" class="form-control" id="modalCpf" name="cpf" required>
                             </div>
-
                             <div class="mb-3">
                                 <label for="modalGrupo" class="form-label">Grupo</label>
-                                <input type="text" class="form-control" id="modalGrupo" name="grupo">
+                                <input type="text" class="form-control" id="modalGrupo" name="grupo" maxlength="20" required>
                             </div>
                             <div class="mb-3">
                                 <label for="modalSenha" class="form-label">Nova Senha</label>
-                                <input type="password" class="form-control" id="modalSenha" name="senha">
+                                <input type="password" class="form-control" id="modalSenha" name="senha" minlength="8">
                             </div>
                             <div class="mb-3">
                                 <label for="modalConfirmarSenha" class="form-label">Confirmar Senha</label>
-                                <input type="password" class="form-control" id="modalConfirmarSenha" name="confirmarSenha">
+                                <input type="password" class="form-control" id="modalConfirmarSenha" name="confirmarSenha" minlength="8">
                             </div>
                             <button type="submit" class="btn btn-primary">Salvar</button>
                         </form>
-
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -179,32 +164,37 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
+        $(document).ready(function(){
+            // Máscara para o CPF no formulário modal
+            $('#modalCpf').inputmask('999.999.999-99');
 
-        document.addEventListener('DOMContentLoaded', function () {
+            // Modal para edição de usuário
             var modal = document.getElementById('staticBackdrop');
             modal.addEventListener('show.bs.modal', function (event) {
                 var button = event.relatedTarget;
                 var userId = button.getAttribute('data-id');
-                var userId2 = button.getAttribute('data-id2');
                 var userNome = button.getAttribute('data-nome');
                 var userEmail = button.getAttribute('data-email');
-                var userEmail2 = button.getAttribute('data-email');
                 var userCpf = button.getAttribute('data-cpf');
-                var userStatus = button.getAttribute('data-status');
                 var userGrupo = button.getAttribute('data-grupo');
 
-                document.querySelector('#modalId').value = userId;
-                document.querySelector('#modalId2').value = userId;
-                document.querySelector('#modalNome').value = userNome;
-                document.querySelector('#modalEmail').value = userEmail;
-                document.querySelector('#modalEmail2').value = userEmail;
-                document.querySelector('#modalCpf').value = userCpf;
-                document.querySelector('#modalGrupo').value = userGrupo;
+                var modalId2 = modal.querySelector('#modalId2');
+                var modalId = modal.querySelector('#modalId');
+                var modalNome = modal.querySelector('#modalNome');
+                var modalEmail2 = modal.querySelector('#modalEmail2');
+                var modalEmail = modal.querySelector('#modalEmail');
+                var modalCpf = modal.querySelector('#modalCpf');
+                var modalGrupo = modal.querySelector('#modalGrupo');
 
+                modalId2.value = userId;
+                modalId.value = userId;
+                modalNome.value = userNome;
+                modalEmail2.value = userEmail;
+                modalEmail.value = userEmail;
+                modalCpf.value = userCpf;
+                modalGrupo.value = userGrupo;
             });
         });
-
-
     </script>
 </body>
 </html>
