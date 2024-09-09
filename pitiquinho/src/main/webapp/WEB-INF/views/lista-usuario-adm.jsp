@@ -1,6 +1,8 @@
+<%@ page session="true" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="br.loja.pitiquinho.model.Usuario" %>
+<% Usuario usuarioLogado = (Usuario) session.getAttribute("usuario"); %>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -16,6 +18,14 @@
 <body>
     <div class="container">
         <h1>Listar Usuário</h1>
+
+        <%
+            if (usuarioLogado != null) {
+                out.println(usuarioLogado.getNome());
+            } else {
+                out.println("<p>Nenhum usuário logado.</p>");
+            }
+        %>
 
         <%
             String errorMessage = (String) request.getAttribute("error");
@@ -120,39 +130,71 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="modalForm" action="/adm/alterar-usuario" method="post">
-                            <div class="mb-3">
-                                <label for="modalId" class="form-label">ID</label>
-                                <input type="text" class="form-control" id="modalId2" name="id2" disabled>
-                                <input type="hidden" class="form-control" id="modalId" name="id">
-                            </div>
-                            <div class="mb-3">
-                                <label for="modalNome" class="form-label">Nome</label>
-                                <input type="text" class="form-control" id="modalNome" name="nome" maxlength="100" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="modalEmail" class="form-label">E-mail</label>
-                                <input type="email" class="form-control" id="modalEmail2" name="email" disabled>
-                                <input type="hidden" class="form-control" id="modalEmail" name="email">
-                            </div>
-                            <div class="mb-3">
-                                <label for="modalCpf" class="form-label">CPF</label>
-                                <input type="text" class="form-control" id="modalCpf" name="cpf" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="modalGrupo" class="form-label">Grupo</label>
-                                <input type="text" class="form-control" id="modalGrupo" name="grupo" maxlength="20" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="modalSenha" class="form-label">Nova Senha</label>
-                                <input type="password" class="form-control" id="modalSenha" name="senha" minlength="8">
-                            </div>
-                            <div class="mb-3">
-                                <label for="modalConfirmarSenha" class="form-label">Confirmar Senha</label>
-                                <input type="password" class="form-control" id="modalConfirmarSenha" name="confirmarSenha" minlength="8">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Salvar</button>
-                        </form>
+
+
+
+                           <%
+
+                               String idUsuarioLogado = usuarioLogado != null ? usuarioLogado.getId().toString() : "";
+                               String idUsuarioEditado = request.getAttribute("modalId2").toString()
+
+                               boolean desabilitarCampoGrupo = idUsuarioLogado.equals(idUsuarioEditado);
+                           %>
+
+
+                           <div>
+                               <p>ID do Usuário Logado: <%= idUsuarioLogado %></p>
+                               <p>ID do Usuário Editado: <%= idUsuarioEditado %></p>
+                           </div>
+
+                           <form id="modalForm" action="/adm/alterar-usuario" method="post">
+                               <div class="mb-3">
+                                   <label for="modalId" class="form-label">ID</label>
+                                   <input type="text" class="form-control" id="modalId2" name="id2" disabled>
+                                   <input type="hidden" class="form-control" id="modalId" name="id">
+                               </div>
+
+                                <div class="mb-3">
+                                    <label for="modalNome" class="form-label">Nome</label>
+                                    <input type="text" class="form-control" id="modalNome" name="nome" maxlength="100" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="modalEmail" class="form-label">E-mail</label>
+                                    <input type="email" class="form-control" id="modalEmail2" name="email" disabled>
+                                    <input type="hidden" class="form-control" id="modalEmail" name="email">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="modalCpf" class="form-label">CPF</label>
+                                    <input type="text" class="form-control" id="modalCpf" name="cpf" required>
+                                </div>
+
+                                  <div class="mb-3">
+                                        <label for="modalGrupo" class="form-label">Grupo</label>
+                                        <input type="text" class="form-control" id="modalGrupo" name="grupo" maxlength="20"
+                                               <% if (desabilitarCampoGrupo) { %> disabled <% } %> required>
+                                  </div>
+
+                                <div class="mb-3">
+                                    <label for="modalSenha" class="form-label">Nova Senha</label>
+                                    <input type="password" class="form-control" id="modalSenha" name="senha" minlength="8">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="modalConfirmarSenha" class="form-label">Confirmar Senha</label>
+                                    <input type="password" class="form-control" id="modalConfirmarSenha" name="confirmarSenha" minlength="8">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Salvar</button>
+                            </form>
+
+
+                            <script>
+                                function confirmarAlteracao() {
+                                    return confirm("Tem certeza que deseja salvar as alterações?");
+                                }
+                            </script>
+
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -165,7 +207,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function(){
-            // Máscara para o CPF no formulário modal
             $('#modalCpf').inputmask('999.999.999-99');
 
             // Modal para edição de usuário
@@ -196,5 +237,7 @@
             });
         });
     </script>
+
+
 </body>
 </html>

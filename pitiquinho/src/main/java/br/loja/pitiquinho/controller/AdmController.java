@@ -9,6 +9,7 @@ public class AdmController {
 
     @GetMapping("/adm/home")
     public String home(Model model) {
+
         return "home-adm";
     }
 
