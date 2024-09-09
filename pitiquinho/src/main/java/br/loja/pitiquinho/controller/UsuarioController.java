@@ -51,33 +51,6 @@ public class UsuarioController {
         this.usuarioRepository = usuarioRepository;
     }
 
-
-    @PostMapping("/criar-conta")
-    public String criarUsuario(@ModelAttribute Usuario usuario, Model model) {
-        if (usuarioRepository.existsByCpf(usuario.getCpf())) {
-            model.addAttribute("error", "CPF já cadastrado.");
-            model.addAttribute("usuario", usuario);
-            return "criar-conta";
-        }
-    
-        if (usuarioRepository.existsByEmail(usuario.getEmail())) {
-            model.addAttribute("error", "Email já cadastrado.");
-            model.addAttribute("usuario", usuario);
-         
-         
-           return "criar-conta";
-        }
-    
-        try {
-            usuarioRepository.save(usuario);
-            return "redirect:/usuarios/lista";
-        } catch (Exception ex) {
-            model.addAttribute("error", "Ocorreu um erro inesperado.");
-            model.addAttribute("usuario", usuario);
-            return "criar-conta";
-        }
-    }
-
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> atualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuario) {
         if (!usuarioRepository.existsById(id)) {
@@ -96,4 +69,7 @@ public class UsuarioController {
         usuarioRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+
+
 }

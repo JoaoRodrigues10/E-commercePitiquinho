@@ -15,7 +15,7 @@ import br.loja.pitiquinho.repository.UsuarioRepository;
 import br.loja.pitiquinho.util.util;
 
 @Controller
-@RequestMapping("/adm/alterar-usuario")
+
 public class AlterarUsuarioController {
 
     @Autowired
@@ -29,16 +29,8 @@ public class AlterarUsuarioController {
 
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    @PostMapping
-    public String alterarUsuario(
-            @RequestParam Long id,
-            @RequestParam String nome,
-            @RequestParam String email,
-            @RequestParam String cpf,
-            @RequestParam String grupo,
-            @RequestParam(required = false) String senha,
-            @RequestParam(required = false) String confirmarSenha,
-            Model model) {
+    @RequestMapping("/adm/alterar-usuario")
+    public String alterarUsuario(@RequestParam Long id, @RequestParam String nome, @RequestParam String email, @RequestParam String cpf, @RequestParam String grupo, @RequestParam(required = false) String senha, @RequestParam(required = false) String confirmarSenha, Model model) {
 
         System.out.println(id);
 
@@ -69,8 +61,28 @@ public class AlterarUsuarioController {
             usuario.setSenha(passwordEncoder.encode(senha));
         }
 
+
         usuarioRepository.save(usuario);
 
         return "redirect:/adm/lista-usuario";
     }
+
+
+    @PostMapping("/adm/alterar-usuario/desativar")
+    public String desativarUsuario(@RequestParam Long id, @RequestParam boolean currentStatus, RedirectAttributes redirectAttributes) {
+
+        Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        usuario.setStatus(!currentStatus);
+
+        usuarioRepository.save(usuario);
+
+        String mensagem = currentStatus ? "Usuário desativado com sucesso" : "Usuário ativado com sucesso";
+        redirectAttributes.addFlashAttribute("success", mensagem);
+
+        return "redirect:/adm/lista-usuario";
+    }
+
+
+
 }

@@ -27,7 +27,7 @@
         <% } %>
 
         <div class="d-flex justify-content-between mb-3">
-            <a href="/cadastro-usuario" class="btn btn-success">+ Adicionar Usuário</a>
+            <a href="/adm/adicionar-usuario" class="btn btn-success">+ Adicionar Usuário</a>
             <div class="search-container">
                 <form action="/listar-usuarios" method="get" class="d-flex">
                     <input type="text" name="nome" class="form-control" placeholder="Digite aqui...">
@@ -75,7 +75,12 @@
                     <td><%= usuario.getNome() %></td>
                     <td><%= usuario.getEmail() %></td>
                     <td><%= usuario.getCpf() %></td>
-                    <td><%= usuario.getStatus() %></td>
+
+                   <td>
+                       <%= usuario.getStatus() ? "Ativado" : "Desativado" %>
+                   </td>
+
+
                     <td><%= usuario.getGrupo() %></td>
                     <td>
                         <button type="button" class="btn btn-primary"
@@ -85,18 +90,20 @@
                             data-nome="<%= usuario.getNome() %>"
                             data-email="<%= usuario.getEmail() %>"
                             data-cpf="<%= usuario.getCpf() %>"
-                            data-status="<%= usuario.getStatus() %>"
                             data-grupo="<%= usuario.getGrupo() %>">
                             Alterar
                         </button>
                     </td>
                     <td>
-                        <form action="/alterar-status" method="post" class="d-inline">
+                        <form action="${pageContext.request.contextPath}/adm/alterar-usuario/desativar" method="post" class="d-inline">
                             <input type="hidden" name="id" value="<%= usuario.getId() %>">
+                            <input type="hidden" name="currentStatus" value="<%= usuario.getStatus() %>">
                             <button type="submit" class="btn btn-warning">
-                                <%= usuario.getStatus().equals("Ativo") ? "Desativar" : "Ativar" %>
+                                <%= usuario.getStatus() ? "Desativar" : "Ativar" %>
                             </button>
                         </form>
+
+
                     </td>
                 </tr>
                 <%
@@ -116,9 +123,9 @@
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="staticBackdropLabel">Alterar Usuário</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
                     </div>
                     <div class="modal-body">
-
 
                         <form id="modalForm" action="/adm/alterar-usuario" method="post">
 
