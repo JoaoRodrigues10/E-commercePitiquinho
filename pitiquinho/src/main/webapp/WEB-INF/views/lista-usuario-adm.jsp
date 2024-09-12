@@ -131,22 +131,6 @@
                     </div>
                     <div class="modal-body">
 
-
-
-                           <%
-
-                               String idUsuarioLogado = usuarioLogado != null ? usuarioLogado.getId().toString() : "";
-                               String idUsuarioEditado = request.getAttribute("modalId2").toString()
-
-                               boolean desabilitarCampoGrupo = idUsuarioLogado.equals(idUsuarioEditado);
-                           %>
-
-
-                           <div>
-                               <p>ID do Usuário Logado: <%= idUsuarioLogado %></p>
-                               <p>ID do Usuário Editado: <%= idUsuarioEditado %></p>
-                           </div>
-
                            <form id="modalForm" action="/adm/alterar-usuario" method="post">
                                <div class="mb-3">
                                    <label for="modalId" class="form-label">ID</label>
@@ -171,8 +155,7 @@
 
                                   <div class="mb-3">
                                         <label for="modalGrupo" class="form-label">Grupo</label>
-                                        <input type="text" class="form-control" id="modalGrupo" name="grupo" maxlength="20"
-                                               <% if (desabilitarCampoGrupo) { %> disabled <% } %> required>
+                                        <input type="text" class="form-control" id="modalGrupo" name="grupo" maxlength="20">
                                   </div>
 
                                 <div class="mb-3">
