@@ -20,7 +20,7 @@ public class ProdutoDataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if (produtoRepository.count() == 0) { // Verifica se não há produtos no banco de dados
+        if (produtoRepository.count() == 0) {
             carregarProdutosIniciais();
         }
     }
@@ -35,6 +35,8 @@ public class ProdutoDataLoader implements CommandLineRunner {
                               final Integer quantidadeEmEstoque, final String categoria, final Boolean ativo,
                               final BigDecimal avaliacao) {
         Produto produto = new Produto();
+
+
         produto.setNome(nome);
         produto.setDescricaoDetalhada(descricao);
         produto.setPreco(preco);
@@ -42,6 +44,8 @@ public class ProdutoDataLoader implements CommandLineRunner {
         produto.setCategoria(categoria);
         produto.setAtivo(ativo);
         produto.setAvaliacao(avaliacao);
+
+
         produtoRepository.save(produto);
     }
 }

@@ -28,10 +28,10 @@ public class Produto {
     @Size(max = 2000, message = "A descrição detalhada não pode exceder 2000 caracteres")
     private String descricaoDetalhada;
 
-    @DecimalMin(value = "0.00", message = "O preço deve ser no mínimo 0")
+    @Column(name = "nr_preco", nullable = false, precision = 10, scale = 2)
     private BigDecimal preco;
 
-    @Min(value = 0, message = "A quantidade em estoque não pode ser negativa")
+    @Column(name = "nr_quantidadeestoque", nullable = false)
     private Integer quantidadeEmEstoque;
 
     @Column(name = "ds_categoria", length = 50)

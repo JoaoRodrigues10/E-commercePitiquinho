@@ -25,7 +25,7 @@ public class ProdutoService {
 
     public Produto criarProduto(Produto produto) {
         if (produto.getAtivo() == null) {
-            produto.setAtivo(true); // Definir ativo como verdadeiro por padrão
+            produto.setAtivo(true);
         }
         return produtoRepository.save(produto);
     }
