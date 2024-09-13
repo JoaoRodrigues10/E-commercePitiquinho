@@ -39,10 +39,12 @@
         <div class="d-flex justify-content-between mb-3">
             <a href="/adm/adicionar-usuario" class="btn btn-success">+ Adicionar Usuário</a>
             <div class="search-container">
-                <form action="/listar-usuarios" method="get" class="d-flex">
-                    <input type="text" name="nome" class="form-control" placeholder="Digite aqui...">
-                    <button type="submit" class="btn btn-primary ms-2">Pesquisar</button>
-                </form>
+
+                <form action="/adm/lista-usuario" method="get" class="d-flex mb-3">
+                        <input type="text" name="nome" value="${nome}" class="form-control" placeholder="Digite aqui...">
+                        <button type="submit" class="btn btn-primary ms-2">Pesquisar</button>
+               </form>
+
             </div>
         </div>
 

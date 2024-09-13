@@ -1,6 +1,8 @@
 package br.loja.pitiquinho.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+
 import java.math.BigDecimal;
 
 @Entity
@@ -27,10 +29,10 @@ public class Produto {
     @Column(name = "ds_categoria", length = 50)
     private String categoria;
 
-    @Column(name = "ativo", nullable = false)
-    private Boolean ativo;
+    @Column(name = "bo_ativo", nullable = false)
 
-    // Getters e Setters
+    private Boolean boAtivo;
+
 
     public Long getId() {
         return id;
@@ -81,10 +83,10 @@ public class Produto {
     }
 
     public Boolean getAtivo() {
-        return ativo;
+        return boAtivo;
     }
 
     public void setAtivo(Boolean ativo) {
-        this.ativo = ativo;
+        this.boAtivo = boAtivo;
     }
 }

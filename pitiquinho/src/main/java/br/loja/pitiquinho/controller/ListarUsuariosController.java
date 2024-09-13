@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.loja.pitiquinho.service.UsuarioService;
 import br.loja.pitiquinho.model.Usuario;
@@ -17,22 +18,22 @@ public class ListarUsuariosController {
     private UsuarioService usuarioService;
 
     @GetMapping("/adm/lista-usuario")
-    public String listaUsuario(Model model) {
+    public String listaUsuario(@RequestParam(value = "nome", defaultValue = "") String nome, Model model) {
 
-        List<Usuario> usuarios = usuarioService.listarTodosUsuarios();
-        model.addAttribute("usuarios", usuarios);
+        List<Usuario> usuarios;
 
-        for (Usuario usuario : usuarios) {
-            System.out.println("ID: " + usuario.getId() +
-                    ", Nome: " + usuario.getNome() +
-                    ", E-mail: " + usuario.getEmail() +
-                    ", Status: " + usuario.getStatus() +
-                    ", Grupo: " + usuario.getGrupo());
+
+        System.out.println(nome);
+
+        if (nome.isEmpty()) {
+            usuarios = usuarioService.listarTodosUsuarios();
+        } else {
+            usuarios = usuarioService.buscarUsuariosPorNome(nome);
         }
+        model.addAttribute("usuarios", usuarios);
+        model.addAttribute("nome", nome);
+
 
         return "lista-usuario-adm";
     }
-
-
-
 }

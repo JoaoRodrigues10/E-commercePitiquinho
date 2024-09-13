@@ -27,7 +27,7 @@ public class AdicionarProdutoController {
 
     @PostMapping("/adicionar-produto")
     public String adicionarProduto(@RequestParam String nome, @RequestParam String descricao,
-                                   @RequestParam Double preco, @RequestParam Integer quantidadeEmEstoque,
+                                   @RequestParam String preco, @RequestParam Integer quantidadeEmEstoque,
                                    @RequestParam String categoria, RedirectAttributes redirectAttributes, Model model) {
 
         if (produtoRepository.findByNome(nome) != null) {
@@ -40,10 +40,15 @@ public class AdicionarProdutoController {
             return "redirect:/adm/adicionar-produto";
         }
 
+
+
+        BigDecimal precoDecimal = new BigDecimal(preco.replace("R$ ", "").replace(".", "").replace(",", "."));
+
         Produto produto = new Produto();
         produto.setNome(nome);
+        produto.setAtivo(true);
         produto.setDescricao(descricao);
-        produto.setPreco(BigDecimal.valueOf(preco));
+        produto.setPreco(precoDecimal);
         produto.setQuantidadeEmEstoque(quantidadeEmEstoque);
         produto.setCategoria(categoria);
 

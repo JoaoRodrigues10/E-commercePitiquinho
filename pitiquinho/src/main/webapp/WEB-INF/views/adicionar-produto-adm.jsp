@@ -9,6 +9,7 @@
     <title>Adicionar Produto</title>
     <link rel="stylesheet" type="text/css" href="/css/adm-lista-produto.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/inputmask@5.0.6/dist/inputmask.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -57,6 +58,7 @@
                 </select>
             </div>
 
+
             <button type="submit" class="btn btn-primary">Adicionar Produto</button>
         </form>
 
@@ -64,10 +66,33 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/inputmask@5.0.6/dist/inputmask.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/inputmask@5.0.6/dist/inputmask.min.js"></script>
     <script>
-        $(document).ready(function(){
-            $('#preco').inputmask('currency', { rightAlign: false, prefix: 'R$ ', groupSeparator: '.', radixPoint: ',', autoGroup: true });
+        document.addEventListener('DOMContentLoaded', (event) => {
+
+            Inputmask('currency', {
+                rightAlign: false,
+                prefix: 'R$ ',
+                groupSeparator: '.',
+                radixPoint: ',',
+                autoGroup: true,
+                removeMaskOnSubmit: true // Remove a máscara antes do envio
+            }).mask('#preco');
+
+
+            document.querySelector('form').addEventListener('submit', function(event) {
+                var precoInput = document.getElementById('preco');
+                var precoValue = precoInput.value;
+
+                // Remove prefixo e formatação
+                precoValue = precoValue.replace('R$ ', '').replace(/\./g, '').replace(',', '.');
+
+                // Define o valor limpo de volta no input
+                precoInput.value = precoValue;
+            });
         });
     </script>
+
 </body>
 </html>

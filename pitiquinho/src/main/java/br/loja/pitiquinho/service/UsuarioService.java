@@ -53,6 +53,9 @@ public class UsuarioService {
     }
 
 
+    public List<Usuario> buscarUsuariosPorNome(String nome) {
+        return usuarioRepository.findByNomeContainingIgnoreCase(nome);
+    }
 
     public Usuario save(Usuario usuario) {
         if (usuario.getStatus() == null) {
