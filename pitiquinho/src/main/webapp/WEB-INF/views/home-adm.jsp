@@ -24,7 +24,7 @@
         %>
 
         <ul>
-            <li><a href="/adm/listar-produto">Listar Produto</a></li>
+            <li><a href="/adm/lista-produto">Listar Produto</a></li>
             <li>
                 <%
                     if (usuario != null && "Adm".equals(usuario.getGrupo())) {
