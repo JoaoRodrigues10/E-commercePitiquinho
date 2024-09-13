@@ -1,7 +1,7 @@
 package br.loja.pitiquinho.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 
@@ -14,24 +14,31 @@ public class Produto {
     @Column(name = "pk_id")
     private Long id;
 
-    @Column(name = "ds_nome", nullable = false, length = 100)
+    @Column(name = "ds_nome", nullable = false, length = 200)
+    @Size(max = 200, message = "O nome do produto não pode exceder 200 caracteres")
     private String nome;
 
-    @Column(name = "ds_descricao")
-    private String descricao;
+    @DecimalMin(value = "1.0", message = "A avaliação mínima deve ser 1")
+    @DecimalMax(value = "5.0", message = "A avaliação máxima deve ser 5")
+    @Digits(integer = 1, fraction = 1, message = "A avaliação deve ser em incrementos de 0,5")
+    @Column(name = "nr_avaliacao", nullable = false)
+    private BigDecimal avaliacao;
 
-    @Column(name = "nr_preco", nullable = false, precision = 10, scale = 2)
+    @Column(name = "ds_descricao_detalhada", length = 2000)
+    @Size(max = 2000, message = "A descrição detalhada não pode exceder 2000 caracteres")
+    private String descricaoDetalhada;
+
+    @DecimalMin(value = "0.00", message = "O preço deve ser no mínimo 0")
     private BigDecimal preco;
 
-    @Column(name = "nr_quantidadeestoque", nullable = false)
+    @Min(value = 0, message = "A quantidade em estoque não pode ser negativa")
     private Integer quantidadeEmEstoque;
 
     @Column(name = "ds_categoria", length = 50)
     private String categoria;
 
     @Column(name = "bo_ativo", nullable = false)
-
-    private Boolean boAtivo;
+    private Boolean ativo;
 
 
     public Long getId() {
@@ -50,12 +57,20 @@ public class Produto {
         this.nome = nome;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public BigDecimal getAvaliacao() {
+        return avaliacao;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setAvaliacao(BigDecimal avaliacao) {
+        this.avaliacao = avaliacao;
+    }
+
+    public String getDescricaoDetalhada() {
+        return descricaoDetalhada;
+    }
+
+    public void setDescricaoDetalhada(String descricaoDetalhada) {
+        this.descricaoDetalhada = descricaoDetalhada;
     }
 
     public BigDecimal getPreco() {
@@ -83,10 +98,10 @@ public class Produto {
     }
 
     public Boolean getAtivo() {
-        return boAtivo;
+        return ativo;
     }
 
     public void setAtivo(Boolean ativo) {
-        this.boAtivo = boAtivo;
+        this.ativo = ativo;
     }
 }

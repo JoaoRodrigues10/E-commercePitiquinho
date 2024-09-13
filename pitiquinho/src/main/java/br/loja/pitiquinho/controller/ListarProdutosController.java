@@ -23,7 +23,7 @@ public class ListarProdutosController {
         for (Produto produto : produtos) {
             System.out.println("ID: " + produto.getId() +
                     ", Nome: " + produto.getNome() +
-                    ", Descrição: " + produto.getDescricao() +
+                    ", Descrição: " + produto.getDescricaoDetalhada() +
                     ", Preço: " + produto.getPreco() +
                     ", Quantidade em Estoque: " + produto.getQuantidadeEmEstoque() +
                     ", Categoria: " + produto.getCategoria() +

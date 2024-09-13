@@ -20,14 +20,14 @@ public class AlterarProdutoController {
     private ProdutoRepository produtoRepository;
 
     @RequestMapping("/alterar-produto")
-    public String alterarProduto(@RequestParam Long id, @RequestParam String nome, @RequestParam String descricao,
+    public String alterarProduto(@RequestParam Long id, @RequestParam String nome, @RequestParam String descricaoDetalhada,
                                  @RequestParam Double preco, @RequestParam Integer quantidadeEmEstoque,
                                  @RequestParam String categoria, Model model) {
 
         Produto produto = produtoRepository.findById(id).orElseThrow(() -> new RuntimeException("Produto não encontrado"));
 
         produto.setNome(nome);
-        produto.setDescricao(descricao);
+        produto.setDescricaoDetalhada(descricaoDetalhada);
         produto.setPreco(BigDecimal.valueOf(preco));
         produto.setQuantidadeEmEstoque(quantidadeEmEstoque);
         produto.setCategoria(categoria);

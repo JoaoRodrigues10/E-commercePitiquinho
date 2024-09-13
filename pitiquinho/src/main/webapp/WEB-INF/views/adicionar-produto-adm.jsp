@@ -27,12 +27,27 @@
         <form action="/adm/adicionar-produto" method="post">
             <div class="mb-3">
                 <label for="nome" class="form-label">Nome do Produto</label>
-                <input type="text" class="form-control" id="nome" name="nome" required maxlength="100">
+                <input type="text" class="form-control" id="nome" name="nome" required maxlength="200">
             </div>
 
             <div class="mb-3">
-                <label for="descricao" class="form-label">Descrição</label>
-                <textarea class="form-control" id="descricao" name="descricao" rows="3" maxlength="500"></textarea>
+                <label for="avaliacao" class="form-label">Avaliação</label>
+                <select class="form-control" id="avaliacao" name="avaliacao" required>
+                    <option value="1.0">1.0</option>
+                    <option value="1.5">1.5</option>
+                    <option value="2.0">2.0</option>
+                    <option value="2.5">2.5</option>
+                    <option value="3.0">3.0</option>
+                    <option value="3.5">3.5</option>
+                    <option value="4.0">4.0</option>
+                    <option value="4.5">4.5</option>
+                    <option value="5.0">5.0</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="descricao" class="form-label">Descrição Detalhada</label>
+                <textarea class="form-control" id="descricao" name="descricao" rows="5" maxlength="2000"></textarea>
             </div>
 
             <div class="mb-3">
@@ -50,14 +65,6 @@
                 <input type="text" class="form-control" id="categoria" name="categoria" maxlength="50">
             </div>
 
-            <div class="mb-3">
-                <label for="ativo" class="form-label">Produto Ativo?</label>
-                <select class="form-control" id="ativo" name="ativo" required>
-                    <option value="true">Sim</option>
-                    <option value="false">Não</option>
-                </select>
-            </div>
-
 
             <button type="submit" class="btn btn-primary">Adicionar Produto</button>
         </form>
@@ -67,10 +74,10 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/inputmask@5.0.6/dist/inputmask.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/inputmask@5.0.6/dist/inputmask.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
 
+            // Máscara para o preço
             Inputmask('currency', {
                 rightAlign: false,
                 prefix: 'R$ ',
@@ -79,7 +86,6 @@
                 autoGroup: true,
                 removeMaskOnSubmit: true // Remove a máscara antes do envio
             }).mask('#preco');
-
 
             document.querySelector('form').addEventListener('submit', function(event) {
                 var precoInput = document.getElementById('preco');
