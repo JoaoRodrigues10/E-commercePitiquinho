@@ -14,10 +14,14 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-
-    public List<Produto> listarTodosProdutos() {
+    public List<Produto> listarTodos() {
         return produtoRepository.findAll();
     }
+
+    public List<Produto> buscarPorNome(String nome) {
+        return produtoRepository.findByNomeContainingIgnoreCase(nome);
+    }
+
 
     public Optional<Produto> buscarProdutoPorId(Long id) {
         return produtoRepository.findById(id);

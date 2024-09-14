@@ -20,21 +20,21 @@ public class AlterarProdutoController {
     private ProdutoRepository produtoRepository;
 
     @RequestMapping("/alterar-produto")
-    public String alterarProduto(@RequestParam Long id, @RequestParam String nome, @RequestParam String descricaoDetalhada,
-                                 @RequestParam Double preco, @RequestParam Integer quantidadeEmEstoque,
+    public String alterarProduto(@RequestParam Long id, @RequestParam String nome, @RequestParam String descricao,
+                                 @RequestParam Double preco, @RequestParam Integer quantidade,
                                  @RequestParam String categoria, Model model) {
 
         Produto produto = produtoRepository.findById(id).orElseThrow(() -> new RuntimeException("Produto não encontrado"));
 
         produto.setNome(nome);
-        produto.setDescricaoDetalhada(descricaoDetalhada);
+        produto.setDescricao(descricao);
         produto.setPreco(BigDecimal.valueOf(preco));
-        produto.setQuantidadeEmEstoque(quantidadeEmEstoque);
+        produto.setQuantidadeEmEstoque(quantidade);
         produto.setCategoria(categoria);
 
         produtoRepository.save(produto);
 
-        return "redirect:/adm/lista-produtos";
+        return "redirect:/adm/lista-produto";
     }
 
     @PostMapping("/alterar-produto/desativar")
@@ -49,6 +49,6 @@ public class AlterarProdutoController {
         String mensagem = currentStatus ? "Produto desativado com sucesso" : "Produto ativado com sucesso";
         redirectAttributes.addFlashAttribute("success", mensagem);
 
-        return "redirect:/adm/lista-produtos";
+        return "redirect:/adm/lista-produto";
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -15,21 +16,17 @@ public class ListarProdutosController {
     @Autowired
     private ProdutoService produtoService;
 
-    @GetMapping("/adm/lista-produto")
-    public String listaProduto(Model model) {
-        List<Produto> produtos = produtoService.listarTodosProdutos();
-        model.addAttribute("produtos", produtos);
+    @GetMapping("/listar-produto")
+    public String listarProdutos(@RequestParam(value = "nome", required = false) String nome, Model model) {
+        List<Produto> produtos;
 
-        for (Produto produto : produtos) {
-            System.out.println("ID: " + produto.getId() +
-                    ", Nome: " + produto.getNome() +
-                    ", Descrição: " + produto.getDescricaoDetalhada() +
-                    ", Preço: " + produto.getPreco() +
-                    ", Quantidade em Estoque: " + produto.getQuantidadeEmEstoque() +
-                    ", Categoria: " + produto.getCategoria() +
-                    ", Ativo: " + produto.getAtivo());
+        if (nome != null && !nome.isEmpty()) {
+            produtos = produtoService.buscarPorNome(nome);
+        } else {
+            produtos = produtoService.listarTodos();
         }
 
-        return "lista-produto-adm";
+        model.addAttribute("produtos", produtos);
+        return "listar-produtos";
     }
 }

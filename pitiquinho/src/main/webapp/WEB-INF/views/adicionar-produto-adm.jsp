@@ -47,7 +47,7 @@
 
             <div class="mb-3">
                 <label for="descricao" class="form-label">Descrição Detalhada</label>
-                <textarea class="form-control" id="descricaoDetalhada" name="descricaoDetalhada" rows="5" maxlength="2000"></textarea>
+                <textarea class="form-control" id="descricao" name="descricao" rows="5" maxlength="2000"></textarea>
             </div>
 
             <div class="mb-3">

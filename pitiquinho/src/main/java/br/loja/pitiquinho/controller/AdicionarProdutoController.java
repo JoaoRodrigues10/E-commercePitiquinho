@@ -27,7 +27,7 @@ public class AdicionarProdutoController {
 
     @PostMapping("/adicionar-produto")
     public String adicionarProduto(@RequestParam String nome,
-                                   @RequestParam String descricaoDetalhada,
+                                   @RequestParam String descricao,
                                    @RequestParam String preco,
                                    @RequestParam Integer quantidadeEmEstoque,
                                    @RequestParam String categoria,
@@ -36,23 +36,11 @@ public class AdicionarProdutoController {
                                    Model model) {
 
 
-        //if (produtoRepository.findByNome(nome) != null) {
-         //   redirectAttributes.addFlashAttribute("error", "O nome do produto já está em uso");
-         //   redirectAttributes.addFlashAttribute("nome", nome);
-        //    redirectAttributes.addFlashAttribute("descricao", descricaoDetalhada);
-        //    redirectAttributes.addFlashAttribute("descricaoDetalhada", descricaoDetalhada);
-        //    redirectAttributes.addFlashAttribute("preco", preco);
-        //    redirectAttributes.addFlashAttribute("quantidadeEmEstoque", quantidadeEmEstoque);
-         //   redirectAttributes.addFlashAttribute("categoria", categoria);
-         //   redirectAttributes.addFlashAttribute("avaliacao", avaliacao);
-        //    return "redirect:/adm/adicionar-produto";
-        //}
-
         BigDecimal precoDecimal = new BigDecimal(preco.replace("R$ ", "").replace(".", "").replace(",", "."));
 
         Produto produto = new Produto();
         produto.setNome(nome);
-        produto.setDescricaoDetalhada(descricaoDetalhada);
+        produto.setDescricao(descricao);
         produto.setPreco(precoDecimal);
         produto.setQuantidadeEmEstoque(quantidadeEmEstoque);
         produto.setCategoria(categoria);

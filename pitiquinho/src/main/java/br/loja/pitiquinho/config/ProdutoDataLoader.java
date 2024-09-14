@@ -26,9 +26,9 @@ public class ProdutoDataLoader implements CommandLineRunner {
     }
 
     private void carregarProdutosIniciais() {
-        criarProduto("Produto A", "Descrição do Produto A", BigDecimal.valueOf(29.99), 100, "Categoria 1", true, BigDecimal.valueOf(4.5));
-        criarProduto("Produto B", "Descrição do Produto B", BigDecimal.valueOf(49.99), 200, "Categoria 2", true, BigDecimal.valueOf(4.0));
-        criarProduto("Produto C", "Descrição do Produto C", BigDecimal.valueOf(99.99), 50, "Categoria 1", false, BigDecimal.valueOf(3.5));
+       criarProduto("Produto A", "Descrição do Produto A", BigDecimal.valueOf(29.99), 100, "Categoria 1", true, BigDecimal.valueOf(4.5));
+       criarProduto("Produto B", "Descrição do Produto B", BigDecimal.valueOf(49.99), 200, "Categoria 2", true, BigDecimal.valueOf(4.0));
+       criarProduto("Produto C", "Descrição do Produto C", BigDecimal.valueOf(99.99), 50, "Categoria 1", false, BigDecimal.valueOf(3.5));
     }
 
     private void criarProduto(final String nome, final String descricao, final BigDecimal preco,
@@ -38,7 +38,7 @@ public class ProdutoDataLoader implements CommandLineRunner {
 
 
         produto.setNome(nome);
-        produto.setDescricaoDetalhada(descricao);
+        produto.setDescricao(descricao);
         produto.setPreco(preco);
         produto.setQuantidadeEmEstoque(quantidadeEmEstoque);
         produto.setCategoria(categoria);

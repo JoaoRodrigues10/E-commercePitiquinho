@@ -24,9 +24,9 @@ public class Produto {
     @Column(name = "nr_avaliacao", nullable = false)
     private BigDecimal avaliacao;
 
-    @Column(name = "ds_descricao_detalhada", length = 2000)
+    @Column(name = "ds_descricao", length = 2000)
     @Size(max = 2000, message = "A descrição detalhada não pode exceder 2000 caracteres")
-    private String descricaoDetalhada;
+    private String descricao;
 
     @Column(name = "nr_preco", nullable = false, precision = 10, scale = 2)
     private BigDecimal preco;
@@ -65,12 +65,12 @@ public class Produto {
         this.avaliacao = avaliacao;
     }
 
-    public String getDescricaoDetalhada() {
-        return descricaoDetalhada;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setDescricaoDetalhada(String descricaoDetalhada) {
-        this.descricaoDetalhada = descricaoDetalhada;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public BigDecimal getPreco() {
