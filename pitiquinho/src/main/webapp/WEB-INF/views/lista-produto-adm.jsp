@@ -22,7 +22,7 @@
         <div class="d-flex justify-content-between mb-3">
             <a href="/adm/adicionar-produto" class="btn btn-success">+ Adicionar Produto</a>
             <div class="search-container">
-                <form action="/listar-produto" method="get" class="d-flex">
+                <form action="/adm/lista-produto" method="get" class="d-flex">
                     <input type="text" name="nome" class="form-control" placeholder="Buscar produto..." value="<%= request.getParameter("nome") != null ? request.getParameter("nome") : "" %>">
                     <button type="submit" class="btn btn-primary ms-2">Pesquisar</button>
                 </form>

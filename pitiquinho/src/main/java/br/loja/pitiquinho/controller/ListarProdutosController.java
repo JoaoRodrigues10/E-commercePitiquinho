@@ -16,7 +16,7 @@ public class ListarProdutosController {
     @Autowired
     private ProdutoService produtoService;
 
-    @GetMapping("/listar-produto")
+    @GetMapping("/adm/lista-produto")
     public String listarProdutos(@RequestParam(value = "nome", required = false) String nome, Model model) {
         List<Produto> produtos;
 
@@ -27,6 +27,6 @@ public class ListarProdutosController {
         }
 
         model.addAttribute("produtos", produtos);
-        return "listar-produtos";
+        return "lista-produto-adm";
     }
 }
