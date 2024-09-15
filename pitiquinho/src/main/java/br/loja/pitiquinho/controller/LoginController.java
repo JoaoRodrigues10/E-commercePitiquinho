@@ -35,8 +35,6 @@ public class LoginController {
     public String login(@RequestParam String email, @RequestParam String password, HttpSession session) {
         Usuario usuario = usuarioService.buscarLogin(email, password);
 
-        System.out.println(usuario.getNome());
-
         if (usuario != null) {
             String token = JwtUtil.generateToken(usuario);
 

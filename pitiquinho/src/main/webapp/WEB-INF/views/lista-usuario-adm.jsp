@@ -17,6 +17,10 @@
 </head>
 <body>
     <div class="container">
+         <div class="btn-group">
+                <a href="/adm/home" class="btn btn-primary mr-2">Voltar</a>
+         </div>
+
         <h1>Listar Usuário</h1>
 
         <%

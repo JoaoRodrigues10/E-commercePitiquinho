@@ -1,8 +1,12 @@
 <%@ page session="true" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="br.loja.pitiquinho.model.Usuario" %>
+
 <%@ page import="java.util.List" %>
 <%@ page import="br.loja.pitiquinho.model.Produto" %>
 <% Produto produtoSelecionado = (Produto) session.getAttribute("produto"); %>
+
+<% Usuario usuarioLogado = (Usuario) session.getAttribute("usuario"); %>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -42,6 +46,7 @@
                     <th scope="col">Categoria</th>
                     <th scope="col">Status</th>
                     <th scope="col">Alterar</th>
+                    <th scope="col">Visualizar</th>
                     <th scope="col">Ações</th>
                 </tr>
             </thead>
@@ -58,6 +63,7 @@
                     <td><%= produto.getQuantidadeEmEstoque() %></td>
                     <td><%= produto.getCategoria() %></td>
                     <td><%= produto.getAtivo() ? "Ativado" : "Desativado" %></td>
+
                     <td>
                         <button type="button" class="btn btn-primary"
                             data-bs-toggle="modal"
@@ -71,14 +77,29 @@
                             Alterar
                         </button>
                     </td>
+
+                     <td>
+                         <button type="button" class="btn btn-primary">Visualizar</button>
+                    </td>
+
                     <td>
-                        <form action="${pageContext.request.contextPath}/adm/alterar-produto/desativar" method="post" class="d-inline">
-                            <input type="hidden" name="id" value="<%= produto.getId() %>">
-                            <input type="hidden" name="currentStatus" value="<%= produto.getAtivo() %>">
-                            <button type="submit" class="btn btn-warning">
-                                <%= produto.getAtivo() ? "Desativar" : "Ativar" %>
-                            </button>
-                        </form>
+
+                       <form action="${pageContext.request.contextPath}/adm/alterar-produto/desativar" method="post" class="d-inline" onsubmit="return confirmarAcao();">
+                           <input type="hidden" name="id" value="<%= produto.getId() %>">
+                           <input type="hidden" name="currentStatus" value="<%= produto.getAtivo() %>">
+                           <button type="submit" class="btn btn-warning">
+                               <%= produto.getAtivo() ? "Desativar" : "Ativar" %>
+                           </button>
+                       </form>
+
+                       <script>
+                           function confirmarAcao() {
+                               var status = <%= produto.getAtivo() %> ? 'desativar' : 'ativar';
+                               return confirm("Você tem certeza que deseja " + status + " este produto?");
+                           }
+                       </script>
+
+
                     </td>
                 </tr>
                 <%
@@ -92,7 +113,24 @@
             </tbody>
         </table>
 
-        <!-- Modal para Alterar Produto -->
+           <nav aria-label="Navegação de páginas">
+              <ul class="pagination">
+                  <li class="page-item ${currentPage == 0 ? 'disabled' : ''}">
+                      <a class="page-link" href="?page=${currentPage - 1}&size=10">Anterior</a>
+                  </li>
+                  <c:forEach begin="0" end="${totalPages - 1}" var="i">
+                      <li class="page-item ${i == currentPage ? 'active' : ''}">
+                          <a class="page-link" href="?page=${i}&size=10">${i + 1}</a>
+                      </li>
+                  </c:forEach>
+                  <li class="page-item ${currentPage == totalPages - 1 ? 'disabled' : ''}">
+                      <a class="page-link" href="?page=${currentPage + 1}&size=10">Próximo</a>
+                  </li>
+              </ul>
+          </nav>
+
+
+
         <div class="modal fade" id="modalProduto" tabindex="-1" aria-labelledby="modalProdutoLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -107,7 +145,7 @@
                                    <label for="modalProdutoId" class="form-label">ID</label>
                                    <input type="text" class="form-control" id="modalProdutoId2" name="id2" disabled>
                                    <input type="hidden" class="form-control" id="modalProdutoId" name="id">
-                               </div>
+                             </div>
 
                             <div class="mb-3">
                                 <label for="modalProdutoNome" class="form-label">Nome</label>
@@ -145,15 +183,13 @@
         </div>
     </div>
 
-    <!-- Script para manipular o modal -->
+
     <script>
         $(document).ready(function(){
-            // Modal para edição de produto
             var modal = document.getElementById('modalProduto');
             modal.addEventListener('show.bs.modal', function (event) {
                 var button = event.relatedTarget;
 
-                // Atributos de dados do produto
                 var produtoId = button.getAttribute('data-id');
                 var produtoId2 = button.getAttribute('data-id');
                 var produtoNome = button.getAttribute('data-nome');
@@ -162,7 +198,6 @@
                 var produtoQuantidade = button.getAttribute('data-quantidade');
                 var produtoCategoria = button.getAttribute('data-categoria');
 
-                // Preenche os campos do modal com os dados do produto
                 var modalProdutoId = modal.querySelector('#modalProdutoId');
                 var modalProdutoId2 = modal.querySelector('#modalProdutoId2');
                 var modalProdutoNome = modal.querySelector('#modalProdutoNome');
@@ -178,9 +213,26 @@
                 modalProdutoPreco.value = produtoPreco;
                 modalProdutoQuantidade.value = produtoQuantidade;
                 modalProdutoCategoria.value = produtoCategoria;
+
+                <% if (usuarioLogado.getGrupo().equals("Estoquista")) { %>
+
+                    modalProdutoNome.disabled = true;
+                    modalProdutoDescricao.disabled = true;
+                    modalProdutoPreco.disabled = true;
+                    modalProdutoCategoria.disabled = true;
+                    modalProdutoQuantidade.disabled = false;
+                <% } else if (usuarioLogado.getGrupo().equals("Administrador")) { %>
+
+                    modalProdutoNome.disabled = false;
+                    modalProdutoDescricao.disabled = false;
+                    modalProdutoPreco.disabled = false;
+                    modalProdutoCategoria.disabled = false;
+                    modalProdutoQuantidade.disabled = false;
+                <% } %>
             });
         });
     </script>
+
 
 </body>
 </html>

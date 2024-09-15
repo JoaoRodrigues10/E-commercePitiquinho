@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="br.loja.pitiquinho.model.Usuario" %>
+<%@ page session="true" %>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
