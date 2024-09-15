@@ -20,22 +20,37 @@ public class AlterarProdutoController {
     private ProdutoRepository produtoRepository;
 
     @RequestMapping("/alterar-produto")
-    public String alterarProduto(@RequestParam Long id, @RequestParam String nome, @RequestParam String descricao,
-                                 @RequestParam Double preco, @RequestParam Integer quantidade,
-                                 @RequestParam String categoria, Model model) {
+    public String alterarProduto(@RequestParam Long id,
+                                 @RequestParam(required = false) String nome,
+                                 @RequestParam(required = false) String descricao,
+                                 @RequestParam(required = false) Double preco,
+                                 @RequestParam(required = false) Integer quantidade,
+                                 @RequestParam(required = false) String categoria,
+                                 Model model) {
 
         Produto produto = produtoRepository.findById(id).orElseThrow(() -> new RuntimeException("Produto não encontrado"));
 
-        produto.setNome(nome);
-        produto.setDescricao(descricao);
-        produto.setPreco(BigDecimal.valueOf(preco));
-        produto.setQuantidadeEmEstoque(quantidade);
-        produto.setCategoria(categoria);
+        if (nome != null && !nome.isEmpty()) {
+            produto.setNome(nome);
+        }
+        if (descricao != null && !descricao.isEmpty()) {
+            produto.setDescricao(descricao);
+        }
+        if (preco != null) {
+            produto.setPreco(BigDecimal.valueOf(preco));
+        }
+        if (quantidade != null) {
+            produto.setQuantidadeEmEstoque(quantidade);
+        }
+        if (categoria != null && !categoria.isEmpty()) {
+            produto.setCategoria(categoria);
+        }
 
         produtoRepository.save(produto);
 
         return "redirect:/adm/lista-produto";
     }
+
 
     @PostMapping("/alterar-produto/desativar")
     public String desativarProduto(@RequestParam Long id, @RequestParam boolean currentStatus, RedirectAttributes redirectAttributes) {

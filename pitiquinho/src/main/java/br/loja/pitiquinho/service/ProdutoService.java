@@ -3,6 +3,8 @@ package br.loja.pitiquinho.service;
 import br.loja.pitiquinho.model.Produto;
 import br.loja.pitiquinho.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +23,16 @@ public class ProdutoService {
     public List<Produto> buscarPorNome(String nome) {
         return produtoRepository.findByNomeContainingIgnoreCase(nome);
     }
+
+
+    public Page<Produto> listarTodosPaginado(Pageable pageable) {
+        return produtoRepository.findAll(pageable);
+    }
+
+    public Page<Produto> buscarPorNomePaginado(String nome, Pageable pageable) {
+        return produtoRepository.findByNomeContainingIgnoreCase(nome, pageable);
+    }
+
 
 
     public Optional<Produto> buscarProdutoPorId(Long id) {
