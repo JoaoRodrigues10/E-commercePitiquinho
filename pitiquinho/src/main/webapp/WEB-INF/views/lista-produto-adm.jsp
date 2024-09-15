@@ -17,6 +17,9 @@
 </head>
 <body>
     <div class="container">
+        <div class="btn-group">
+            <a href="/adm/home" class="btn btn-primary mr-2">Voltar</a>
+        </div>
         <h1>Listar Produtos</h1>
 
         <div class="d-flex justify-content-between mb-3">

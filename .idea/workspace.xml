@@ -4,30 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="74d92b44-478a-4e11-9445-348ba61f04fc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/config/MvcConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/controller/TestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pitiquinho/src/main/resources/templates/lista-adm1.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pitiquinho/src/main/webapp/WEB-INF/views/css/Backoffice.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pitiquinho/src/main/webapp/WEB-INF/views/css/Cadastro.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pitiquinho/src/main/webapp/WEB-INF/views/css/ListarUsuario.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pitiquinho/src/main/webapp/WEB-INF/views/css/adm-login.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pitiquinho/src/main/webapp/WEB-INF/views/css/criar-conta.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pitiquinho/src/main/webapp/WEB-INF/views/css/lista-telas.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pitiquinho/src/main/webapp/WEB-INF/views/lista-adm.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pitiquinho/src/main/webapp/WEB-INF/views/login-adm.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pitiquinho/src/main/webapp/WEB-INF/views/teste.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pitiquinho/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pitiquinho/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/config/DataLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/config/DataLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/controller/BackofficeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/controller/BackofficeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/controller/CriarContaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/controller/CriarContaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/controller/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/controller/UsuarioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/controller/UsuarioController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/pitiquinho/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/templates/adm-login.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/templates/lista-adm.html" beforeDir="false" />
-    </list>
+    <list default="true" id="74d92b44-478a-4e11-9445-348ba61f04fc" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,6 +13,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "JoaoRodrigues10"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/JoaoRodrigues10/E-commercePitiquinho.git",
+    "accountId": "66c8ece1-0929-47ae-9761-4f24680acc60"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 2
@@ -48,15 +37,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/rafae_llizu7w/Documents/git/E-commercePitiquinho/pitiquinho"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/rafae_llizu7w/Documents/git/E-commercePitiquinho/pitiquinho&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
