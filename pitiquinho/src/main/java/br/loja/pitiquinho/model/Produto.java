@@ -40,6 +40,9 @@ public class Produto {
     @Column(name = "bo_ativo", nullable = false)
     private Boolean ativo;
 
+    @Column(name = "ds_imagem")
+    private String imagem;
+
 
     public Long getId() {
         return id;
@@ -103,5 +106,13 @@ public class Produto {
 
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
+    }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
 }

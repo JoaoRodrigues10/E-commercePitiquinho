@@ -41,4 +41,18 @@ public class ListarProdutosController {
 
         return "lista-produto-adm";
     }
+
+    @GetMapping("/adm/produto")
+    public String visualizarProduto(
+            @RequestParam("id") Long id,
+            Model model) {
+
+        Produto produto = produtoService.buscarProdutoPorId(id)
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+
+        model.addAttribute("produto", produto);
+
+        return "redirect:/adm/lista-produto";
+    }
+
 }

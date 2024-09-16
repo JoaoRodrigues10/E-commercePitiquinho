@@ -24,7 +24,7 @@
         </div>
         <% } %>
 
-        <form action="/adm/adicionar-produto" method="post">
+        <form action="/adm/adicionar-produto" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="nome" class="form-label">Nome do Produto</label>
                 <input type="text" class="form-control" id="nome" name="nome" required maxlength="200">
@@ -64,6 +64,12 @@
                 <label for="categoria" class="form-label">Categoria</label>
                 <input type="text" class="form-control" id="categoria" name="categoria" maxlength="50">
             </div>
+
+            <div class="mb-3">
+                <label for="imagem" class="form-label">Imagem do Produto</label>
+                <input type="file" class="form-control" id="imagem" name="imagem" accept="image/*" required>
+            </div>
+
 
 
             <button type="submit" class="btn btn-primary">Adicionar Produto</button>

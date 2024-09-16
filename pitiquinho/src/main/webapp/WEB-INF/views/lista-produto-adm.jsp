@@ -78,8 +78,22 @@
                         </button>
                     </td>
 
-                     <td>
-                         <button type="button" class="btn btn-primary">Visualizar</button>
+                    <td>
+                        <button type="button" class="btn btn-primary"
+                                                     data-bs-toggle="modal"
+                                                     data-bs-target="#modalVisualizarProduto"
+                                                     data-id="<%= produto.getId() %>"
+                                                     data-nome="<%= produto.getNome() %>"
+                                                     data-descricao="<%= produto.getDescricao() %>"
+                                                     data-preco="<%= produto.getPreco() %>"
+                                                     data-quantidade="<%= produto.getQuantidadeEmEstoque() %>"
+                                                     data-categoria="<%= produto.getCategoria() %>"
+                                                     data-imagem="<%= produto.getImagem() %>"
+                                                     >
+                                                     Visualizar
+                        </button>
+
+
                     </td>
 
                     <td>
@@ -182,6 +196,73 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalVisualizarProduto" tabindex="-1" aria-labelledby="modalVisualizarProdutoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg"> <!-- Modal larger size -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalVisualizarProdutoLabel">Detalhes do Produto</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img id="modalProdutoImagem" src="" alt="Imagem do Produto" class="img-fluid rounded" style="max-height: 400px; width: 100%; object-fit: cover;">
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>ID:</strong> <span id="modalProdutoId"></span></p>
+                            <p><strong>Nome:</strong> <span id="modalProdutoNome"></span></p>
+                            <p><strong>Descrição:</strong> <span id="modalProdutoDescricao"></span></p>
+                            <p><strong>Preço:</strong> R$ <span id="modalProdutoPreco"></span></p>
+                            <p><strong>Quantidade:</strong> <span id="modalProdutoQuantidade"></span></p>
+                            <p><strong>Categoria:</strong> <span id="modalProdutoCategoria"></span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        $(document).ready(function(){
+            var modal = document.getElementById('modalVisualizarProduto');
+            modal.addEventListener('show.bs.modal', function (event) {
+                var button = event.relatedTarget;
+
+                var produtoId = button.getAttribute('data-id');
+                var produtoNome = button.getAttribute('data-nome');
+                var produtoDescricao = button.getAttribute('data-descricao');
+                var produtoPreco = button.getAttribute('data-preco');
+                var produtoQuantidade = button.getAttribute('data-quantidade');
+                var produtoCategoria = button.getAttribute('data-categoria');
+                var produtoImagem = button.getAttribute('data-imagem');
+
+                var modalProdutoId = modal.querySelector('#modalProdutoId');
+                var modalProdutoNome = modal.querySelector('#modalProdutoNome');
+                var modalProdutoDescricao = modal.querySelector('#modalProdutoDescricao');
+                var modalProdutoPreco = modal.querySelector('#modalProdutoPreco');
+                var modalProdutoQuantidade = modal.querySelector('#modalProdutoQuantidade');
+                var modalProdutoCategoria = modal.querySelector('#modalProdutoCategoria');
+                var modalProdutoImagem = modal.querySelector('#modalProdutoImagem');
+
+                modalProdutoId.textContent = produtoId;
+                modalProdutoNome.textContent = produtoNome;
+                modalProdutoDescricao.textContent = produtoDescricao;
+                modalProdutoPreco.textContent = produtoPreco;
+                modalProdutoQuantidade.textContent = produtoQuantidade;
+                modalProdutoCategoria.textContent = produtoCategoria;
+                modalProdutoImagem.src = produtoImagem ? produtoImagem : 'default-image.jpg'; // Placeholder for image
+            });
+        });
+    </script>
+
+
 
 
     <script>

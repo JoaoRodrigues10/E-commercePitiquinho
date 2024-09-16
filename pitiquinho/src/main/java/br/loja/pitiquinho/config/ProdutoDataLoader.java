@@ -26,14 +26,14 @@ public class ProdutoDataLoader implements CommandLineRunner {
     }
 
     private void carregarProdutosIniciais() {
-       criarProduto("Produto A", "Descrição do Produto A", BigDecimal.valueOf(29.99), 100, "Categoria 1", true, BigDecimal.valueOf(4.5));
-       criarProduto("Produto B", "Descrição do Produto B", BigDecimal.valueOf(49.99), 200, "Categoria 2", true, BigDecimal.valueOf(4.0));
-       criarProduto("Produto C", "Descrição do Produto C", BigDecimal.valueOf(99.99), 50, "Categoria 1", false, BigDecimal.valueOf(3.5));
+       criarProduto("Produto A", "Descrição do Produto A", BigDecimal.valueOf(29.99), 100, "Categoria 1", true, BigDecimal.valueOf(4.5), "https://i.pinimg.com/736x/88/73/7d/88737d0964c2df337e122fe0079a2313.jpg");
+       criarProduto("Produto B", "Descrição do Produto B", BigDecimal.valueOf(49.99), 200, "Categoria 2", true, BigDecimal.valueOf(4.0), "https://i.pinimg.com/736x/88/73/7d/88737d0964c2df337e122fe0079a2313.jpg");
+       criarProduto("Produto C", "Descrição do Produto C", BigDecimal.valueOf(99.99), 50, "Categoria 1", false, BigDecimal.valueOf(3.5), "https://i.pinimg.com/736x/88/73/7d/88737d0964c2df337e122fe0079a2313.jpg");
     }
 
     private void criarProduto(final String nome, final String descricao, final BigDecimal preco,
                               final Integer quantidadeEmEstoque, final String categoria, final Boolean ativo,
-                              final BigDecimal avaliacao) {
+                              final BigDecimal avaliacao, final String imagem) {
         Produto produto = new Produto();
 
 
@@ -44,6 +44,7 @@ public class ProdutoDataLoader implements CommandLineRunner {
         produto.setCategoria(categoria);
         produto.setAtivo(ativo);
         produto.setAvaliacao(avaliacao);
+        produto.setImagem(imagem);
 
 
         produtoRepository.save(produto);
