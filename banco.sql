@@ -8,13 +8,14 @@ CREATE TABLE IF NOT EXISTS tb_usuarios (
     ds_grupo VARCHAR(20) 
 );
 
-CREATE TABLE IF NOT EXISTS tb_produtos (
+CREATE TABLE tb_produtos (
     pk_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     ds_nome VARCHAR(100) NOT NULL,
     ds_descricao TEXT,
     nu_preco DECIMAL(10, 2) NOT NULL,
     nu_quantidade_em_estoque INT NOT NULL,
-    ds_categoria VARCHAR(50)
+    ds_categoria VARCHAR(50),
+    ds_imagem VARCHAR(255)
 );
 
 
