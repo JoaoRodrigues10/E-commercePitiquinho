@@ -83,7 +83,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
 
-            // Máscara para o preço
             Inputmask('currency', {
                 rightAlign: false,
                 prefix: 'R$ ',
@@ -97,10 +96,9 @@
                 var precoInput = document.getElementById('preco');
                 var precoValue = precoInput.value;
 
-                // Remove prefixo e formatação
                 precoValue = precoValue.replace('R$ ', '').replace(/\./g, '').replace(',', '.');
 
-                // Define o valor limpo de volta no input
+
                 precoInput.value = precoValue;
             });
         });

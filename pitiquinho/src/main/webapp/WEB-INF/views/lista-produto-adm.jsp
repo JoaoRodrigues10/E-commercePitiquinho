@@ -208,9 +208,11 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
+
                         <div class="col-md-6">
                             <img id="modalProdutoImagem" src="" alt="Imagem do Produto" class="img-fluid rounded" style="max-height: 400px; width: 100%; object-fit: cover;">
                         </div>
+
                         <div class="col-md-6">
                             <p><strong>ID:</strong> <span id="modalProdutoId"></span></p>
                             <p><strong>Nome:</strong> <span id="modalProdutoNome"></span></p>
@@ -241,7 +243,7 @@
                 var produtoPreco = button.getAttribute('data-preco');
                 var produtoQuantidade = button.getAttribute('data-quantidade');
                 var produtoCategoria = button.getAttribute('data-categoria');
-                var produtoImagem = button.getAttribute('data-imagem');
+                var produtoImagem = '/images/' + button.getAttribute('data-imagem');
 
                 var modalProdutoId = modal.querySelector('#modalProdutoId');
                 var modalProdutoNome = modal.querySelector('#modalProdutoNome');
@@ -257,7 +259,7 @@
                 modalProdutoPreco.textContent = produtoPreco;
                 modalProdutoQuantidade.textContent = produtoQuantidade;
                 modalProdutoCategoria.textContent = produtoCategoria;
-                modalProdutoImagem.src = produtoImagem ? produtoImagem : 'default-image.jpg'; // Placeholder for image
+                modalProdutoImagem.src = produtoImagem ? produtoImagem : 'default-image.jpg';
             });
         });
     </script>

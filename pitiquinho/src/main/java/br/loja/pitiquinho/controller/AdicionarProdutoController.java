@@ -19,6 +19,7 @@ import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 @Controller
@@ -49,7 +50,13 @@ public class AdicionarProdutoController {
                                    RedirectAttributes redirectAttributes,
                                    Model model) {
 
-        String nomeArquivo = imagem.getOriginalFilename();
+        String nomeArquivoOriginal = imagem.getOriginalFilename();
+        String extensao = "";
+        if (nomeArquivoOriginal != null && nomeArquivoOriginal.contains(".")) {
+            extensao = nomeArquivoOriginal.substring(nomeArquivoOriginal.lastIndexOf("."));
+        }
+        String nomeArquivo = UUID.randomUUID().toString().replaceAll("-", "") + extensao.toLowerCase();
+
         Path caminhoSalvar = Paths.get(uploadPath, nomeArquivo).toAbsolutePath();
         Path diretorio = caminhoSalvar.getParent();
 
