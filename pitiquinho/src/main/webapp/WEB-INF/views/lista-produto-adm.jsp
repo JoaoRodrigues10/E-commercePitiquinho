@@ -1,11 +1,11 @@
 <%@ page session="true" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="br.loja.pitiquinho.model.Usuario" %>
-
 <%@ page import="java.util.List" %>
+<%@ page import="br.loja.pitiquinho.model.Usuario" %>
 <%@ page import="br.loja.pitiquinho.model.Produto" %>
-<% Produto produtoSelecionado = (Produto) session.getAttribute("produto"); %>
 
+
+<% Produto produtoSelecionado = (Produto) session.getAttribute("produto"); %>
 <% Usuario usuarioLogado = (Usuario) session.getAttribute("usuario"); %>
 
 <!DOCTYPE html>
@@ -15,16 +15,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listar Produtos</title>
     <link rel="stylesheet" type="text/css" href="/css/lista-produto-adm.css">
+    <link rel="stylesheet" type="text/css" href="/css/lista.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <div class="btn-group">
-            <a href="/adm/home" class="btn btn-primary mr-2">Voltar</a>
-        </div>
-        <h1>Listar Produtos</h1>
+        <div class="container">
+
+                <div class="button-container">
+
+                    <div class="btn-group">
+                        <a href="/adm/home" class="btn btn-primary">Voltar</a>
+                    </div>
+
+                    <%
+                        if (usuarioLogado != null) {
+                            out.println("<p>Bem-vindo, " + usuarioLogado.getNome() + "!</p>");
+                        } else {
+                            out.println("<p>Nenhum usuário logado.</p>");
+                        }
+                    %>
+
+                    <form action="/adm/logout" method="post">
+                        <button type="submit">Logout</button>
+                    </form>
+
+                </div>
+
+        <h2>Listar Produtos</h2>
 
         <div class="d-flex justify-content-between mb-3">
             <a href="/adm/adicionar-produto" class="btn btn-success">+ Adicionar Produto</a>

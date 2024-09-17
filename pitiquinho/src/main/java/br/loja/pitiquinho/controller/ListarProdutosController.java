@@ -1,6 +1,7 @@
 package br.loja.pitiquinho.controller;
 
 import br.loja.pitiquinho.model.Produto;
+import br.loja.pitiquinho.model.Usuario;
 import br.loja.pitiquinho.service.ProdutoService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class ListarProdutosController {
@@ -24,7 +27,14 @@ public class ListarProdutosController {
             @RequestParam(value = "nome", required = false) String nome,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size,
-            Model model) {
+            Model model,HttpSession session) {
+
+        Usuario usuarioLogado = (Usuario) session.getAttribute("usuario");
+
+        if (usuarioLogado == null || usuarioLogado.getGrupo() == null || usuarioLogado.getGrupo().isEmpty()) {
+            return "redirect:/";
+        }
+
 
         Pageable pageable = PageRequest.of(page, size);
         Page<Produto> produtosPage;
