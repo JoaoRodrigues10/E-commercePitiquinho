@@ -92,7 +92,8 @@
                             data-descricao="<%= produto.getDescricao() %>"
                             data-preco="<%= produto.getPreco() %>"
                             data-quantidade="<%= produto.getQuantidadeEmEstoque() %>"
-                            data-categoria="<%= produto.getCategoria() %>">
+                            data-categoria="<%= produto.getCategoria() %>"
+                            data-imagem="<%= produto.getImagem() %>">
                             Alterar
                         </button>
                     </td>
@@ -164,7 +165,7 @@
 
 
 
-        <div class="modal fade" id="modalProduto" tabindex="-1" aria-labelledby="modalProdutoLabel" aria-hidden="true">
+        <div class="modal fade" id="modalProduto" tabindex="-1" aria-labelledby="modalProdutoLabel" aria-hidden="true" >
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -172,7 +173,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="modalProdutoForm" action="/adm/alterar-produto" method="post">
+                        <form id="modalProdutoForm" action="/adm/alterar-produto" method="post" enctype="multipart/form-data">
 
                              <div class="mb-3">
                                    <label for="modalProdutoId" class="form-label">ID</label>
@@ -187,7 +188,7 @@
 
                             <div class="mb-3">
                                 <label for="modalProdutoDescricao" class="form-label">Descrição</label>
-                                <textarea class="form-control" id="modalProdutoDescricao" name="descricao" rows="3" maxlength="255" required></textarea>
+                                <textarea class="form-control" id="modalProdutoDescricao" name="descricao" rows="3" maxlength="2000" required></textarea>
                             </div>
 
                             <div class="mb-3">
@@ -204,6 +205,18 @@
                                 <label for="modalProdutoCategoria" class="form-label">Categoria</label>
                                 <input type="text" class="form-control" id="modalProdutoCategoria" name="categoria" maxlength="50" required>
                             </div>
+
+                            <div class="col-md-6">
+                                <label for="modalProdutoImagem" class="form-label">Imagem do Produto Atual</label>
+                                <img id="modalProdutoImagem" src="" alt="Imagem do Produto" class="img-fluid rounded" style="max-height: 400px; width: 100%; object-fit: cover;">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="imagem2" class="form-label">Nova Imagem do Produto</label>
+                                <input type="file" class="form-control" id="imagem" name="imagem" accept="image/*" required>
+                                <img id="previewImagem" src="" alt="Pré-visualização da Imagem" class="img-fluid rounded mt-3 d-none" style="max-height: 400px; width: 100%; object-fit: cover;">
+                            </div>
+
 
                             <button type="submit" class="btn btn-primary">Salvar</button>
                         </form>
@@ -299,6 +312,7 @@
                 var produtoPreco = button.getAttribute('data-preco');
                 var produtoQuantidade = button.getAttribute('data-quantidade');
                 var produtoCategoria = button.getAttribute('data-categoria');
+                var produtoImagem = '/images/' + button.getAttribute('data-imagem');
 
                 var modalProdutoId = modal.querySelector('#modalProdutoId');
                 var modalProdutoId2 = modal.querySelector('#modalProdutoId2');
@@ -307,6 +321,8 @@
                 var modalProdutoPreco = modal.querySelector('#modalProdutoPreco');
                 var modalProdutoQuantidade = modal.querySelector('#modalProdutoQuantidade');
                 var modalProdutoCategoria = modal.querySelector('#modalProdutoCategoria');
+                var modalProdutoImagem = modal.querySelector('#modalProdutoImagem');
+
 
                 modalProdutoId.value = produtoId;
                 modalProdutoId2.value = produtoId2;
@@ -315,6 +331,7 @@
                 modalProdutoPreco.value = produtoPreco;
                 modalProdutoQuantidade.value = produtoQuantidade;
                 modalProdutoCategoria.value = produtoCategoria;
+                modalProdutoImagem.src = produtoImagem ? produtoImagem : 'default-image.jpg';
 
                 <% if (usuarioLogado.getGrupo().equals("Estoquista")) { %>
 
@@ -331,6 +348,67 @@
                     modalProdutoCategoria.disabled = false;
                     modalProdutoQuantidade.disabled = false;
                 <% } %>
+            });
+        });
+    </script>
+
+
+    <script>
+        // Esconde a imagem de pré-visualização se não houver arquivo selecionado
+        document.getElementById('imagem').addEventListener('change', function(event) {
+                var reader = new FileReader();
+                var preview = document.getElementById('previewImagem');
+
+                // Remove a classe d-none para mostrar a imagem de pré-visualização
+                preview.classList.remove('d-none');
+
+                reader.onload = function() {
+                    preview.src = reader.result;
+                };
+
+                if (event.target.files[0]) {
+                    reader.readAsDataURL(event.target.files[0]);
+                } else {
+                    // Se nenhum arquivo foi selecionado, esconder a imagem de pré-visualização
+                    preview.classList.add('d-none');
+                    preview.src = '';
+                }
+            });
+
+
+        // Aqui carrega a preview da imagem antes de inserir no banco
+        document.getElementById('imagem').addEventListener('change', function(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var preview = document.getElementById('previewImagem');
+                preview.src = reader.result;
+            };
+            if (event.target.files[0]) {
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+
+            Inputmask('currency', {
+                rightAlign: false,
+                prefix: 'R$ ',
+                groupSeparator: '.',
+                radixPoint: ',',
+                autoGroup: true,
+                removeMaskOnSubmit: true // Remove a máscara antes do envio
+            }).mask('#preco');
+
+            document.querySelector('form').addEventListener('submit', function(event) {
+                var precoInput = document.getElementById('preco');
+                var precoValue = precoInput.value;
+
+                precoValue = precoValue.replace('R$ ', '').replace(/\./g, '').replace(',', '.');
+
+
+                precoInput.value = precoValue;
             });
         });
     </script>
