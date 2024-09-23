@@ -19,19 +19,19 @@ public class LoginController {
     @Autowired
     private UsuarioService usuarioService; 
     
-    @GetMapping("/adm/login")
+    @GetMapping("/login")
     public String LoginPage(Model model) {
-        return "login-adm"; 
+        return "login";
     }
 
 
-    @PostMapping("/adm/logout")
+    @PostMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "redirect:/adm/login";
+        return "redirect:/login";
     }
 
-    @PostMapping("/adm/login-adm")
+    @PostMapping("/login")
     public String login(@RequestParam String email, @RequestParam String password, HttpSession session) {
         Usuario usuario = usuarioService.buscarLogin(email, password);
 
@@ -43,9 +43,9 @@ public class LoginController {
             session.setAttribute("usuario", usuario);
             session.setAttribute("token", token);
 
-            return "redirect:/adm/home";
+            return "redirect:/backoffice";
         } else {
-            return "redirect:/adm/login?error";
+            return "redirect:/login?error";
         }
     }
     

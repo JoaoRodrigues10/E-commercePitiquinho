@@ -3,6 +3,8 @@ package br.loja.pitiquinho.controller;
 import br.loja.pitiquinho.model.Produto;
 import br.loja.pitiquinho.model.Usuario;
 import br.loja.pitiquinho.service.ProdutoService;
+import br.loja.pitiquinho.service.UsuarioService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +24,11 @@ public class ListarProdutosController {
         this.produtoService = produtoService;
     }
 
-    @GetMapping("/adm/lista-produto")
+
+    @Autowired
+    private UsuarioService usuarioService;
+
+    @GetMapping("/lista-produto")
     public String listarProdutos(
             @RequestParam(value = "nome", required = false) String nome,
             @RequestParam(value = "page", defaultValue = "0") int page,
@@ -30,7 +36,7 @@ public class ListarProdutosController {
             Model model,HttpSession session) {
 
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuario");
-
+        model.addAttribute("usuario", usuarioLogado);
         if (usuarioLogado == null || usuarioLogado.getGrupo() == null || usuarioLogado.getGrupo().isEmpty()) {
             return "redirect:/";
         }
@@ -49,10 +55,10 @@ public class ListarProdutosController {
         model.addAttribute("currentPage", produtosPage.getNumber());
         model.addAttribute("totalPages", produtosPage.getTotalPages());
 
-        return "lista-produto-adm";
+        return "lista-produto";
     }
 
-    @GetMapping("/adm/produto")
+    @GetMapping("/produto")
     public String visualizarProduto(
             @RequestParam("id") Long id,
             Model model) {
@@ -62,7 +68,7 @@ public class ListarProdutosController {
 
         model.addAttribute("produto", produto);
 
-        return "redirect:/adm/lista-produto";
+        return "redirect:/lista-produto";
     }
 
 }

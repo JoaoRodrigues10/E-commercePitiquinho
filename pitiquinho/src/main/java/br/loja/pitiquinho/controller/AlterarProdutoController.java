@@ -59,7 +59,7 @@ public class AlterarProdutoController {
                 } catch (IOException e) {
                     e.printStackTrace();
                     model.addAttribute("error", "Erro ao criar diretório para imagens.");
-                    return "redirect:/adm/lista-produto";
+                    return "redirect:/lista-produto";
                 }
             }
 
@@ -68,7 +68,7 @@ public class AlterarProdutoController {
             } catch (IOException e) {
                 e.printStackTrace();
                 model.addAttribute("error", "Erro ao fazer upload da imagem.");
-                return "redirect:/adm/lista-produto";
+                return "redirect:/lista-produto";
             }
 
             produto.setImagem(nomeArquivo);
@@ -92,7 +92,7 @@ public class AlterarProdutoController {
 
         produtoRepository.save(produto);
 
-        return "redirect:/adm/lista-produto";
+        return "redirect:/lista-produto";
     }
 
     @PostMapping("/alterar-produto/desativar")
@@ -107,6 +107,6 @@ public class AlterarProdutoController {
         String mensagem = currentStatus ? "Produto desativado com sucesso" : "Produto ativado com sucesso";
         redirectAttributes.addFlashAttribute("success", mensagem);
 
-        return "redirect:/adm/lista-produto";
+        return "redirect:/lista-produto";
     }
 }

@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class HomeController {
 
-    @GetMapping("/adm/home")
+    @GetMapping("/home")
     public String home(HttpSession session, Model model) {
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuario");
 
@@ -18,7 +18,6 @@ public class HomeController {
             return "redirect:/";
         }
 
-
-        return "home-adm";
+        return "backoffice";
     }
 }

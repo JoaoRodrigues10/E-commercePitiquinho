@@ -19,12 +19,13 @@ public class ListarUsuariosController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @GetMapping("/adm/lista-usuario")
+    @GetMapping("/lista-usuario")
     public String listaUsuario(@RequestParam(value = "nome", defaultValue = "") String nome, Model model, HttpSession session) {
 
         List<Usuario> usuarios;
 
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuario");
+        model.addAttribute("usuario", usuarioLogado);
 
         if (usuarioLogado == null || usuarioLogado.getGrupo() == null || usuarioLogado.getGrupo().isEmpty() || usuarioLogado.getGrupo().equals("Estoquista")) {
 
@@ -45,8 +46,10 @@ public class ListarUsuariosController {
         }
         model.addAttribute("usuarios", usuarios);
         model.addAttribute("nome", nome);
+        boolean algumDesativado = usuarios.stream().anyMatch(u -> "Desativado".equals(u.getStatus()));
+        model.addAttribute("algumDesativado", algumDesativado);
 
 
-        return "lista-usuario-adm";
+        return "lista-usuario";
     }
 }

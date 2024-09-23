@@ -29,12 +29,20 @@ public class AdicionarUsuarioController {
 
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    @GetMapping("/adm/adicionar-usuario")
-    public String mostrarFormularioAdicionarUsuario(Model model) {
-        return "adicionar-usuario-adm";
+    @GetMapping("/adicionar-usuario")
+    public String mostrarFormularioAdicionarUsuario(@RequestParam(value = "error", required = false) String error,
+                                                    @RequestParam(value = "success", required = false) String success,
+                                                    Model model) {
+        if (error != null) {
+            model.addAttribute("errorMessage", error);
+        }
+        if (success != null) {
+            model.addAttribute("successMessage", success);
+        }
+        return "adicionar-usuario";
     }
 
-    @PostMapping("/adm/adicionar-usuario")
+    @PostMapping("/adicionar-usuario")
     public String adicionarUsuario(@RequestParam String nome, @RequestParam String email, @RequestParam String cpf,
                                    @RequestParam String grupo, @RequestParam String senha,
                                    @RequestParam String confirmarSenha, RedirectAttributes redirectAttributes, Model model) {
@@ -45,7 +53,7 @@ public class AdicionarUsuarioController {
             redirectAttributes.addFlashAttribute("email", email);
             redirectAttributes.addFlashAttribute("cpf", cpf);
             redirectAttributes.addFlashAttribute("grupo", grupo);
-            return "redirect:/adm/adicionar-usuario";
+            return "redirect:/adicionar-usuario";
         }
 
         if (!senha.equals(confirmarSenha)) {
@@ -54,7 +62,7 @@ public class AdicionarUsuarioController {
             redirectAttributes.addFlashAttribute("email", email);
             redirectAttributes.addFlashAttribute("cpf", cpf);
             redirectAttributes.addFlashAttribute("grupo", grupo);
-            return "redirect:/adm/adicionar-usuario";
+            return "redirect:/adicionar-usuario";
         }
 
         if (!util.validarCPF(cpf)) {
@@ -63,7 +71,7 @@ public class AdicionarUsuarioController {
             redirectAttributes.addFlashAttribute("email", email);
             redirectAttributes.addFlashAttribute("cpf", cpf);
             redirectAttributes.addFlashAttribute("grupo", grupo);
-            return "redirect:/adm/adicionar-usuario";
+            return "redirect:/adicionar-usuario";
         }
 
         Usuario usuario = new Usuario();
@@ -80,7 +88,7 @@ public class AdicionarUsuarioController {
         usuarioRepository.save(usuario);
 
         redirectAttributes.addFlashAttribute("success", "Usuário adicionado com sucesso");
-        return "redirect:/adm/lista-usuario";
+        return "redirect:/lista-usuario";
     }
 
 }

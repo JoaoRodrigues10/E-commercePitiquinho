@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="login-container">
-        <h3>Login Administração</h3>
+        <h3>Login BackOffice</h3>
         <form action="/adm/login-adm" method="post">
             <div class="input-container">
                 <label for="email">E-mail:</label>

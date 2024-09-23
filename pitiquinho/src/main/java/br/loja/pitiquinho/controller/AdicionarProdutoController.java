@@ -36,7 +36,7 @@ public class AdicionarProdutoController {
 
     @GetMapping("/adicionar-produto")
     public String mostrarFormularioAdicionarProduto(Model model) {
-        return "adicionar-produto-adm";
+        return "adicionar-produto";
     }
 
     @PostMapping("/adicionar-produto")
@@ -69,7 +69,7 @@ public class AdicionarProdutoController {
             } catch (IOException e) {
                 e.printStackTrace();
                 redirectAttributes.addFlashAttribute("error", "Erro ao criar diretório para imagens.");
-                return "redirect:/adm/adicionar-produto";
+                return "redirect:/adicionar-produto";
             }
         }
 
@@ -79,7 +79,7 @@ public class AdicionarProdutoController {
         } catch (IOException e) {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("error", "Erro ao fazer upload da imagem.");
-            return "redirect:/adm/adicionar-produto";
+            return "redirect:/adicionar-produto";
         }
 
         BigDecimal precoDecimal = new BigDecimal(preco.replace("R$ ", "").replace(".", "").replace(",", "."));
@@ -97,6 +97,6 @@ public class AdicionarProdutoController {
         produtoRepository.save(produto);
 
         redirectAttributes.addFlashAttribute("success", "Produto adicionado com sucesso");
-        return "redirect:/adm/lista-produto";
+        return "redirect:/lista-produto";
     }
 }
