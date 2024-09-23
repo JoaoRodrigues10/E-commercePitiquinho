@@ -39,8 +39,22 @@ public class AdicionarUsuarioController {
         if (success != null) {
             model.addAttribute("successMessage", success);
         }
+
+        if (model.containsAttribute("nome")) {
+            model.addAttribute("nome", model.asMap().get("nome"));
+        }
+        if (model.containsAttribute("email")) {
+            model.addAttribute("email", model.asMap().get("email"));
+        }
+        if (model.containsAttribute("cpf")) {
+            model.addAttribute("cpf", model.asMap().get("cpf"));
+        }
+        if (model.containsAttribute("grupo")) {
+            model.addAttribute("grupo", model.asMap().get("grupo"));
+        }
         return "adicionar-usuario";
     }
+
 
     @PostMapping("/adicionar-usuario")
     public String adicionarUsuario(@RequestParam String nome, @RequestParam String email, @RequestParam String cpf,
@@ -48,29 +62,34 @@ public class AdicionarUsuarioController {
                                    @RequestParam String confirmarSenha, RedirectAttributes redirectAttributes, Model model) {
 
         if (usuarioRepository.findByEmail(email) != null) {
-            redirectAttributes.addFlashAttribute("error", "O e-mail já está em uso");
+
             redirectAttributes.addFlashAttribute("nome", nome);
             redirectAttributes.addFlashAttribute("email", email);
             redirectAttributes.addFlashAttribute("cpf", cpf);
             redirectAttributes.addFlashAttribute("grupo", grupo);
+            redirectAttributes.addFlashAttribute("errorMessage", "O e-mail já está em uso");
             return "redirect:/adicionar-usuario";
         }
 
         if (!senha.equals(confirmarSenha)) {
-            redirectAttributes.addFlashAttribute("error", "As senhas não correspondem");
+
             redirectAttributes.addFlashAttribute("nome", nome);
             redirectAttributes.addFlashAttribute("email", email);
             redirectAttributes.addFlashAttribute("cpf", cpf);
             redirectAttributes.addFlashAttribute("grupo", grupo);
+            redirectAttributes.addFlashAttribute("errorMessage", "As senhas não correspondem");
+
             return "redirect:/adicionar-usuario";
         }
 
         if (!util.validarCPF(cpf)) {
-            redirectAttributes.addFlashAttribute("error", "CPF inválido");
+
             redirectAttributes.addFlashAttribute("nome", nome);
             redirectAttributes.addFlashAttribute("email", email);
             redirectAttributes.addFlashAttribute("cpf", cpf);
             redirectAttributes.addFlashAttribute("grupo", grupo);
+            redirectAttributes.addFlashAttribute("errorMessage", "CPF inválido");
+
             return "redirect:/adicionar-usuario";
         }
 

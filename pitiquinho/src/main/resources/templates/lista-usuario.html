@@ -19,9 +19,10 @@
         </div>
         <p th:text="'Bem-vindo, ' + ${usuario.nome} + '!'">Bem-vindo!</p>
 
-        <form action="/logout" method="post">
+        <form th:action="@{/logout}" method="post">
             <button type="submit">Logout</button>
         </form>
+
     </div>
 
     <h2>Listar Usuário</h2>

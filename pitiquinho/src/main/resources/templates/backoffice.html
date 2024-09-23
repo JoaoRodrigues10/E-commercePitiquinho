@@ -16,9 +16,10 @@
     <div class="button-container">
         <p th:text="${usuario != null} ? 'Bem-vindo, ' + ${usuario.nome} : 'Nenhum usuário logado.'"></p>
 
-        <form action="#" th:action="@{/logout}" method="post">
+        <form th:action="@{/logout}" method="post">
             <button type="submit">Logout</button>
         </form>
+
     </div>
 
     <h2>Área de Administração</h2>

@@ -20,9 +20,11 @@
 
         <p th:text="${usuario != null} ? 'Bem-vindo, ' + ${usuario.nome} : 'Nenhum usuário logado.'"></p>
 
-        <form action="/logout" method="post">
+        <form th:action="@{/logout}" method="post">
             <button type="submit">Logout</button>
         </form>
+
+
     </div>
 
     <h2>Listar Produtos</h2>

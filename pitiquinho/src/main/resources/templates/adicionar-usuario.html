@@ -17,39 +17,47 @@
         <span th:text="${errorMessage}">Mensagem de erro</span>
     </div>
 
-    <form th:action="@{/adicionar-usuario}" method="post">
+    <form action="#" th:action="@{/adicionar-usuario}" method="post">
         <div class="mb-3">
             <label for="nome" class="form-label">Nome</label>
-            <input type="text" class="form-control" id="nome" name="nome" required maxlength="100">
+            <input type="text" class="form-control" id="nome" name="nome"
+                   th:value="${nome}" required>
         </div>
 
         <div class="mb-3">
             <label for="email" class="form-label">E-mail</label>
-            <input type="email" class="form-control" id="email" name="email" required maxlength="100">
+            <input type="email" class="form-control" id="email" name="email"
+                   th:value="${email}" required>
         </div>
 
         <div class="mb-3">
             <label for="cpf" class="form-label">CPF</label>
-            <input type="text" class="form-control" id="cpf" name="cpf" required>
+            <input type="text" class="form-control" id="cpf" name="cpf"
+                   th:value="${cpf}" required>
         </div>
 
         <div class="mb-3">
             <label for="grupo" class="form-label">Grupo</label>
-            <input type="text" class="form-control" id="grupo" name="grupo" required maxlength="20">
+            <select class="form-control" id="grupo" name="grupo" required>
+                <option value="">Selecione um grupo</option>
+                <option value="Adm" th:selected="${grupo == 'Adm'}">Adm</option>
+                <option value="Estoqueista" th:selected="${grupo == 'Estoqueista'}">Estoqueista</option>
+            </select>
         </div>
 
         <div class="mb-3">
             <label for="senha" class="form-label">Senha</label>
-            <input type="password" class="form-control" id="senha" name="senha" required minlength="8">
+            <input type="password" class="form-control" id="senha" name="senha" required>
         </div>
 
         <div class="mb-3">
             <label for="confirmarSenha" class="form-label">Confirmar Senha</label>
-            <input type="password" class="form-control" id="confirmarSenha" name="confirmarSenha" required minlength="8">
+            <input type="password" class="form-control" id="confirmarSenha" name="confirmarSenha" required>
         </div>
 
-        <button type="submit" class="btn btn-primary">Adicionar</button>
+        <button type="submit" class="btn btn-primary">Adicionar Usuário</button>
     </form>
+
 
     <a href="/lista-usuario" class="btn btn-secondary mt-3">Voltar</a>
 </div>

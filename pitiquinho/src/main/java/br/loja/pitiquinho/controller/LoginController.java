@@ -24,12 +24,14 @@ public class LoginController {
         return "login";
     }
 
-
     @PostMapping("/logout")
-    public String logout(HttpSession session) {
+    public String logoutGet(HttpSession session) {
         session.invalidate();
-        return "redirect:/login";
+        return "login";
     }
+
+
+
 
     @PostMapping("/login")
     public String login(@RequestParam String email, @RequestParam String password, HttpSession session) {
