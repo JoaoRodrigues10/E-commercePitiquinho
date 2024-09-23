@@ -23,7 +23,6 @@ import java.util.UUID;
 import java.util.logging.Logger;
 
 @Controller
-@RequestMapping("/adm")
 public class AdicionarProdutoController {
 
     @Autowired

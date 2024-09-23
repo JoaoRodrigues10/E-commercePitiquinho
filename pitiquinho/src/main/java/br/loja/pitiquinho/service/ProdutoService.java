@@ -63,4 +63,15 @@ public class ProdutoService {
         produto.setAtivo(status);
         produtoRepository.save(produto);
     }
+
+    public List<Produto> findAll() {
+        return produtoRepository.findAll();
+    }
+
+    public Produto findById(Long id) {
+        return produtoRepository.findById(id).orElse(null);
+    }
+
+
+
 }
