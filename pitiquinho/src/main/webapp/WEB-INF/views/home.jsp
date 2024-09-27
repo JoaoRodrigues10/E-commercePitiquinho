@@ -15,7 +15,7 @@
     <div class="container d-flex flex-column justify-content-center align-items-center min-vh-100">
         <h1 class="mb-4">Bem-vindo</h1>
         <div class="btn-group">
-            <a href="/adm/login" class="btn btn-primary mr-2">Administrador</a>
+            <a href="/login" class="btn btn-primary mr-2">Administrador</a>
         </div>
         <br>
         <div class="btn-group">

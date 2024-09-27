@@ -30,7 +30,7 @@
                    }
                 %>
 
-                <form action="/adm/logout" method="post">
+                <form action="/logout" method="post">
                     <button type="submit">Logout</button>
                 </form>
 
@@ -39,12 +39,12 @@
         <h2>Área de Administração</h2>
 
         <ul>
-            <li><a href="/adm/lista-produto">Listar Produto</a></li>
+            <li><a href="/lista-produto">Listar Produto</a></li>
             <li>
                 <%
                     if (usuarioLogado != null && "Adm".equals(usuarioLogado.getGrupo())) {
                 %>
-                <a href="/adm/lista-usuario">Listar Usuário</a>
+                <a href="/lista-usuario">Listar Usuário</a>
                 <%
                     } else {
                 %>

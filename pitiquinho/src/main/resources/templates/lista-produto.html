@@ -13,15 +13,17 @@
 </head>
 <body>
 <div class="container">
-    <div class="button-container">
-        <div class="btn-group">
-            <a href="/backoffice" class="btn btn-primary">Voltar</a>
-        </div>
+    <div class="button-container d-flex justify-content-between align-items-center">
+        <a href="/backoffice" >
+            <img src="/images/SetaVoltar.png">
+        </a>
 
         <p th:text="${usuario != null} ? 'Bem-vindo, ' + ${usuario.nome} : 'Nenhum usuário logado.'"></p>
 
         <form th:action="@{/logout}" method="post">
-            <button type="submit">Logout</button>
+            <button type="submit" style="background-color: red;">
+                <img src="/images/Logout.png">
+            </button>
         </form>
 
 
@@ -30,9 +32,9 @@
     <h2>Listar Produtos</h2>
 
     <div class="d-flex justify-content-between mb-3">
-        <a href="/adm/adicionar-produto" class="btn btn-success">+ Adicionar Produto</a>
+        <a href="/adicionar-produto" class="btn btn-success">+ Adicionar Produto</a>
         <div class="search-container">
-            <form action="/adm/lista-produto" method="get" class="d-flex">
+            <form action="/lista-produto" method="get" class="d-flex">
                 <input type="text" name="nome" class="form-control" placeholder="Buscar produto..."
                        th:value="${param.nome}">
                 <button type="submit" class="btn btn-primary ms-2">Pesquisar</button>
@@ -86,15 +88,16 @@
                         th:data-preco="${produto.preco}"
                         th:data-quantidade="${produto.quantidadeEmEstoque}"
                         th:data-categoria="${produto.categoria}"
-                        th:data-imagem="${produto.imagem}">
+                        th:data-imagens="${produto.imagem}">
                     Visualizar
                 </button>
             </td>
             <td>
-                <form th:action="@{/adm/alterar-produto/desativar}" method="post" class="d-inline" onsubmit="return confirmarAcao();">
+                <form th:action="@{/alterar-produto/desativar}" method="post" class="d-inline" onsubmit="return confirmarAcao();">
                     <input type="hidden" name="id" th:value="${produto.id}">
                     <input type="hidden" name="currentStatus" th:value="${produto.ativo}">
-                    <button type="submit" class="btn btn-warning">
+                    <button type="submit"
+                            th:class="${produto.ativo} ? 'btn btn-danger' : 'btn btn-success'">
                         <span th:text="${produto.ativo} ? 'Desativar' : 'Ativar'"></span>
                     </button>
                 </form>
@@ -117,7 +120,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="modalProdutoForm" action="/adm/alterar-produto" method="post" enctype="multipart/form-data">
+                    <form id="modalProdutoForm" action="/alterar-produto" method="post" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label for="modalProdutoId" class="form-label">ID</label>
                             <input type="text" class="form-control" id="modalProdutoId2" name="id2" disabled>
@@ -143,14 +146,14 @@
                             <label for="modalProdutoCategoria" class="form-label">Categoria</label>
                             <input type="text" class="form-control" id="modalProdutoCategoria" name="categoria" maxlength="50" required>
                         </div>
-                        <div class="col-md-6">
-                            <label for="modalProdutoImagem" class="form-label">Imagem do Produto Atual</label>
-                            <img id="modalProdutoImagem" src="" alt="Imagem do Produto" class="img-fluid rounded" style="max-height: 400px; width: 100%; object-fit: cover;">
-                        </div>
                         <div class="mb-3">
-                            <label for="imagem2" class="form-label">Nova Imagem do Produto</label>
-                            <input type="file" class="form-control" id="imagem" name="imagem" accept="image/*" required>
-                            <img id="previewImagem" src="" alt="Pré-visualização da Imagem" class="img-fluid rounded mt-3 d-none" style="max-height: 400px; width: 100%; object-fit: cover;">
+                            <label for="imagemPrincipal" class="form-label">Imagem Principal (Obrigatório)</label>
+                            <input type="file" class="form-control" id="imagemPrincipal" name="imagemPrincipal" accept="image/*" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="imagensAdicionais" class="form-label">Imagens Adicionais (Opcional. Max 4 imagens)</label>
+                            <input type="file" class="form-control" id="imagensAdicionais" name="imagensAdicionais" accept="image/*" multiple>
                         </div>
                         <button type="submit" class="btn btn-primary">Salvar</button>
                     </form>
@@ -169,7 +172,22 @@
                 </div>
                 <div class="modal-body">
                     <h5 id="visualizarProdutoNome"></h5>
-                    <img id="visualizarProdutoImagem" src="" alt="Imagem do Produto" class="img-fluid mb-3" style="max-height: 400px; width: 100%; object-fit: cover;">
+
+                    <!-- Carrossel de imagens -->
+                    <div id="carrosselImagensProduto" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner" id="visualizarProdutoImagens">
+                            <!-- As imagens serão injetadas aqui via JavaScript -->
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carrosselImagensProduto" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Anterior</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carrosselImagensProduto" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Próximo</span>
+                        </button>
+                    </div>
+
                     <p><strong>Descrição:</strong> <span id="visualizarProdutoDescricao"></span></p>
                     <p><strong>Preço:</strong> <span id="visualizarProdutoPreco"></span></p>
                     <p><strong>Quantidade em Estoque:</strong> <span id="visualizarProdutoQuantidade"></span></p>
@@ -181,6 +199,7 @@
             </div>
         </div>
     </div>
+
 
 </div>
 <script>
@@ -214,7 +233,7 @@
         const preco = button.data('preco');
         const quantidade = button.data('quantidade');
         const categoria = button.data('categoria');
-        const imagem = button.data('imagem');
+        const imagens = button.data('imagens'); // Obtenha as imagens
 
         const modal = $(this);
         modal.find('#visualizarProdutoNome').text(nome);
@@ -222,24 +241,65 @@
         modal.find('#visualizarProdutoPreco').text(preco);
         modal.find('#visualizarProdutoQuantidade').text(quantidade);
         modal.find('#visualizarProdutoCategoria').text(categoria);
-        const imagemUrl = imagem.startsWith('http') ? imagem : '/images/' + imagem;
-        modal.find('#visualizarProdutoImagem').attr('src', imagemUrl);
+
+
+        const carouselInner = modal.find('#visualizarProdutoImagens');
+        carouselInner.empty();
+
+
+        if (imagens) {
+            const listaImagens = imagens.split(',');
+
+            listaImagens.forEach((imagem, index) => {
+                const imagemUrl = '/images/' + imagem.trim();
+                const activeClass = index === 0 ? 'active' : '';
+
+                carouselInner.append(`
+                    <div class="carousel-item ${activeClass}">
+                        <img src="${imagemUrl}" class="d-block w-100" alt="Imagem do Produto">
+                    </div>
+                `);
+            });
+        } else {
+
+            carouselInner.append(`
+                <div class="carousel-item active">
+                    <img src="/images/default.png" class="d-block w-100" alt="Imagem Padrão">
+                </div>
+            `);
+        }
     });
+
+
+
 
     function confirmarAcao() {
         return confirm('Tem certeza de que deseja alterar o status deste produto?');
     }
 
-    $('#imagem').on('change', function () {
-        const file = this.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                $('#previewImagem').attr('src', e.target.result).removeClass('d-none');
-            }
-            reader.readAsDataURL(file);
+    $(document).ready(function () {
+    $('#imagens').on('change', function () {
+        const files = this.files;
+        const previewContainer = $('#previewImagens');
+        previewContainer.empty(); // Limpa as pré-visualizações anteriores
+
+        if (files) {
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = $('<img>').attr('src', e.target.result).addClass('img-fluid rounded mt-3').css({
+                        'max-height': '200px',
+                        'width': 'auto',
+                        'object-fit': 'cover',
+                        'margin-right': '10px'
+                    });
+                    previewContainer.append(img);
+                }
+                reader.readAsDataURL(file);
+            });
         }
     });
+});
 });
 </script>
 </body>

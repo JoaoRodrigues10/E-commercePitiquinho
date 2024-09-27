@@ -24,7 +24,7 @@
             <div class="button-container">
 
                  <div class="btn-group">
-                        <a href="/adm/home" class="btn btn-primary mr-2">Voltar</a>
+                        <a href="/home" class="btn btn-primary mr-2">Voltar</a>
                  </div>
 
 
@@ -37,7 +37,7 @@
                    %>
 
 
-                    <form action="/adm/logout" method="post">
+                    <form action="/logout" method="post">
                         <button type="submit">Logout</button>
                     </form>
             </div>
@@ -56,10 +56,10 @@
         <% } %>
 
         <div class="d-flex justify-content-between mb-3">
-            <a href="/adm/adicionar-usuario" class="btn btn-success">+ Adicionar Usuário</a>
+            <a href="/adicionar-usuario" class="btn btn-success">+ Adicionar Usuário</a>
             <div class="search-container">
 
-                <form action="/adm/lista-usuario" method="get" class="d-flex mb-3">
+                <form action="/lista-usuario" method="get" class="d-flex mb-3">
                         <input type="text" name="nome" value="${nome}" class="form-control" placeholder="Digite aqui...">
                         <button type="submit" class="btn btn-primary ms-2">Pesquisar</button>
                </form>
@@ -123,7 +123,7 @@
                         </button>
                     </td>
                     <td>
-                        <form action="${pageContext.request.contextPath}/adm/alterar-usuario/desativar" method="post" class="d-inline">
+                        <form action="${pageContext.request.contextPath}/alterar-usuario/desativar" method="post" class="d-inline">
                             <input type="hidden" name="id" value="<%= usuario.getId() %>">
                             <input type="hidden" name="currentStatus" value="<%= usuario.getStatus() %>">
                             <button type="submit" class="btn btn-warning">
@@ -152,7 +152,7 @@
                     </div>
                     <div class="modal-body">
 
-                           <form id="modalForm" action="/adm/alterar-usuario" method="post">
+                           <form id="modalForm" action="/alterar-usuario" method="post">
                                <div class="mb-3">
                                    <label for="modalId" class="form-label">ID</label>
                                    <input type="text" class="form-control" id="modalId2" name="id2" disabled>

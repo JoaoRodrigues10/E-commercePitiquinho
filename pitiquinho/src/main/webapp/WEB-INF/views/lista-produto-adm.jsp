@@ -26,7 +26,7 @@
                 <div class="button-container">
 
                     <div class="btn-group">
-                        <a href="/adm/home" class="btn btn-primary">Voltar</a>
+                        <a href="/home" class="btn btn-primary">Voltar</a>
                     </div>
 
                     <%
@@ -37,7 +37,7 @@
                         }
                     %>
 
-                    <form action="/adm/logout" method="post">
+                    <form action="/logout" method="post">
                         <button type="submit">Logout</button>
                     </form>
 
@@ -46,9 +46,9 @@
         <h2>Listar Produtos</h2>
 
         <div class="d-flex justify-content-between mb-3">
-            <a href="/adm/adicionar-produto" class="btn btn-success">+ Adicionar Produto</a>
+            <a href="/adicionar-produto" class="btn btn-success">+ Adicionar Produto</a>
             <div class="search-container">
-                <form action="/adm/lista-produto" method="get" class="d-flex">
+                <form action="/lista-produto" method="get" class="d-flex">
                     <input type="text" name="nome" class="form-control" placeholder="Buscar produto..." value="<%= request.getParameter("nome") != null ? request.getParameter("nome") : "" %>">
                     <button type="submit" class="btn btn-primary ms-2">Pesquisar</button>
                 </form>
@@ -118,7 +118,7 @@
 
                     <td>
 
-                       <form action="${pageContext.request.contextPath}/adm/alterar-produto/desativar" method="post" class="d-inline" onsubmit="return confirmarAcao();">
+                       <form action="${pageContext.request.contextPath}/alterar-produto/desativar" method="post" class="d-inline" onsubmit="return confirmarAcao();">
                            <input type="hidden" name="id" value="<%= produto.getId() %>">
                            <input type="hidden" name="currentStatus" value="<%= produto.getAtivo() %>">
                            <button type="submit" class="btn btn-warning">
@@ -173,7 +173,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="modalProdutoForm" action="/adm/alterar-produto" method="post" enctype="multipart/form-data">
+                        <form id="modalProdutoForm" action="/alterar-produto" method="post" enctype="multipart/form-data">
 
                              <div class="mb-3">
                                    <label for="modalProdutoId" class="form-label">ID</label>

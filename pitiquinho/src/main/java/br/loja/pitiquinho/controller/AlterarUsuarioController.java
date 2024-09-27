@@ -15,7 +15,6 @@ import br.loja.pitiquinho.repository.UsuarioRepository;
 import br.loja.pitiquinho.util.util;
 
 @Controller
-@RequestMapping("/adm")
 public class AlterarUsuarioController {
 
     @Autowired
@@ -50,14 +49,14 @@ public class AlterarUsuarioController {
         if (!util.validarCPF(cpf)) {
             System.out.println("CPF inválido");
             model.addAttribute("error", "CPF inválido");
-            return "redirect:/adm/lista-usuario";
+            return "redirect:/lista-usuario";
         }
 
         if (senha != null && !senha.isEmpty() && senha != "") {
             if (!senha.equals(confirmarSenha)) {
                 System.out.println("As senhas não correspondem");
                 model.addAttribute("error", "As senhas não correspondem");
-                return "redirect:/adm/lista-usuario";
+                return "redirect:/lista-usuario";
             }
             usuario.setSenha(passwordEncoder.encode(senha));
         }

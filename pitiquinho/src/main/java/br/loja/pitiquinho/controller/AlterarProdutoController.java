@@ -21,7 +21,6 @@ import java.util.UUID;
 
 import static com.mysql.cj.conf.PropertyKey.logger;
 @Controller
-@RequestMapping("/adm")
 public class AlterarProdutoController {
 
     @Autowired
@@ -37,43 +36,53 @@ public class AlterarProdutoController {
                                  @RequestParam(required = false) String preco,
                                  @RequestParam(required = false) Integer quantidade,
                                  @RequestParam(required = false) String categoria,
-                                 @RequestParam(required = false) MultipartFile imagem,
+                                 @RequestParam(required = false) MultipartFile imagemPrincipal, // Imagem Principal
+                                 @RequestParam(required = false) MultipartFile[] imagensAdicionais, // Imagens adicionais
+                                 RedirectAttributes redirectAttributes,
                                  Model model) {
 
         Produto produto = produtoRepository.findById(id).orElseThrow(() -> new RuntimeException("Produto não encontrado"));
 
-        if (imagem != null && !imagem.isEmpty()) {
-            String nomeArquivoOriginal = imagem.getOriginalFilename();
-            String extensao = "";
-            if (nomeArquivoOriginal != null && nomeArquivoOriginal.contains(".")) {
-                extensao = nomeArquivoOriginal.substring(nomeArquivoOriginal.lastIndexOf("."));
+        // Atualiza a imagem principal, se fornecida
+        if (imagemPrincipal != null && !imagemPrincipal.isEmpty()) {
+            String nomeImagemPrincipal = processarImagem(imagemPrincipal);
+            if (nomeImagemPrincipal != null) {
+                produto.setImagem(nomeImagemPrincipal); // Define a nova imagem principal
+            } else {
+                redirectAttributes.addFlashAttribute("error", "Erro ao fazer upload da imagem principal.");
+                return "redirect:/alterar-produto?id=" + id; // Redireciona para o formulário de alteração
             }
-            String nomeArquivo = UUID.randomUUID().toString().replaceAll("-", "") + extensao.toLowerCase();
-
-            Path caminhoSalvar = Paths.get(uploadPath, nomeArquivo).toAbsolutePath();
-            Path diretorio = caminhoSalvar.getParent();
-
-            if (!Files.exists(diretorio)) {
-                try {
-                    Files.createDirectories(diretorio);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    model.addAttribute("error", "Erro ao criar diretório para imagens.");
-                    return "redirect:/lista-produto";
-                }
-            }
-
-            try {
-                imagem.transferTo(caminhoSalvar.toFile());
-            } catch (IOException e) {
-                e.printStackTrace();
-                model.addAttribute("error", "Erro ao fazer upload da imagem.");
-                return "redirect:/lista-produto";
-            }
-
-            produto.setImagem(nomeArquivo);
         }
 
+        // Atualiza imagens adicionais, se fornecidas
+        StringBuilder nomesImagensAdicionais = new StringBuilder();
+        if (imagensAdicionais != null) {
+            for (int i = 0; i < imagensAdicionais.length && i < 4; i++) {
+                MultipartFile imagemAdicional = imagensAdicionais[i];
+                if (imagemAdicional != null && !imagemAdicional.isEmpty()) {
+                    String nomeArquivoAdicional = processarImagem(imagemAdicional);
+                    if (nomeArquivoAdicional != null) {
+                        if (nomesImagensAdicionais.length() > 0) {
+                            nomesImagensAdicionais.append(",");
+                        }
+                        nomesImagensAdicionais.append(nomeArquivoAdicional);
+                    } else {
+                        redirectAttributes.addFlashAttribute("error", "Erro ao fazer upload de uma das imagens adicionais.");
+                        return "redirect:/alterar-produto?id=" + id; // Redireciona para o formulário de alteração
+                    }
+                }
+            }
+            // Adiciona as imagens adicionais ao produto
+            if (nomesImagensAdicionais.length() > 0) {
+                if (produto.getImagem() != null && !produto.getImagem().isEmpty()) {
+                    produto.setImagem(produto.getImagem() + "," + nomesImagensAdicionais.toString());
+                } else {
+                    produto.setImagem(nomesImagensAdicionais.toString());
+                }
+            }
+        }
+
+        // Atualiza outros atributos do produto
         if (nome != null && !nome.isEmpty()) {
             produto.setNome(nome);
         }
@@ -91,9 +100,41 @@ public class AlterarProdutoController {
         }
 
         produtoRepository.save(produto);
-
+        redirectAttributes.addFlashAttribute("success", "Produto alterado com sucesso");
         return "redirect:/lista-produto";
     }
+
+    // Método que processa a imagem, salva no diretório e retorna o nome do arquivo
+    private String processarImagem(MultipartFile imagem) {
+        String nomeArquivoOriginal = imagem.getOriginalFilename();
+        String extensao = "";
+        if (nomeArquivoOriginal != null && nomeArquivoOriginal.contains(".")) {
+            extensao = nomeArquivoOriginal.substring(nomeArquivoOriginal.lastIndexOf("."));
+        }
+        String nomeImagem = UUID.randomUUID().toString().replaceAll("-", "") + extensao.toLowerCase();
+
+        Path caminhoSalvar = Paths.get(uploadPath, nomeImagem).toAbsolutePath();
+        Path diretorio = caminhoSalvar.getParent();
+
+        if (!Files.exists(diretorio)) {
+            try {
+                Files.createDirectories(diretorio);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        try {
+            imagem.transferTo(caminhoSalvar.toFile());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return nomeImagem;
+    }
+
 
     @PostMapping("/alterar-produto/desativar")
     public String desativarProduto(@RequestParam Long id, @RequestParam boolean currentStatus, RedirectAttributes redirectAttributes) {

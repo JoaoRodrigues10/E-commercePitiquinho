@@ -30,7 +30,7 @@ public class ListarUsuariosController {
         if (usuarioLogado == null || usuarioLogado.getGrupo() == null || usuarioLogado.getGrupo().isEmpty() || usuarioLogado.getGrupo().equals("Estoquista")) {
 
             if(usuarioLogado.getGrupo().equals("Estoquista")){
-                return "redirect:/adm/home";
+                return "redirect:/home";
             } else {
                 return "redirect:/";
             }

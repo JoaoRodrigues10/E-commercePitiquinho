@@ -13,14 +13,17 @@
 </head>
 <body>
 <div class="container">
-    <div class="button-container">
-        <div class="btn-group">
-            <a href="/backoffice" class="btn btn-primary mr-2">Voltar</a>
-        </div>
-        <p th:text="'Bem-vindo, ' + ${usuario.nome} + '!'">Bem-vindo!</p>
+    <div class="button-container d-flex justify-content-between align-items-center">
+        <a href="/backoffice" >
+            <img src="/images/SetaVoltar.png">
+        </a>
+
+        <p th:text="${usuario != null} ? 'Bem-vindo, ' + ${usuario.nome} : 'Nenhum usuário logado.'"></p>
 
         <form th:action="@{/logout}" method="post">
-            <button type="submit">Logout</button>
+            <button type="submit" style="background-color: red;">
+                <img src="/images/Logout.png">
+            </button>
         </form>
 
     </div>
@@ -77,10 +80,10 @@
                 </button>
             </td>
             <td>
-                <form th:action="@{adm/alterar-usuario/desativar}" method="post" class="d-inline">
+                <form th:action="@{/alterar-usuario/desativar}" method="post" class="d-inline">
                     <input type="hidden" name="id" th:value="${usuario.id}">
                     <input type="hidden" name="currentStatus" th:value="${usuario.status}">
-                    <button type="submit" class="btn btn-warning">
+                    <button type="submit" th:class="${usuario.status} ? 'btn btn-danger' : 'btn btn-success'">
                         <span th:text="${usuario.status} ? 'Desativar' : 'Ativar'"></span>
                     </button>
                 </form>
@@ -99,7 +102,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="modalForm" th:action="@{/adm/alterar-usuario}" method="post">
+                    <form id="modalForm" th:action="@{/alterar-usuario}" method="post">
                         <div class="mb-3">
                             <label for="modalId" class="form-label">ID</label>
                             <input type="text" class="form-control" id="modalId2" name="id2" disabled>

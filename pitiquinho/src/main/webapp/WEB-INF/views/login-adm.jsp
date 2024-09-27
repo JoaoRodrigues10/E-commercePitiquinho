@@ -14,7 +14,7 @@
 <body>
     <div class="login-container">
         <h3>Login BackOffice</h3>
-        <form action="/adm/login-adm" method="post">
+        <form action="/login-adm" method="post">
             <div class="input-container">
                 <label for="email">E-mail:</label>
                 <input type="text" id="email" name="email" required>
