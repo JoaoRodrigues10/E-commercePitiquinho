@@ -53,7 +53,7 @@ public class AdicionarProdutoController {
         StringBuilder nomesImagens = new StringBuilder();
 
         if (!imagemPrincipal.isEmpty()) {
-            String nomeArquivoPrincipal = processarImagem(imagemPrincipal); // Método que processa a imagem (explicado a seguir)
+            String nomeArquivoPrincipal = processarImagem(imagemPrincipal);
             if (nomeArquivoPrincipal == null) {
                 redirectAttributes.addFlashAttribute("error", "Erro ao fazer upload da imagem principal.");
                 return "redirect:/adicionar-produto";

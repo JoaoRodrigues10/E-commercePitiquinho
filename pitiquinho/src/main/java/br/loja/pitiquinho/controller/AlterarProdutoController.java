@@ -104,7 +104,7 @@ public class AlterarProdutoController {
         return "redirect:/lista-produto";
     }
 
-    // Método que processa a imagem, salva no diretório e retorna o nome do arquivo
+    // Método que concatena o nome da imagem com um UUID e salva a imagem no diretório de upload
     private String processarImagem(MultipartFile imagem) {
         String nomeArquivoOriginal = imagem.getOriginalFilename();
         String extensao = "";
