@@ -58,6 +58,8 @@ public class ListarProdutosController {
         return "lista-produto";
     }
 
+
+
     @GetMapping("/produto")
     public String visualizarProduto(
             @RequestParam("id") Long id,
