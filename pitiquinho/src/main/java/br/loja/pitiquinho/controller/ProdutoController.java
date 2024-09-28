@@ -8,8 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.List;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 public class ProdutoController {
@@ -20,7 +22,7 @@ public class ProdutoController {
     @GetMapping("/produtos")
     public String listarProdutos(Model model) {
         List<Produto> produtos = produtoService.findAll();
-        produtos.forEach(produto -> configurarImagem(produto));
+        produtos.forEach(produto -> configurarImagens(produto));
         model.addAttribute("produtos", produtos);
         return "produtos";
     }
@@ -29,36 +31,35 @@ public class ProdutoController {
     public String detalheProduto(@PathVariable Long id, Model model) {
         Produto produto = produtoService.findById(id);
 
-
         if (produto == null) {
             produto = new Produto();
             produto.setImagem("/images/imagem.jpg");
             model.addAttribute("produto", produto);
             return "produto-detalhe";
-
         }
 
-        configurarImagem(produto); 
+        configurarImagens(produto);
         model.addAttribute("produto", produto);
         return "produto-detalhe";
     }
 
-
-    private void configurarImagem(Produto produto) {
-        String imagemPath;
+    private void configurarImagens(Produto produto) {
         if (produto.getImagem() == null || produto.getImagem().isEmpty()) {
-            imagemPath = "/images/imagem.jpg";
+            produto.setImagem("/images/imagem.jpg");
         } else {
-            imagemPath = "/images/" + produto.getImagem();
-        }
 
-        File imagemFile = new File("src/main/resources/static" + imagemPath);
-        if (!imagemFile.exists()) {
-            System.out.println("Arquivo não encontrado: " + imagemFile.getPath());
-            imagemPath = "/images/imagem.jpg";
-        }
+            String[] imagensLista = produto.getImagem().split(",");
+            String imagemPrincipal = imagensLista[0].trim();
+            String imagemPath = "/images/" + imagemPrincipal;
 
-        produto.setImagem(imagemPath);
+            File imagemFile = new File("src/main/resources/static" + imagemPath);
+            if (imagemFile.exists()) {
+                produto.setImagem(imagemPath);
+            } else {
+                System.out.println("Arquivo não encontrado: " + imagemFile.getPath());
+                produto.setImagem("/images/imagem.jpg");
+            }
+        }
     }
 
 }
