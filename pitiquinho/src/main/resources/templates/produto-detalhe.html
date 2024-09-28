@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.w3.org/1999/xhtml">
 
@@ -16,8 +15,25 @@
 <div class="container">
     <a href="/produtos" class="btn btn-secondary mb-3">Voltar</a>
     <h2>Detalhe do Produto</h2>
-    <div class="card d-flex flex-row">
-        <img th:src="@{${produto.imagem}}" class="card-img-top" alt="Imagem do Produto">
+
+    <div id="carrosselImagensProduto" class="carousel slide" data-bs-ride="carousel" th:data-imagens="${produto.imagem}">
+        <div class="carousel-inner" id="visualizarProdutoImagens">
+
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carrosselImagensProduto" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carrosselImagensProduto" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Próximo</span>
+        </button>
+    </div>
+
+
+
+    <div class="card">
         <div class="card-body">
             <h3 class="card-title" th:text="${produto.nome}"></h3>
             <p class="card-text"><strong>Descrição:</strong> <span th:text="${produto.descricao}"></span></p>
@@ -25,8 +41,43 @@
             <p class="card-text"><strong>Quantidade em Estoque:</strong> <span th:text="${produto.quantidadeEmEstoque}"></span></p>
             <p class="card-text"><strong>Categoria:</strong> <span th:text="${produto.categoria}"></span></p>
         </div>
-
     </div>
 </div>
+
+
+<script>
+    $(document).ready(function () {
+
+        const imagens = $('#carrosselImagensProduto').data('imagens');
+
+        console.log(imagens )
+
+        const carouselInner = $('#visualizarProdutoImagens');
+        carouselInner.empty();
+
+        if (imagens) {
+            const listaImagens = imagens.split(',');
+
+            listaImagens.forEach((imagem, index) => {
+                const imagemUrl = '/images/' + imagem.trim();
+                const activeClass = index === 0 ? 'active' : '';
+
+                carouselInner.append(`
+                    <div class="carousel-item ${activeClass}">
+                        <img src="${imagemUrl}" class="d-block w-100" alt="Imagem do Produto">
+                    </div>
+                `);
+            });
+        } else {
+            carouselInner.append(`
+                <div class="carousel-item active">
+                    <img src="/images/imagem.jpg" class="d-block w-100" alt="Imagem Padrão">
+                </div>
+            `);
+        }
+    });
+</script>
+
+
 </body>
 </html>

@@ -30,15 +30,6 @@ public class ProdutoController {
     @GetMapping("/produtos/detalhe/{id}")
     public String detalheProduto(@PathVariable Long id, Model model) {
         Produto produto = produtoService.findById(id);
-
-        if (produto == null) {
-            produto = new Produto();
-            produto.setImagem("/images/imagem.jpg");
-            model.addAttribute("produto", produto);
-            return "produto-detalhe";
-        }
-
-        configurarImagens(produto);
         model.addAttribute("produto", produto);
         return "produto-detalhe";
     }
@@ -61,5 +52,6 @@ public class ProdutoController {
             }
         }
     }
+
 
 }
