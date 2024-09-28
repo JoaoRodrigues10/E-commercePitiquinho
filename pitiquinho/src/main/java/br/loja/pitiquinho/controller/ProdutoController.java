@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.io.File;
 
 @Controller
 public class ProdutoController {
@@ -28,21 +29,36 @@ public class ProdutoController {
     public String detalheProduto(@PathVariable Long id, Model model) {
         Produto produto = produtoService.findById(id);
 
-        if (produto == null) {
 
-            return "redirect:/produtos";
+        if (produto == null) {
+            produto = new Produto();
+            produto.setImagem("/images/imagem.jpg");
+            model.addAttribute("produto", produto);
+            return "produto-detalhe";
+
         }
 
-        configurarImagem(produto);
+        configurarImagem(produto); 
         model.addAttribute("produto", produto);
         return "produto-detalhe";
     }
 
+
     private void configurarImagem(Produto produto) {
+        String imagemPath;
         if (produto.getImagem() == null || produto.getImagem().isEmpty()) {
-            produto.setImagem("/images/imagem.jpg");
+            imagemPath = "/images/imagem.jpg";
         } else {
-            produto.setImagem("/images/" + produto.getImagem());
+            imagemPath = "/images/" + produto.getImagem();
         }
+
+        File imagemFile = new File("src/main/resources/static" + imagemPath);
+        if (!imagemFile.exists()) {
+            System.out.println("Arquivo não encontrado: " + imagemFile.getPath());
+            imagemPath = "/images/imagem.jpg";
+        }
+
+        produto.setImagem(imagemPath);
     }
+
 }
