@@ -9,6 +9,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/css/produto-detalhe.css">
+    <style>
+        .carousel-item img {
+            width: 400px;
+            height: 400px;
+            object-fit: cover;
+        }
+    </style>
 </head>
 
 <body>
@@ -31,8 +38,6 @@
         </button>
     </div>
 
-
-
     <div class="card">
         <div class="card-body">
             <h3 class="card-title" th:text="${produto.nome}"></h3>
@@ -40,18 +45,14 @@
             <p class="card-text"><strong>Preço:</strong> <span th:text="'R$ ' + ${produto.preco}"></span></p>
             <p class="card-text"><strong>Quantidade em Estoque:</strong> <span th:text="${produto.quantidadeEmEstoque}"></span></p>
             <p class="card-text"><strong>Categoria:</strong> <span th:text="${produto.categoria}"></span></p>
+            <p class="card-text"><strong>Avaliação:</strong> <span th:text="${produto.avaliacao}"></span></p>
         </div>
     </div>
 </div>
 
-
 <script>
     $(document).ready(function () {
-
         const imagens = $('#carrosselImagensProduto').data('imagens');
-
-        console.log(imagens )
-
         const carouselInner = $('#visualizarProdutoImagens');
         carouselInner.empty();
 
@@ -64,20 +65,19 @@
 
                 carouselInner.append(`
                     <div class="carousel-item ${activeClass}">
-                        <img src="${imagemUrl}" class="d-block w-100" alt="Imagem do Produto">
+                        <img src="${imagemUrl}" class="d-block" alt="Imagem do Produto">
                     </div>
                 `);
             });
         } else {
             carouselInner.append(`
                 <div class="carousel-item active">
-                    <img src="/images/imagem.jpg" class="d-block w-100" alt="Imagem Padrão">
+                    <img src="/images/imagem.jpg" class="d-block" alt="Imagem Padrão">
                 </div>
             `);
         }
     });
 </script>
-
 
 </body>
 </html>
