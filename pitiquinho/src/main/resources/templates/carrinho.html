@@ -1,18 +1,28 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrinho de Compras</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/carrinho.js"></script>
 </head>
+
 <body>
 
 <div class="container mt-5">
-    <h2>Carrinho de Compras</h2>
+    <div class="d-flex justify-content-between mb-3">
+        <a href="/produtos" class="btn btn-secondary">Voltar</a>
+        <h2>Carrinho de Compras</h2>
+    </div>
+
     <table class="table table-striped">
         <thead>
         <tr>
+            <th scope="col">Imagem</th>
+            <th scope="col">ID</th>
             <th scope="col">Produto</th>
             <th scope="col">Quantidade</th>
             <th scope="col">Preço Unitário</th>
@@ -20,78 +30,13 @@
             <th scope="col">Ações</th>
         </tr>
         </thead>
-        <tbody id="carrinho-body">
-        <tr id="item-1">
-            <td>
-                <div class="media">
-                    <img src="https://via.placeholder.com/64" class="mr-3" alt="Produto 1" style="width: 64px;">
-                    <div class="media-body">
-                        <h5 class="mt-0">Produto 1</h5>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <button type="button" class="btn btn-secondary btn-sm" onclick="alterarQuantidade(1, -1)">-</button>
-                <span id="quantidade-1">1</span>
-                <button type="button" class="btn btn-secondary btn-sm" onclick="alterarQuantidade(1, 1)">+</button>
-            </td>
-            <td>R$ 50,00</td>
-            <td>R$ 50,00</td>
-            <td>
-                <form th:action="@{/carrinho/remover(id=${1})}" method="post">
-                    <button type="submit" class="btn btn-danger btn-sm">Remover</button>
-                </form>
-            </td>
-        </tr>
-        <tr id="item-2">
-            <td>
-                <div class="media">
-                    <img src="https://via.placeholder.com/64" class="mr-3" alt="Produto 2" style="width: 64px;">
-                    <div class="media-body">
-                        <h5 class="mt-0">Produto 2</h5>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <button type="button" class="btn btn-secondary btn-sm" onclick="alterarQuantidade(2, -1)">-</button>
-                <span id="quantidade-2">2</span>
-                <button type="button" class="btn btn-secondary btn-sm" onclick="alterarQuantidade(2, 1)">+</button>
-            </td>
-            <td>R$ 30,00</td>
-            <td>R$ 60,00</td>
-            <td>
-                <form th:action="@{/carrinho/remover(id=${2})}" method="post">
-                    <button type="submit" class="btn btn-danger btn-sm">Remover</button>
-                </form>
-            </td>
-        </tr>
-        <tr id="item-3">
-            <td>
-                <div class="media">
-                    <img src="https://via.placeholder.com/64" class="mr-3" alt="Produto 3" style="width: 64px;">
-                    <div class="media-body">
-                        <h5 class="mt-0">Produto 3</h5>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <button type="button" class="btn btn-secondary btn-sm" onclick="alterarQuantidade(3, -1)">-</button>
-                <span id="quantidade-3">1</span>
-                <button type="button" class="btn btn-secondary btn-sm" onclick="alterarQuantidade(3, 1)">+</button>
-            </td>
-            <td>R$ 20,00</td>
-            <td>R$ 20,00</td>
-            <td>
-                <form th:action="@{/carrinho/remover(id=${3})}" method="post">
-                    <button type="submit" class="btn btn-danger btn-sm">Remover</button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
+        <tbody id="carrinho-body"></tbody>
     </table>
 
+
+
     <div class="d-flex justify-content-between">
-        <h4>Total: <span id="total">R$ 130,00</span></h4>
+        <h4>Total: <span id="total">R$ 0,00</span></h4>
         <form th:action="@{/carrinho/checkout}" method="post">
             <button type="submit" class="btn btn-success">Finalizar Compra</button>
         </form>
@@ -101,29 +46,6 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
-    function alterarQuantidade(produtoId, delta) {
-        const quantidadeElement = document.getElementById(`quantidade-${produtoId}`);
-        let quantidade = parseInt(quantidadeElement.textContent) + delta;
-        if (quantidade < 1) quantidade = 1; // Mantém a quantidade mínima como 1
-        quantidadeElement.textContent = quantidade;
 
-        const precoUnitario = parseFloat(document.querySelector(`#item-${produtoId} td:nth-child(3)`).textContent.replace(' R$', '').replace(',', '.'));
-        const subtotal = (quantidade * precoUnitario).toFixed(2);
-        document.querySelector(`#item-${produtoId} td:nth-child(4)`).textContent = subtotal + ' R$';
-
-        atualizarTotal();
-    }
-
-    function atualizarTotal() {
-        let total = 0;
-        const items = document.querySelectorAll('#carrinho-body tr');
-        items.forEach(item => {
-            const subtotal = parseFloat(item.querySelector('td:nth-child(4)').textContent.replace(' R$', '').replace(',', '.'));
-            total += subtotal;
-        });
-        document.getElementById('total').textContent = total.toFixed(2).replace('.', ',') + ' R$';
-    }
-</script>
 </body>
 </html>

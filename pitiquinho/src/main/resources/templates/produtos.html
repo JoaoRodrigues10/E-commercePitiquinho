@@ -9,16 +9,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/css/produtos.css">
+    <script src="/js/produtos.js"></script>
 </head>
 <body>
 
 <div class="container mt-5">
+
     <header class="text-center mb-4">
-        <img src="images/logo.png" alt="Logo da Loja" class="img-fluid" style="max-width: 200px;">
+
         <div class="d-flex justify-content-end">
             <a href="/login" class="btn btn-outline-primary ms-2">Faça Login/Crie seu Login</a>
-            <a href="/carrinho" class="btn btn-outline-primary ms-2">Carrinho <i class="fas fa-shopping-cart"></i></a>
+            <a href="/carrinho" class="btn btn-outline-primary ms-2">
+                Carrinho <i class="fas fa-shopping-cart"></i>
+                <span id="quantidadeCarrinho" class="badge bg-danger"></span>
+            </a>
         </div>
+
     </header>
 
     <h2 class="text-center mb-4">Nossos Produtos</h2>
@@ -46,10 +52,5 @@
 </div>
 
 
-<script>
-    $(document).ready(function() {
-
-    });
-</script>
 </body>
 </html>
