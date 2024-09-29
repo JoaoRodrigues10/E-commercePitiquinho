@@ -46,7 +46,8 @@ $(document).ready(function () {
                 quantidade: 1,
                 categoria: $('#categoriaProduto').text().trim() || '',
                 avaliacao: $('#avaliacaoProduto').text().trim() || '',
-                imagem: imagens ? `images/${imagens.split(',')[0].trim()}` : 'images/imagem.jpg'
+                imagem: imagens ? `images/${imagens.split(',')[0].trim()}` : 'images/imagem.jpg',
+                usuario : $('#IdUsuario').text().trim() || ''
             };
 
             let carrinho = localStorage.getItem('carrinho');

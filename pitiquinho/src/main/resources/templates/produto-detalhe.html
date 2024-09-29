@@ -16,16 +16,23 @@
 <div class="container">
     <header class="text-center mb-4">
 
-        <div class="d-flex justify-content-between mb-3">
-            <a href="/produtos" class="btn btn-voltar">Voltar</a>
-            <div class="d-flex align-items-center">
-                <a href="/login" class="btn btn-outline-primary ms-2">Faça Login/Crie seu Login</a>
-                <a href="/carrinho" class="btn btn-outline-primary ms-2">
-                    Carrinho <i class="fas fa-shopping-cart"></i>
-                    <span id="quantidadeCarrinho" class="badge bg-danger"></span>
-                </a>
+        <div class="d-flex justify-content-between align-items-center">
+
+            <div th:if="${usuario == null}" class="d-flex align-items-center">
+                <a href="/login" class="btn btn-outline-primary me-2">Faça Login/Crie seu Login</a>
             </div>
+            <div th:if="${usuario != null}" class="d-flex align-items-center">
+                <span class="me-3" th:text="'Bem-vindo, ' + ${usuario.nome}"></span>
+                <a href="/logout" class="btn btn-danger">Logout</a>
+                <span id="IdUsuario" th:text="${usuario.id}" style="display: none;"></span>
+            </div>
+
+            <a href="/carrinho" class="btn btn-outline-primary position-relative">
+                Carrinho <i class="fas fa-shopping-cart"></i>
+                <span id="quantidadeCarrinho" class="badge bg-danger position-absolute top-0 start-100 translate-middle">0</span>
+            </a>
         </div>
+
 
     </header>
 

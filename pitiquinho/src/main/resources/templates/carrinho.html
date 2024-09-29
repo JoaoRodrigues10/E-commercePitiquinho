@@ -14,7 +14,7 @@
 
 <div class="container mt-5">
     <div class="d-flex justify-content-between mb-3">
-        <a href="/produtos" class="btn btn-secondary">Voltar</a>
+        <a href="/" class="btn btn-secondary">Voltar</a>
         <h2>Carrinho de Compras</h2>
     </div>
 
@@ -75,7 +75,7 @@
             <div class="col text-right"><strong id="total-final">R$ 130,00</strong></div>
         </div>
         <div class="text-center">
-            <form th:action="@{/carrinho/checkout}" method="post">
+            <form id="checkout-form" onsubmit="return validarCheckout()" th:action="@{/carrinho/checkout}" method="post">
                 <button type="submit" class="btn btn-success btn-lg">Finalizar Compra</button>
             </form>
         </div>

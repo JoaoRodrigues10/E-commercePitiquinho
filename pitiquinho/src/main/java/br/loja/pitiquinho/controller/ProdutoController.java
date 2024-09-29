@@ -1,7 +1,9 @@
 package br.loja.pitiquinho.controller;
 
 import br.loja.pitiquinho.model.Produto;
+import br.loja.pitiquinho.model.Usuario;
 import br.loja.pitiquinho.service.ProdutoService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,18 +21,26 @@ public class ProdutoController {
     @Autowired
     private ProdutoService produtoService;
 
-    @GetMapping("/produtos")
-    public String listarProdutos(Model model) {
+    @GetMapping("/")
+    public String listarProdutos(Model model, HttpSession session) {
         List<Produto> produtos = produtoService.findAll();
         produtos.forEach(produto -> configurarImagens(produto));
         model.addAttribute("produtos", produtos);
+
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        model.addAttribute("usuario", usuario);
+
         return "produtos";
     }
 
     @GetMapping("/produtos/detalhe/{id}")
-    public String detalheProduto(@PathVariable Long id, Model model) {
+    public String detalheProduto(@PathVariable Long id, Model model, HttpSession session) {
         Produto produto = produtoService.findById(id);
         model.addAttribute("produto", produto);
+
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        model.addAttribute("usuario", usuario);
+
         return "produto-detalhe";
     }
 
