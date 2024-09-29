@@ -10,6 +10,6 @@ public class InicialController {
 
     @GetMapping("/")
     public String home() {
-        return "home";
+        return "produtos";
     }
 }

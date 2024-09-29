@@ -22,8 +22,8 @@
         <thead>
         <tr>
             <th scope="col">Imagem</th>
-            <th scope="col">ID</th>
             <th scope="col">Produto</th>
+            <th scope="col">ID</th>
             <th scope="col">Quantidade</th>
             <th scope="col">Preço Unitário</th>
             <th scope="col">Subtotal</th>
@@ -34,13 +34,53 @@
     </table>
 
 
-
-    <div class="d-flex justify-content-between">
-        <h4>Total: <span id="total">R$ 0,00</span></h4>
-        <form th:action="@{/carrinho/checkout}" method="post">
-            <button type="submit" class="btn btn-success">Finalizar Compra</button>
-        </form>
+    <div class="mb-3">
+        <label for="cep">CEP:</label>
+        <div class="input-group">
+            <input type="text" id="cep" class="form-control" placeholder="Digite o CEP">
+            <div class="input-group-append">
+                <button class="btn btn-primary" onclick="buscarFrete()">Buscar CEP</button>
+            </div>
+        </div>
     </div>
+
+    <div id="endereco" class="mb-3"></div>
+
+    <div id="frete-opcoes" class="mb-3" style="display: none;">
+        <label for="opcao-frete">Escolha a opção de frete:</label>
+        <select id="opcao-frete" class="form-control" onchange="atualizarTotal()">
+            <option value="0">Selecione uma opção</option>
+            <option value="10">Frete Normal - R$ 10,00</option>
+            <option value="17">Frete Expresso - R$ 17,00</option>
+        </select>
+    </div>
+
+
+
+
+    <div class="card p-3 mb-3">
+        <h4 class="text-center">Resumo do Pedido</h4>
+        <hr>
+        <div class="row mb-2">
+            <div class="col text-left">Total (sem frete):</div>
+            <div class="col text-right"><strong id="total">R$ 0,00</strong></div>
+        </div>
+        <div class="row mb-2">
+            <div class="col text-left">Frete:</div>
+            <div class="col text-right"><strong id="valor-frete">R$ 0,00</strong></div>
+        </div>
+        <hr>
+        <div class="row mb-3">
+            <div class="col text-left">Total Final:</div>
+            <div class="col text-right"><strong id="total-final">R$ 130,00</strong></div>
+        </div>
+        <div class="text-center">
+            <form th:action="@{/carrinho/checkout}" method="post">
+                <button type="submit" class="btn btn-success btn-lg">Finalizar Compra</button>
+            </form>
+        </div>
+    </div>
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

@@ -8,6 +8,8 @@ function carregarCarrinho() {
     if (carrinho.length === 0) {
         carrinhoBody.innerHTML = '<tr><td colspan="5" class="text-center">Carrinho vazio.</td></tr>';
         document.getElementById('total').textContent = 'R$ 0,00';
+        document.getElementById('total-final').textContent = 'R$ 0,00';
+        document.getElementById('valor-frete').textContent = 'R$ 0,00';
         return;
     }
 
@@ -21,7 +23,6 @@ function carregarCarrinho() {
 
         carrinhoBody.innerHTML += `
             <tr id="item-${index + 1}">
-
                 <div class="media">
                     <td>
                         <img src="${item.imagem}" class="mr-3" alt="${item.nome}" style="width: 64px;">
@@ -34,8 +35,6 @@ function carregarCarrinho() {
                         <p>${item.id}</p>
                     </td>
                 </div>
-
-
                 <td>
                     <button type="button" class="btn btn-secondary btn-sm" onclick="alterarQuantidade(${index + 1}, -1)">-</button>
                     <span id="quantidade-${index + 1}">${quantidade}</span>
@@ -46,15 +45,13 @@ function carregarCarrinho() {
                 <td>
                     <button type="button" class="btn btn-danger btn-sm" onclick="removerItem(${index + 1})">Remover</button>
                 </td>
-
             </tr>
         `;
-
     });
 
     document.getElementById('total').textContent = total.toFixed(2).replace('.', ',') + ' R$';
+    atualizarTotal();
 }
-
 
 function adicionarProduto(produto) {
     const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
@@ -63,7 +60,6 @@ function adicionarProduto(produto) {
     if (produtoExistente) {
         produtoExistente.quantidade++;
     } else {
-
         carrinho.push({
             id: produto.id,
             nome: produto.nome,
@@ -80,7 +76,7 @@ function adicionarProduto(produto) {
 function alterarQuantidade(produtoId, delta) {
     const quantidadeElement = document.getElementById(`quantidade-${produtoId}`);
     let quantidade = parseInt(quantidadeElement.textContent) + delta;
-    if (quantidade < 1) quantidade = 1; // Garante que a quantidade não fique abaixo de 1
+    if (quantidade < 1) quantidade = 1;
     quantidadeElement.textContent = quantidade;
 
     const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
@@ -96,6 +92,51 @@ function removerItem(produtoId) {
     localStorage.setItem('carrinho', JSON.stringify(carrinho));
 
     carregarCarrinho();
+}
+
+function buscarFrete() {
+    const cep = document.getElementById('cep').value;
+
+    if (cep.length === 8) {
+        fetch(`https://viacep.com.br/ws/${cep}/json/`)
+            .then(response => response.json())
+            .then(data => {
+                if (!data.erro) {
+                    document.getElementById('endereco').innerHTML = `
+                        <strong>Endereço:</strong> ${data.logradouro}, ${data.bairro}, ${data.localidade} - ${data.uf}
+                    `;
+                    document.getElementById('frete-opcoes').style.display = 'block';
+                } else {
+                    alert('CEP inválido. Tente novamente.');
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao buscar o CEP:', error);
+                alert('Ocorreu um erro ao buscar o CEP. Tente novamente.');
+            });
+    } else {
+        alert('Por favor, insira um CEP válido com 8 dígitos.');
+    }
+}
+
+
+
+function atualizarTotal() {
+    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+    let total = 0;
+
+    carrinho.forEach(item => {
+        total += item.preco * item.quantidade;
+    });
+
+    const frete = parseFloat(document.getElementById('opcao-frete').value);
+    const valorFrete = frete ? frete.toFixed(2).replace('.', ',') + ' R$' : 'R$ 0,00';
+
+    document.getElementById('total').textContent = total.toFixed(2).replace('.', ',') + ' R$';
+    document.getElementById('valor-frete').textContent = valorFrete;
+
+    const totalFinal = total + (frete || 0);
+    document.getElementById('total-final').textContent = totalFinal.toFixed(2).replace('.', ',') + ' R$';
 }
 
 window.onload = carregarCarrinho;
