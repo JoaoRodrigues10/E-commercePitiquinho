@@ -6,7 +6,7 @@ function carregarCarrinho() {
     carrinhoBody.innerHTML = '';
 
     if (carrinho.length === 0) {
-        carrinhoBody.innerHTML = '<tr><td colspan="5" class="text-center">Carrinho vazio.</td></tr>';
+        carrinhoBody.innerHTML = '<tr><td colspan="6" class="text-center">Carrinho vazio.</td></tr>';
         document.getElementById('total').textContent = 'R$ 0,00';
         document.getElementById('total-final').textContent = 'R$ 0,00';
         document.getElementById('valor-frete').textContent = 'R$ 0,00';
@@ -23,18 +23,15 @@ function carregarCarrinho() {
 
         carrinhoBody.innerHTML += `
             <tr id="item-${index + 1}">
-                <div class="media">
-                    <td>
-                        <img src="${item.imagem}" class="mr-3" alt="${item.nome}" style="width: 64px;">
-                    </td>
-
-                    <td>
-                        <h5 class="mt-0">${item.nome}</h5>
-                    </td>
-                    <td>
-                        <p>${item.id}</p>
-                    </td>
-                </div>
+                <td>
+                    <img src="${item.imagem}" class="mr-3" alt="${item.nome}" style="width: 64px;">
+                </td>
+                <td>
+                    <h5 class="mt-0">${item.nome}</h5>
+                </td>
+                <td>
+                    <p>${item.id}</p>
+                </td>
                 <td>
                     <button type="button" class="btn btn-secondary btn-sm" onclick="alterarQuantidade(${index + 1}, -1)">-</button>
                     <span id="quantidade-${index + 1}">${quantidade}</span>
@@ -119,8 +116,6 @@ function buscarFrete() {
     }
 }
 
-
-
 function atualizarTotal() {
     const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
     let total = 0;
@@ -129,23 +124,23 @@ function atualizarTotal() {
         total += item.preco * item.quantidade;
     });
 
-    const frete = parseFloat(document.getElementById('opcao-frete').value);
+    const frete = parseFloat(document.getElementById('opcao-frete').value) || 0;
     const valorFrete = frete ? frete.toFixed(2).replace('.', ',') + ' R$' : 'R$ 0,00';
 
-    document.getElementById('total').textContent = total.toFixed(2).replace('.', ',') + ' R$';
     document.getElementById('valor-frete').textContent = valorFrete;
 
-    const totalFinal = total + (frete || 0);
+    const totalFinal = total + frete;
     document.getElementById('total-final').textContent = totalFinal.toFixed(2).replace('.', ',') + ' R$';
+    document.getElementById('total').textContent = total.toFixed(2).replace('.', ',') + ' R$';
 }
 
 function validarCheckout() {
     const opcaoFrete = document.getElementById('opcao-frete').value;
 
-        if (opcaoFrete === '0') {
-            alert('Por favor, selecione uma opção de frete.');
-            return false;
-        }
+    if (opcaoFrete === '0') {
+        alert('Por favor, selecione uma opção de frete.');
+        return false;
+    }
 
     const usuarioLogado = /*[[${usuario}]]*/ null; // Aqui pegamos o usuário da model
 
@@ -157,6 +152,5 @@ function validarCheckout() {
 
     return true;
 }
-
 
 window.onload = carregarCarrinho;
