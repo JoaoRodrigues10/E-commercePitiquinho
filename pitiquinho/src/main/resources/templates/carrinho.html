@@ -13,6 +13,22 @@
 <body>
 
 <div class="container mt-5">
+
+    <header class="text-center mb-4">
+        <div class="d-flex justify-content-between align-items-center">
+
+            <div th:if="${usuario == null}" class="d-flex align-items-center">
+                <a href="/login" class="btn btn-outline-primary me-2">Faça Login/Crie seu Login</a>
+            </div>
+            <div th:if="${usuario != null}" class="d-flex align-items-center">
+                <span class="me-3" th:text="'Bem-vindo, ' + ${usuario.nome}"></span>
+                <a href="/logout" class="btn btn-danger">Logout</a>
+            </div>
+
+        </div>
+
+    </header>
+
     <div class="d-flex justify-content-between mb-3">
         <a href="/" class="btn btn-secondary">Voltar</a>
         <h2>Carrinho de Compras</h2>
@@ -71,14 +87,25 @@
             <div class="col text-left">Total Final:</div>
             <div class="col text-right"><strong id="total-final">R$ 130,00</strong></div>
         </div>
+
         <div class="text-center">
-            <form id="checkout-form" onsubmit="return validarCheckout()" th:action="@{/carrinho/checkout}" method="post">
+            <form id="checkout-form" th:if="${usuario != null}" th:action="@{/carrinho/checkout}" method="post" onsubmit="return verificarFrete()">
                 <button type="submit" class="btn btn-success btn-lg">Finalizar Compra</button>
             </form>
+
+            <div th:if="${usuario == null}" class="alert alert-warning" role="alert">
+                Você precisa estar logado para finalizar a compra.
+                <a href="/login?redirect=carrinho" class="alert-link">Clique aqui para fazer login</a>.
+            </div>
         </div>
+
+
+
     </div>
 
 </div>
+
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

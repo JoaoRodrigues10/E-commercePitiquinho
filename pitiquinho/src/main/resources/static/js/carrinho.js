@@ -134,23 +134,14 @@ function atualizarTotal() {
     document.getElementById('total').textContent = total.toFixed(2).replace('.', ',') + ' R$';
 }
 
-function validarCheckout() {
+function verificarFrete() {
     const opcaoFrete = document.getElementById('opcao-frete').value;
-
-    if (opcaoFrete === '0') {
-        alert('Por favor, selecione uma opção de frete.');
+    if (opcaoFrete === "0") {
+        alert("Por favor, escolha uma opção de frete antes de finalizar a compra.");
         return false;
     }
-
-    const usuarioLogado = /*[[${usuario}]]*/ null; // Aqui pegamos o usuário da model
-
-    if (!usuarioLogado) {
-        alert('Você precisa estar logado para finalizar a compra. Redirecionando para a página de login.');
-        window.location.href = '/login';
-        return false;
-    }
-
-    return true;
+    return true; 
 }
+
 
 window.onload = carregarCarrinho;

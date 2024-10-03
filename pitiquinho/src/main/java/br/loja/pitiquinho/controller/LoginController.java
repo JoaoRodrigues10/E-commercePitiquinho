@@ -17,12 +17,15 @@ import jakarta.servlet.http.HttpSession;
 public class LoginController {
 
     @Autowired
-    private UsuarioService usuarioService; 
-    
+    private UsuarioService usuarioService;
+
     @GetMapping("/login")
-    public String LoginPage(Model model) {
+    public String loginPage(@RequestParam(value = "redirect", required = false) String redirect, Model model) {
+        model.addAttribute("redirect", redirect);
         return "login";
     }
+
+
 
     @PostMapping("/logout")
     public String logoutGet(HttpSession session) {
@@ -31,25 +34,33 @@ public class LoginController {
     }
 
 
-
-
     @PostMapping("/login")
-    public String login(@RequestParam String email, @RequestParam String password, HttpSession session) {
+    public String login(@RequestParam String email,
+                        @RequestParam String password,
+                        @RequestParam(value = "redirect", required = false) String redirect,
+                        HttpSession session) {
         Usuario usuario = usuarioService.buscarLogin(email, password);
 
         if (usuario != null) {
             String token = JwtUtil.generateToken(usuario);
-
-            System.out.println(usuario.getNome());
-
             session.setAttribute("usuario", usuario);
             session.setAttribute("token", token);
 
-            return "redirect:/backoffice";
+
+            if (redirect != null && !redirect.isEmpty()) {
+                return "redirect:/" + redirect;
+            }
+
+            if (usuario.getGrupo().equals("Usuario")) {
+                return "redirect:/";
+            } else {
+                return "redirect:/backoffice";
+            }
+
         } else {
             return "redirect:/login?error";
         }
     }
-    
+
 
 }

@@ -9,8 +9,10 @@
 </head>
 <body>
 <div class="login-container">
-    <h3>Login BackOffice</h3>
+    <h3>Login</h3>
     <form th:action="@{/login}" method="post">
+        <input type="hidden" name="redirect" th:value="${redirect}" />
+
         <div class="input-container">
             <label for="email">E-mail:</label>
             <input type="text" id="email" name="email" required>
