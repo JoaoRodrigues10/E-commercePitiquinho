@@ -32,6 +32,6 @@ public class CarrinhoController {
         RestTemplate restTemplate = new RestTemplate();
         String url = "https://viacep.com.br/ws/" + cep + "/json/";
         String response = restTemplate.getForObject(url, String.class);
-        return response; // Retorna o JSON do endereço
+        return response;
     }
 }

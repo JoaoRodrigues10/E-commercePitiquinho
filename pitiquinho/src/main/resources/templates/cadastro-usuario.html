@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <script src="/js/carrinho.js"></script>
 </head>
 <body>
 <div class="container mt-5" style="max-width: 600px;">
@@ -66,9 +67,24 @@
         </div>
 
         <h4>Endereço de Entrega</h4>
-        <div class="form-group">
-            <label for="cepFaturamento">CEP</label>
-            <input type="text" class="form-control" id="cepFaturamento" name="cepFaturamento" th:field="*{cepFaturamento}" required>
+
+
+
+
+        <div class="mb-3">
+            <label for="cepFaturamento">CEP:</label>
+            <div class="input-group">
+                <input type="text" id="cepFaturamento" class="form-control"  name="cepFaturamento" placeholder="Digite o CEP" maxlength="9" oninput="mascaraCEP(this)" th:field="*{cepFaturamento}" required>
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-primary" onclick="buscarFrete()">Buscar CEP</button>
+                </div>
+
+
+                <div th:if="${#fields.hasErrors('cepFaturamento')}" class="alert alert-danger">
+                    <p th:text="${#fields.errors('cepFaturamento')}"></p>
+                </div>
+
+            </div>
         </div>
 
         <div class="form-group">
@@ -117,6 +133,37 @@
         }
         return true;
     }
+
+    function buscarFrete() {
+                const cep = document.getElementById("cepFaturamento").value.replace(/\D/g, ''); // Remove caracteres não numéricos
+
+                if (cep.length === 8) {
+                    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (!data.erro) {
+                                document.getElementById("logradouroFaturamento").value = data.logradouro;
+                                document.getElementById("bairroFaturamento").value = data.bairro;
+                                document.getElementById("cidadeFaturamento").value = data.localidade;
+                                document.getElementById("ufFaturamento").value = data.uf;
+                            } else {
+                                alert("CEP não encontrado.");
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Erro ao buscar o CEP:', error);
+                            alert("Erro ao buscar o CEP.");
+                        });
+                } else {
+                    alert("CEP inválido. O CEP deve conter 8 dígitos.");
+                }
+            }
+
+            function mascaraCEP(cep) {
+                // Função para aplicar a máscara no CEP
+                cep.value = cep.value.replace(/^(\d{5})(\d)/, "$1-$2");
+            }
+
 </script>
 </body>
 </html>
