@@ -1,7 +1,7 @@
 package br.loja.pitiquinho.model;
 
 import java.util.Collection;
-import java.util.Collections;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,18 +13,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.util.Collection;
-import java.util.List;
 @Entity
-@Table(name = "tb_usuarios")  
+@Table(name = "tb_usuarios")
 public class Usuario implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pk_id")  
+    @Column(name = "pk_id")
     private Long id;
 
     @Column(name = "ds_nome", nullable = false, length = 100)
@@ -45,11 +41,40 @@ public class Usuario implements UserDetails {
     @Column(name = "ds_grupo", nullable = false, length = 20)
     private String grupo;
 
+    @Column(name = "dt_nascimento", nullable = false)
+    private String dataNascimento;
+
+    @Column(name = "ds_genero", nullable = false, length = 20)
+    private String genero;
+
+    @Column(name = "ds_cep_faturamento", nullable = false, length = 9)
+    private String cepFaturamento;
+
+    @Column(name = "ds_logradouro_faturamento", nullable = false, length = 150)
+    private String logradouroFaturamento;
+
+    @Column(name = "ds_numero_faturamento", nullable = false, length = 10)
+    private String numeroFaturamento;
+
+    @Column(name = "ds_complemento_faturamento", length = 50)
+    private String complementoFaturamento;
+
+    @Column(name = "ds_bairro_faturamento", nullable = false, length = 100)
+    private String bairroFaturamento;
+
+    @Column(name = "ds_cidade_faturamento", nullable = false, length = 100)
+    private String cidadeFaturamento;
+
+    @Column(name = "ds_uf_faturamento", nullable = false, length = 10)
+    private String ufFaturamento;
+
+    // Novo campo para telefone
+    @Column(name = "ds_telefone", nullable = false, length = 15) // Ajuste o comprimento conforme necessário
+    private String telefone;
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(grupo));
     }
-
 
     @Override
     public String getPassword() {
@@ -135,5 +160,87 @@ public class Usuario implements UserDetails {
 
     public void setGrupo(String grupo) {
         this.grupo = grupo;
+    }
+
+
+    public String getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(String dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public String getCepFaturamento() {
+        return cepFaturamento;
+    }
+
+    public void setCepFaturamento(String cepFaturamento) {
+        this.cepFaturamento = cepFaturamento;
+    }
+
+    public String getLogradouroFaturamento() {
+        return logradouroFaturamento;
+    }
+
+    public void setLogradouroFaturamento(String logradouroFaturamento) {
+        this.logradouroFaturamento = logradouroFaturamento;
+    }
+
+    public String getNumeroFaturamento() {
+        return numeroFaturamento;
+    }
+
+    public void setNumeroFaturamento(String numeroFaturamento) {
+        this.numeroFaturamento = numeroFaturamento;
+    }
+
+    public String getComplementoFaturamento() {
+        return complementoFaturamento;
+    }
+
+    public void setComplementoFaturamento(String complementoFaturamento) {
+        this.complementoFaturamento = complementoFaturamento;
+    }
+
+    public String getBairroFaturamento() {
+        return bairroFaturamento;
+    }
+
+    public void setBairroFaturamento(String bairroFaturamento) {
+        this.bairroFaturamento = bairroFaturamento;
+    }
+
+    public String getCidadeFaturamento() {
+        return cidadeFaturamento;
+    }
+
+    public void setCidadeFaturamento(String cidadeFaturamento) {
+        this.cidadeFaturamento = cidadeFaturamento;
+    }
+
+    public String getUfFaturamento() {
+        return ufFaturamento;
+    }
+
+    public void setUfFaturamento(String ufFaturamento) {
+        this.ufFaturamento = ufFaturamento;
+    }
+
+    // Getters e Setters para o campo telefone
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 }

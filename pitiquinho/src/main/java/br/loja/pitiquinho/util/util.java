@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class util {
 
-    public boolean validarCPF(String cpf2) {
+    public static boolean validarCPF(String cpf2) {
         String cpf = cpf2.replaceAll("\\D", "");
 
 

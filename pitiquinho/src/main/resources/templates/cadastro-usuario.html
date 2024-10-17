@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Usuário e Endereço</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+</head>
+<body>
+<div class="container mt-5" style="max-width: 600px;">
+    <h2>Dados do Usuário e Endereço de Entrega</h2>
+    <form th:action="@{/usuario/cadastro}" method="post" id="usuarioEnderecoForm" th:object="${usuario}" onsubmit="return validateForm()">
+        <h4>Dados do Usuário</h4>
+        <div class="form-group">
+            <label for="nome">Nome</label>
+            <input type="text" class="form-control" id="nome" name="nome" th:field="*{nome}" required>
+        </div>
+
+        <div th:if="${#fields.hasErrors('email')}" class="alert alert-danger">
+            <p th:text="${#fields.errors('email')}"></p>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" th:field="*{email}" required>
+        </div>
+        <div class="form-group">
+            <label for="telefone">Telefone</label>
+            <input type="text" class="form-control" id="telefone" name="telefone" th:field="*{telefone}" required>
+        </div>
+
+
+        <div class="form-group">
+            <label for="cpf">CPF</label>
+            <input type="text" class="form-control" id="cpf" name="cpf" th:field="*{cpf}" required>
+        </div>
+        <div th:if="${#fields.hasErrors('cpf')}" class="alert alert-danger">
+            <p th:text="${#fields.errors('cpf')}"></p>
+        </div>
+
+        <div class="form-group">
+            <label for="DataNascimento">Data de Nascimento</label>
+            <input type="date" class="form-control" id="DataNascimento" name="DataNascimento" th:field="*{DataNascimento}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="genero">Gênero</label>
+            <select class="form-control" id="genero" name="genero" th:field="*{genero}" required>
+                <option value="" disabled selected>Selecione o gênero</option>
+                <option value="M">Masculino</option>
+                <option value="F">Feminino</option>
+                <option value="O">Outro</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="senha">Senha</label>
+            <input type="password" class="form-control" id="senha" name="senha" th:field="*{senha}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="confirmarSenha">Confirmar Senha</label>
+            <input type="password" class="form-control" id="confirmarSenha" name="confirmarSenha" required>
+        </div>
+
+        <h4>Endereço de Entrega</h4>
+        <div class="form-group">
+            <label for="cepFaturamento">CEP</label>
+            <input type="text" class="form-control" id="cepFaturamento" name="cepFaturamento" th:field="*{cepFaturamento}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="logradouroFaturamento">Logradouro</label>
+            <input type="text" class="form-control" id="logradouroFaturamento" name="logradouroFaturamento" th:field="*{logradouroFaturamento}" required>
+        </div>
+        <div class="form-group">
+            <label for="numeroFaturamento">Número</label>
+            <input type="text" class="form-control" id="numeroFaturamento" name="numeroFaturamento" th:field="*{numeroFaturamento}" required>
+        </div>
+        <div class="form-group">
+            <label for="complementoFaturamento">Complemento</label>
+            <input type="text" class="form-control" id="complementoFaturamento" name="complementoFaturamento">
+        </div>
+        <div class="form-group">
+            <label for="bairroFaturamento">Bairro</label>
+            <input type="text" class="form-control" id="bairroFaturamento" name="bairroFaturamento" th:field="*{bairroFaturamento}" required>
+        </div>
+        <div class="form-group">
+            <label for="cidadeFaturamento">Cidade</label>
+            <input type="text" class="form-control" id="cidadeFaturamento" name="cidadeFaturamento" th:field="*{cidadeFaturamento}" required>
+        </div>
+        <div class="form-group">
+            <label for="ufFaturamento">UF</label>
+            <input type="text" class="form-control" id="ufFaturamento" name="uf" th:field="*{ufFaturamento}" required>
+        </div>
+        <button type="submit" class="btn btn-success">Salvar Dados</button>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $('#telefone').mask('(00) 00000-0000'); // Máscara para telefone
+        $('#cpf').mask('000.000.000-00'); // Máscara para CPF
+        $('#cepFaturamento').mask('00000-000'); // Máscara para CEP
+    });
+
+
+
+    function validateForm() {
+        const senha = $("#senha").val();
+        const confirmarSenha = $("#confirmarSenha").val();
+        if (senha !== confirmarSenha) {
+            alert("As senhas não correspondem. Por favor, tente novamente.");
+            return false;
+        }
+        return true;
+    }
+</script>
+</body>
+</html>

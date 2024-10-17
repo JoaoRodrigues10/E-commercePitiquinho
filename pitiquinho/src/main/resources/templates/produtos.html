@@ -21,18 +21,25 @@
             <div th:if="${usuario == null}" class="d-flex align-items-center">
                 <a href="/login" class="btn btn-outline-primary me-2">Faça Login/Crie seu Login</a>
             </div>
+
             <div th:if="${usuario != null}" class="d-flex align-items-center">
-                <span class="me-3" th:text="'Bem-vindo, ' + ${usuario.nome}"></span>
+                <span class="me-3" th:text="${usuario.nome}"></span>
+                <a th:href="@{/cliente/editar}" class="btn btn-warning me-2">Perfil</a>
                 <a href="/logout" class="btn btn-danger">Logout</a>
             </div>
 
+
             <a href="/carrinho" class="btn btn-outline-primary position-relative">
                 Carrinho <i class="fas fa-shopping-cart"></i>
-                <span id="quantidadeCarrinho" class="badge bg-danger position-absolute top-0 start-100 translate-middle">0</span>
+                <span id="quantidadeCarrinho" class="badge bg-danger position-absolute top-0 start-100 translate-middle"
+                      th:text="${quantidadeCarrinho}">0</span>
             </a>
         </div>
-
     </header>
+
+
+
+
 
     <h2 class="text-center mb-4">Nossos Produtos</h2>
 

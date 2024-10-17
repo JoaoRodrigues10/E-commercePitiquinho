@@ -9,7 +9,7 @@ body {
 }
 
 .login-container {
-    background-color: #ffffff; 
+    background-color: #ffffff;
     padding: 30px;
     border-radius: 20px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
@@ -19,20 +19,20 @@ body {
 }
 
 .login-container img {
-    width: 400px; 
+    width: 100%;
     height: auto;
     display: block;
+    margin-bottom: 20px;
 }
 
-
 .input-container {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     position: relative;
 }
 
 .input-container input {
     width: 100%;
-    padding: 10px 15px;
+    padding: 12px 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
@@ -40,26 +40,29 @@ body {
 }
 
 .button-container {
+    display: flex;
     justify-content: space-between;
+    gap: 10px; /* Ajusta o espaçamento entre os botões */
+    margin-top: 20px;
 }
 
 .button-container button {
-    width: 48%;
-    padding: 10px;
+    width: 100%; /* Faz com que os botões tenham o mesmo tamanho */
+    padding: 12px;
     border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
     box-sizing: border-box;
+    transition: background-color 0.3s ease; /* Animação suave ao mudar a cor */
 }
 
 .button-container button[type="submit"] {
     background-color: #d38b56;
     color: white;
-    margin-right: 14px;
 }
 
-.button-container button{
+.button-container button.cancel {
     background-color: #ececec;
     color: #333;
 }
@@ -70,4 +73,24 @@ body {
 
 .button-container button[type="submit"]:hover {
     background-color: #bf7243;
+}
+
+/* Ajuste de responsividade para telas menores */
+@media (max-width: 600px) {
+    .login-container {
+        padding: 20px;
+    }
+
+    .input-container input {
+        padding: 10px;
+    }
+
+    .button-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .button-container button {
+        width: 100%;
+    }
 }

@@ -102,6 +102,13 @@ public class UsuarioService {
             throw new RuntimeException("Credenciais inválidas");
         }
     }
-    
+
+    public boolean existsByEmail(String email) {
+        return usuarioRepository.existsByEmail(email);
+    }
+
+    public boolean existsByCpf(String cpf) {
+        return usuarioRepository.existsByCpf(cpf);
+    }
 }
 
