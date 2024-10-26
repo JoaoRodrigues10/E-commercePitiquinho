@@ -4,7 +4,88 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="74d92b44-478a-4e11-9445-348ba61f04fc" name="Changes" comment="" />
+    <list default="true" id="74d92b44-478a-4e11-9445-348ba61f04fc" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/pitiquinho/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/PitiquinhoApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/config/AppConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/config/DataLoader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/config/JwtUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/config/ProdutoDataLoader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/config/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/config/WebConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/controller/AdicionarProdutoController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/controller/AdicionarUsuarioController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/controller/AlterarProdutoController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/controller/AlterarUsuarioController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/controller/BackOfficeController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/controller/CarrinhoController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/controller/CriarContaController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/controller/HomeController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/controller/InicialController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/controller/ListarProdutosController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/controller/ListarUsuariosController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/controller/LoginController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/controller/ProdutoController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/controller/UsuarioClienteController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/controller/UsuarioController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/model/Endereco.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/model/Produto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/model/Usuario.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/repository/ProdutoRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/repository/UsuarioRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/service/ProdutoService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/service/UsuarioDetailsService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/service/UsuarioService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/java/br/loja/pitiquinho/util/util.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/public/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/static/css/Backoffice.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/static/css/Cadastro.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/static/css/adm-login.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/static/css/criar-conta.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/static/css/lista-produto-adm.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/static/css/lista-telas.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/static/css/lista-usuario-adm.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/static/css/lista.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/static/css/produto-detalhe.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/static/css/produtos.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/static/images/Group 1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/static/images/Logout.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/static/images/SetaVoltar.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/static/images/imagem.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/static/images/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/static/js/carrinho.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/static/js/lista-usuario.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/static/js/listar-produto.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/static/js/produto-detalhe.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/static/js/produtos.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/templates/adicionar-produto.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/templates/adicionar-usuario.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/templates/backoffice.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/templates/cadastro-usuario.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/templates/carrinho.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/templates/criar-conta.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/templates/editar-cliente.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/templates/home.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/templates/lista-produto.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/templates/lista-usuario.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/templates/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/templates/produto-detalhe.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/resources/templates/produtos.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/webapp/WEB-INF/views/adicionar-produto-adm.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/webapp/WEB-INF/views/adicionar-usuario-adm.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/webapp/WEB-INF/views/home-adm.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/webapp/WEB-INF/views/home.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/webapp/WEB-INF/views/lista-produto-adm.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/webapp/WEB-INF/views/lista-usuario-adm.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/webapp/WEB-INF/views/login-adm.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/main/webapp/WEB-INF/web.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pitiquinho/src/test/java/br/loja/pitiquinho/PitiquinhoApplicationTests.java" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,18 +94,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "JoaoRodrigues10"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;JoaoRodrigues10&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/JoaoRodrigues10/E-commercePitiquinho.git",
-    "accountId": "66c8ece1-0929-47ae-9761-4f24680acc60"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/JoaoRodrigues10/E-commercePitiquinho.git&quot;,
+    &quot;accountId&quot;: &quot;66c8ece1-0929-47ae-9761-4f24680acc60&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 2
@@ -37,15 +118,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/rafae_llizu7w/Documents/git/E-commercePitiquinho/pitiquinho&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/João Pedro/IdeaProjects/E-commercePitiquinho"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

@@ -71,21 +71,21 @@
 
 
 
-        <div class="mb-3">
-            <label for="cepFaturamento">CEP:</label>
-            <div class="input-group">
-                <input type="text" id="cepFaturamento" class="form-control"  name="cepFaturamento" placeholder="Digite o CEP" maxlength="9" oninput="mascaraCEP(this)" th:field="*{cepFaturamento}" required>
-                <div class="input-group-append">
-                    <button type="button" class="btn btn-primary" onclick="buscarFrete()">Buscar CEP</button>
+            <div class="mb-3">
+                <label for="cepFaturamento">CEP:</label>
+                <div class="input-group">
+                    <input type="text" id="cepFaturamento" class="form-control"  name="cepFaturamento" placeholder="Digite o CEP" maxlength="9" oninput="mascaraCEP(this)" th:field="*{cepFaturamento}" required>
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-primary" onclick="buscarFrete()">Buscar CEP</button>
+                    </div>
+
+
+                    <div th:if="${#fields.hasErrors('cepFaturamento')}" class="alert alert-danger">
+                        <p th:text="${#fields.errors('cepFaturamento')}"></p>
+                    </div>
+
                 </div>
-
-
-                <div th:if="${#fields.hasErrors('cepFaturamento')}" class="alert alert-danger">
-                    <p th:text="${#fields.errors('cepFaturamento')}"></p>
-                </div>
-
             </div>
-        </div>
 
         <div class="form-group">
             <label for="logradouroFaturamento">Logradouro</label>
@@ -124,14 +124,50 @@
 
 
 
-    function validateForm() {
+    function validateForm(event) {
         const senha = $("#senha").val();
         const confirmarSenha = $("#confirmarSenha").val();
+        const cep = $("#cepFaturamento").val().replace(/\D/g, ''); // Remove caracteres não numéricos
+
+
+        const nomeValido = nome.split(' ').length >= 2 && nome.split(' ').every(p => p.length >= 3);
+            if (!nomeValido) {
+                alert("O nome deve ter pelo menos duas palavras, com no mínimo 3 letras em cada uma.");
+                event.preventDefault(); // Impede o envio do formulário
+                return false;
+        }
+
         if (senha !== confirmarSenha) {
             alert("As senhas não correspondem. Por favor, tente novamente.");
+            event.preventDefault(); // Impede o envio do formulário
             return false;
         }
-        return true;
+
+        if (cep.length !== 8) {
+            alert("CEP inválido. O CEP deve conter 8 dígitos.");
+            event.preventDefault(); // Impede o envio do formulário
+            return false;
+        }
+
+        // Validação do CEP
+        fetch(`https://viacep.com.br/ws/${cep}/json/`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.erro) {
+                    alert("CEP não encontrado. Por favor, verifique o CEP.");
+                    event.preventDefault(); // Impede o envio do formulário
+                } else {
+                    // Se o CEP for válido, permite o envio do formulário
+                    document.getElementById("usuarioEnderecoForm").submit();
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao buscar o CEP:', error);
+                alert("Erro ao validar o CEP.");
+                event.preventDefault(); // Impede o envio do formulário
+            });
+
+        return false; // Evita o envio imediato
     }
 
     function buscarFrete() {

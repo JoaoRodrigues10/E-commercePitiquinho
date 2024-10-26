@@ -1,6 +1,7 @@
 package br.loja.pitiquinho.controller;
 
 import br.loja.pitiquinho.model.Usuario;
+import br.loja.pitiquinho.repository.UsuarioRepository;
 import br.loja.pitiquinho.service.UsuarioService;
 import br.loja.pitiquinho.util.util;
 import jakarta.validation.Valid;
@@ -10,12 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 @Controller
@@ -26,7 +22,20 @@ public class UsuarioClienteController {
     private UsuarioService usuarioService;
 
     @Autowired
+    private UsuarioRepository usuarioRepository;
+
+
+    @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    private boolean isNomeValido(String nome) {
+        String[] partes = nome.split(" ");
+        if (partes.length < 2) return false; // Verifica se há pelo menos 2 palavras
+        for (String parte : partes) {
+            if (parte.length() < 3) return false; // Verifica se cada palavra tem pelo menos 3 letras
+        }
+        return true;
+    }
 
 
     @RequestMapping("/buscar-endereco")
@@ -91,6 +100,73 @@ public class UsuarioClienteController {
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
         usuarioService.criarUsuario(usuario);
         return "redirect:/login";
+    }
+
+    @GetMapping("/editar/{id}")
+    public String mostrarFormularioEdicao(@PathVariable Long id, Model model) {
+        Usuario usuario = usuarioService.buscarUsuarioPorId(id).orElse(null);
+        if (usuario == null) {
+            return "redirect:/"; // Redireciona se o usuário não for encontrado
+        }
+        model.addAttribute("usuario", usuario);
+        return "editar-usuario";
+    }
+
+    // Método para atualizar o usuário
+    @PostMapping("/editar/{id}")
+    public String alterarUsuario(@PathVariable Long id, @Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "editar-usuario";  // Retorna se houver erros de validação
+        }
+
+        Usuario usuarioExistente = usuarioService.buscarUsuarioPorId(id).orElse(null);
+        if (usuarioExistente == null) {
+            return "redirect:/usuario/listar";
+        }
+
+
+
+
+            String nome = usuario.getNome();
+            if (nome == null || nome.isEmpty() || !isNomeValido(nome)) {
+                result.rejectValue("nome", "error.usuario", "O nome deve ter pelo menos duas palavras, com no mínimo 3 letras em cada uma.");
+                return "editar-usuario";
+            }
+
+// Método auxiliar para validar o nome
+
+
+
+        String cep = usuario.getCepFaturamento();
+        if (cep == null || cep.isEmpty()) {
+            result.rejectValue("cepFaturamento", "error.usuario", "CEP não pode ser nulo ou vazio.");
+            return "editar-usuario";
+        }
+
+        cep = cep.replace("-", "");
+        ResponseEntity<String> response = buscarEndereco(cep);
+
+        if (!response.getStatusCode().is2xxSuccessful() || response.getBody() == null) {
+            result.rejectValue("cepFaturamento", "error.usuario", "CEP inválido. Por favor, verifique o CEP.");
+            return "editar-usuario";
+        }
+
+
+        usuarioExistente.setNome(usuario.getNome());
+        usuarioExistente.setCepFaturamento(usuario.getCepFaturamento());
+
+        usuarioExistente.setLogradouroFaturamento(usuario.getLogradouroFaturamento());
+        usuarioExistente.setNumeroFaturamento(usuario.getNumeroFaturamento());
+        usuarioExistente.setComplementoFaturamento(usuario.getComplementoFaturamento());
+        usuarioExistente.setBairroFaturamento(usuario.getBairroFaturamento());
+        usuarioExistente.setCidadeFaturamento(usuario.getCidadeFaturamento());
+
+        if (usuario.getSenha() != null && !usuario.getSenha().isEmpty()) {
+            usuarioExistente.setSenha(passwordEncoder.encode(usuario.getSenha()));
+        }
+
+        usuarioService.atualizarUsuario(usuarioExistente.getId(), usuarioExistente);
+        return "redirect:/"; // Redireciona após a atualização
     }
 
 }

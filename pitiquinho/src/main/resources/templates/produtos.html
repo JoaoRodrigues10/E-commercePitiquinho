@@ -24,9 +24,10 @@
 
             <div th:if="${usuario != null}" class="d-flex align-items-center">
                 <span class="me-3" th:text="${usuario.nome}"></span>
-                <a th:href="@{/cliente/editar}" class="btn btn-warning me-2">Perfil</a>
+                <a th:href="@{/usuario/editar/{id}(id=${usuario.id})}" class="btn btn-warning me-2">Perfil</a>
                 <a href="/logout" class="btn btn-danger">Logout</a>
             </div>
+
 
 
             <a href="/carrinho" class="btn btn-outline-primary position-relative">

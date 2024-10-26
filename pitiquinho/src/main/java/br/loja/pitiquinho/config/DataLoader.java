@@ -35,8 +35,7 @@ public class DataLoader implements CommandLineRunner {
                     "Apto 101",
                     "Centro",
                     "São Paulo",
-                    "SP",
-                    "11987654321" // Telefone
+                    "SP"
             );
         }
 
@@ -56,8 +55,7 @@ public class DataLoader implements CommandLineRunner {
                     null,
                     "Bairro Exemplo",
                     "Rio de Janeiro",
-                    "RJ",
-                    "21987654321" // Telefone
+                    "RJ"
             );
         }
     }
@@ -66,7 +64,7 @@ public class DataLoader implements CommandLineRunner {
             String nome, String cpf, String email, String senha, String grupo, boolean status,
             String dataNascimento, String genero, String cepFaturamento, String logradouroFaturamento,
             String numeroFaturamento, String complementoFaturamento, String bairroFaturamento,
-            String cidadeFaturamento, String ufFaturamento, String telefone) { // Adicionando telefone
+            String cidadeFaturamento, String ufFaturamento) { // Adicionando telefone
 
         Usuario usuario = new Usuario();
         usuario.setNome(nome);
@@ -84,7 +82,6 @@ public class DataLoader implements CommandLineRunner {
         usuario.setBairroFaturamento(bairroFaturamento);
         usuario.setCidadeFaturamento(cidadeFaturamento);
         usuario.setUfFaturamento(ufFaturamento);
-        usuario.setTelefone(telefone); // Definindo telefone
 
         return usuarioRepository.save(usuario);
     }

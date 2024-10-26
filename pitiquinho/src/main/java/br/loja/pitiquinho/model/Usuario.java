@@ -1,18 +1,13 @@
 package br.loja.pitiquinho.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_usuarios")
@@ -68,13 +63,14 @@ public class Usuario implements UserDetails {
     @Column(name = "ds_uf_faturamento", nullable = false, length = 10)
     private String ufFaturamento;
 
-    // Novo campo para telefone
-    @Column(name = "ds_telefone", nullable = false, length = 15) // Ajuste o comprimento conforme necessário
-    private String telefone;
+
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(grupo));
     }
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<EnderecoEntrega> enderecosEntrega = new ArrayList<>();
 
     @Override
     public String getPassword() {
@@ -235,12 +231,13 @@ public class Usuario implements UserDetails {
         this.ufFaturamento = ufFaturamento;
     }
 
-    // Getters e Setters para o campo telefone
-    public String getTelefone() {
-        return telefone;
+
+
+    public List<EnderecoEntrega> getEnderecosEntrega() {
+        return enderecosEntrega;
     }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setEnderecosEntrega(List<EnderecoEntrega> enderecosEntrega) {
+        this.enderecosEntrega = enderecosEntrega;
     }
 }
