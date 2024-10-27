@@ -1,7 +1,9 @@
 package br.loja.pitiquinho.controller;
 
+import br.loja.pitiquinho.model.EnderecoEntrega;
 import br.loja.pitiquinho.model.Usuario;
 import br.loja.pitiquinho.repository.UsuarioRepository;
+import br.loja.pitiquinho.service.EnderecoEntregaService;
 import br.loja.pitiquinho.service.UsuarioService;
 import br.loja.pitiquinho.util.util;
 import jakarta.validation.Valid;
@@ -14,6 +16,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/usuario")
 public class UsuarioClienteController {
@@ -23,6 +27,9 @@ public class UsuarioClienteController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private EnderecoEntregaService enderecoEntregaService;
 
 
     @Autowired
@@ -109,20 +116,29 @@ public class UsuarioClienteController {
             return "redirect:/"; // Redireciona se o usuário não for encontrado
         }
         model.addAttribute("usuario", usuario);
+
+        List<EnderecoEntrega> enderecos = enderecoEntregaService.buscarEnderecosPorUsuarioId(usuario.getId());
+        model.addAttribute("enderecos", enderecos);
+
+
+
         return "editar-usuario";
     }
 
-    // Método para atualizar o usuário
+
     @PostMapping("/editar/{id}")
     public String alterarUsuario(@PathVariable Long id, @Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "editar-usuario";  // Retorna se houver erros de validação
         }
 
+
         Usuario usuarioExistente = usuarioService.buscarUsuarioPorId(id).orElse(null);
         if (usuarioExistente == null) {
             return "redirect:/usuario/listar";
         }
+
+        EnderecoEntrega novoEndereco = new EnderecoEntrega();
 
 
 
@@ -133,7 +149,7 @@ public class UsuarioClienteController {
                 return "editar-usuario";
             }
 
-// Método auxiliar para validar o nome
+
 
 
 
@@ -153,20 +169,38 @@ public class UsuarioClienteController {
 
 
         usuarioExistente.setNome(usuario.getNome());
-        usuarioExistente.setCepFaturamento(usuario.getCepFaturamento());
 
-        usuarioExistente.setLogradouroFaturamento(usuario.getLogradouroFaturamento());
-        usuarioExistente.setNumeroFaturamento(usuario.getNumeroFaturamento());
-        usuarioExistente.setComplementoFaturamento(usuario.getComplementoFaturamento());
-        usuarioExistente.setBairroFaturamento(usuario.getBairroFaturamento());
-        usuarioExistente.setCidadeFaturamento(usuario.getCidadeFaturamento());
+
+        novoEndereco.setCep(usuario.getCepFaturamento());
+        novoEndereco.setLogradouro(usuario.getLogradouroFaturamento());
+        novoEndereco.setNumero(usuario.getNumeroFaturamento());
+        novoEndereco.setComplemento(usuario.getComplementoFaturamento());
+        novoEndereco.setBairro(usuario.getBairroFaturamento());
+        novoEndereco.setCidade(usuario.getCidadeFaturamento());
+        novoEndereco.setUf(usuario.getUfFaturamento());
+        novoEndereco.setUsuario(usuarioExistente);
 
         if (usuario.getSenha() != null && !usuario.getSenha().isEmpty()) {
             usuarioExistente.setSenha(passwordEncoder.encode(usuario.getSenha()));
         }
-
+        enderecoEntregaService.salvarEndereco(novoEndereco);
         usuarioService.atualizarUsuario(usuarioExistente.getId(), usuarioExistente);
         return "redirect:/"; // Redireciona após a atualização
+    }
+
+
+
+    @GetMapping("/enderecos")
+    public String listarEnderecos(Model model) {
+        List<EnderecoEntrega> enderecos = enderecoEntregaService.buscarEnderecosPorUsuarioId(6L);
+        model.addAttribute("enderecos", enderecos);
+        return "enderecos";
+    }
+
+    @GetMapping("/excluir-endereco/{id}")
+    public String excluirEndereco(@PathVariable Long id) {
+        enderecoEntregaService.excluirEndereco(id);
+        return "redirect:/";
     }
 
 }
