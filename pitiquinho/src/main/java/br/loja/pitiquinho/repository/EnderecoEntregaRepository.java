@@ -7,6 +7,5 @@ import java.util.List;
 
 @Repository
 public interface EnderecoEntregaRepository extends JpaRepository<EnderecoEntrega, Long> {
-    // Método para buscar endereços pelo ID do usuário
     List<EnderecoEntrega> findByUsuarioId(Long usuarioId);
 }

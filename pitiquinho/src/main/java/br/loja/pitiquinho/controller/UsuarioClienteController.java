@@ -185,7 +185,7 @@ public class UsuarioClienteController {
         }
         enderecoEntregaService.salvarEndereco(novoEndereco);
         usuarioService.atualizarUsuario(usuarioExistente.getId(), usuarioExistente);
-        return "redirect:/"; // Redireciona após a atualização
+        return "redirect:/";
     }
 
 
