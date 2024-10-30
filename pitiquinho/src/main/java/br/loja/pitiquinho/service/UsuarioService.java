@@ -3,6 +3,7 @@ package br.loja.pitiquinho.service;
 import java.util.List;
 import java.util.Optional;
 
+import br.loja.pitiquinho.model.EnderecoEntrega;
 import br.loja.pitiquinho.model.Produto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -111,6 +112,7 @@ public class UsuarioService {
     public boolean existsByCpf(String cpf) {
         return usuarioRepository.existsByCpf(cpf);
     }
+
 
 
 }
