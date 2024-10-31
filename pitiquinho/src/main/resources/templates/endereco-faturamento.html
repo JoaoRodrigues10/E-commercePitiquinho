@@ -30,7 +30,7 @@
     </header>
 
     <h2>Endereço</h2>
-    <form th:action="@{/endereco/cadastro-endereco}" method="post" id="enderecoForm" th:object="${endereco}" onsubmit="return validateEnderecoForm()">
+    <form th:action="@{/endereco/cadastro-endereco-faturamento}" method="post" id="enderecoForm" th:object="${endereco}" onsubmit="return validateEnderecoForm()">
 
         <div class="form-group">
             <label for="cep">CEP</label>
@@ -69,7 +69,7 @@
 
         <div class="form-group">
             <label for="uf">UF</label>
-            <input type="text" class="form-control" id="uf" name="uf" th:field="*{uf}"  required>
+            <input type="text" class="form-control" id="uf" name="uf" th:field="*{uf}" required>
         </div>
 
         <input type="hidden" th:name="usuarioId" th:value="${usuario.id}"/>
@@ -77,50 +77,14 @@
         <div class="form-group">
             <label for="tipoEndereco">Tipo de Endereço</label>
             <select class="form-control" id="tipoEndereco" name="tipoEndereco">
-                <option value="Entrega" th:selected="${!temEnderecoFaturamento}">Entrega</option>
-                <option value="Faturamento" th:if="${!temEnderecoFaturamento}">Faturamento</option>
+                <option value="Faturamento">Faturamento</option>
             </select>
         </div>
-
-
 
         <button type="submit" class="btn btn-success">Salvar Endereço</button>
     </form>
 
-    <h3 class="mt-5">Meus Endereços</h3>
-    <table class="table table-striped mt-3">
-        <thead>
-        <tr>
-            <th>Tipo de Endereço</th>
-            <th>CEP</th>
-            <th>Logradouro</th>
-            <th>Número</th>
-            <th>Bairro</th>
-            <th>Cidade</th>
-            <th>UF</th>
-            <th>Ações</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="endereco : ${enderecos}">
-            <td th:text="${endereco.tipoEndereco}"></td>
-            <td th:text="${endereco.cep}"></td>
-            <td th:text="${endereco.logradouro}"></td>
-            <td th:text="${endereco.numero}"></td>
-            <td th:text="${endereco.bairro}"></td>
-            <td th:text="${endereco.cidade}"></td>
-            <td th:text="${endereco.uf}"></td>
-            <td>
-
-                <a th:href="@{/endereco/excluir/{id}(id=${endereco.id})}"
-                   th:if="${endereco.tipoEndereco != 'Faturamento'}"
-                   class="btn btn-danger btn-sm">Apagar</a>
-
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
+    </tbody>
 </div>
 
 <script>
@@ -160,7 +124,7 @@
             alert("CEP inválido. O CEP deve conter 8 dígitos.");
             return false;
         }
-        return true;
+        return true; // O formulário é válido
     }
 </script>
 </body>
