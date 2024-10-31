@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Usuário e Endereço</title>
+    <title>Formulário de Usuário</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
@@ -11,45 +11,46 @@
 </head>
 <body>
 <div class="container mt-5" style="max-width: 600px;">
-    <h2>Dados do Usuário e Endereço de Entrega</h2>
+
     <form th:action="@{/usuario/cadastro}" method="post" id="usuarioEnderecoForm" th:object="${usuario}" onsubmit="return validateForm()">
         <h4>Dados do Usuário</h4>
+
         <div class="form-group">
             <label for="nome">Nome</label>
             <input type="text" class="form-control" id="nome" name="nome" th:field="*{nome}" required>
-        </div>
-
-        <div th:if="${#fields.hasErrors('email')}" class="alert alert-danger">
-            <p th:text="${#fields.errors('email')}"></p>
+            <div th:if="${#fields.hasErrors('nome')}" class="alert alert-danger">
+                <p th:text="${#fields.errors('nome')}"></p>
+            </div>
         </div>
 
         <div class="form-group">
             <label for="email">Email</label>
             <input type="email" class="form-control" id="email" name="email" th:field="*{email}" required>
+            <div th:if="${#fields.hasErrors('email')}" class="alert alert-danger">
+                <p th:text="${#fields.errors('email')}"></p>
+            </div>
         </div>
-
-
 
         <div class="form-group">
             <label for="cpf">CPF</label>
             <input type="text" class="form-control" id="cpf" name="cpf" th:field="*{cpf}" required>
-        </div>
-        <div th:if="${#fields.hasErrors('cpf')}" class="alert alert-danger">
-            <p th:text="${#fields.errors('cpf')}"></p>
+            <div th:if="${#fields.hasErrors('cpf')}" class="alert alert-danger">
+                <p th:text="${#fields.errors('cpf')}"></p>
+            </div>
         </div>
 
         <div class="form-group">
-            <label for="DataNascimento">Data de Nascimento</label>
-            <input type="date" class="form-control" id="DataNascimento" name="DataNascimento" th:field="*{DataNascimento}" required>
+            <label for="dataNascimento">Data de Nascimento</label>
+            <input type="date" class="form-control" id="dataNascimento" name="dataNascimento" th:field="*{dataNascimento}" required>
         </div>
 
         <div class="form-group">
             <label for="genero">Gênero</label>
             <select class="form-control" id="genero" name="genero" th:field="*{genero}" required>
                 <option value="" disabled selected>Selecione o gênero</option>
-                <option value="M">Masculino</option>
-                <option value="F">Feminino</option>
-                <option value="O">Outro</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Feminino">Feminino</option>
+                <option value="Outro">Outro</option>
             </select>
         </div>
 
@@ -63,139 +64,10 @@
             <input type="password" class="form-control" id="confirmarSenha" name="confirmarSenha" required>
         </div>
 
-        <h4>Endereço de Entrega</h4>
-
-
-
-
-            <div class="mb-3">
-                <label for="cepFaturamento">CEP:</label>
-                <div class="input-group">
-                    <input type="text" id="cepFaturamento" class="form-control"  name="cepFaturamento" placeholder="Digite o CEP" maxlength="9" oninput="mascaraCEP(this)" th:field="*{cepFaturamento}" required>
-                    <div class="input-group-append">
-                        <button type="button" class="btn btn-primary" onclick="buscarFrete()">Buscar CEP</button>
-                    </div>
-
-
-                    <div th:if="${#fields.hasErrors('cepFaturamento')}" class="alert alert-danger">
-                        <p th:text="${#fields.errors('cepFaturamento')}"></p>
-                    </div>
-
-                </div>
-            </div>
-
-        <div class="form-group">
-            <label for="logradouroFaturamento">Logradouro</label>
-            <input type="text" class="form-control" id="logradouroFaturamento" name="logradouroFaturamento" th:field="*{logradouroFaturamento}" required>
-        </div>
-        <div class="form-group">
-            <label for="numeroFaturamento">Número</label>
-            <input type="text" class="form-control" id="numeroFaturamento" name="numeroFaturamento" th:field="*{numeroFaturamento}" required>
-        </div>
-        <div class="form-group">
-            <label for="complementoFaturamento">Complemento</label>
-            <input type="text" class="form-control" id="complementoFaturamento" name="complementoFaturamento">
-        </div>
-        <div class="form-group">
-            <label for="bairroFaturamento">Bairro</label>
-            <input type="text" class="form-control" id="bairroFaturamento" name="bairroFaturamento" th:field="*{bairroFaturamento}" required>
-        </div>
-        <div class="form-group">
-            <label for="cidadeFaturamento">Cidade</label>
-            <input type="text" class="form-control" id="cidadeFaturamento" name="cidadeFaturamento" th:field="*{cidadeFaturamento}" required>
-        </div>
-        <div class="form-group">
-            <label for="ufFaturamento">UF</label>
-            <input type="text" class="form-control" id="ufFaturamento" name="uf" th:field="*{ufFaturamento}" required>
-        </div>
-        <button type="submit" class="btn btn-success">Salvar Dados</button>
+        <button type="submit" class="btn btn-success">Cadastrar Usuário</button>
     </form>
 </div>
 
-<script>
-    $(document).ready(function(){
-        $('#cpf').mask('000.000.000-00'); // Máscara para CPF
-        $('#cepFaturamento').mask('00000-000'); // Máscara para CEP
-    });
-
-
-
-    function validateForm(event) {
-        const senha = $("#senha").val();
-        const confirmarSenha = $("#confirmarSenha").val();
-        const cep = $("#cepFaturamento").val().replace(/\D/g, ''); // Remove caracteres não numéricos
-
-
-        const nomeValido = nome.split(' ').length >= 2 && nome.split(' ').every(p => p.length >= 3);
-            if (!nomeValido) {
-                alert("O nome deve ter pelo menos duas palavras, com no mínimo 3 letras em cada uma.");
-                event.preventDefault(); // Impede o envio do formulário
-                return false;
-        }
-
-        if (senha !== confirmarSenha) {
-            alert("As senhas não correspondem. Por favor, tente novamente.");
-            event.preventDefault(); // Impede o envio do formulário
-            return false;
-        }
-
-        if (cep.length !== 8) {
-            alert("CEP inválido. O CEP deve conter 8 dígitos.");
-            event.preventDefault(); // Impede o envio do formulário
-            return false;
-        }
-
-        // Validação do CEP
-        fetch(`https://viacep.com.br/ws/${cep}/json/`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.erro) {
-                    alert("CEP não encontrado. Por favor, verifique o CEP.");
-                    event.preventDefault(); // Impede o envio do formulário
-                } else {
-                    // Se o CEP for válido, permite o envio do formulário
-                    document.getElementById("usuarioEnderecoForm").submit();
-                }
-            })
-            .catch(error => {
-                console.error('Erro ao buscar o CEP:', error);
-                alert("Erro ao validar o CEP.");
-                event.preventDefault(); // Impede o envio do formulário
-            });
-
-        return false; // Evita o envio imediato
-    }
-
-    function buscarFrete() {
-                const cep = document.getElementById("cepFaturamento").value.replace(/\D/g, ''); // Remove caracteres não numéricos
-
-                if (cep.length === 8) {
-                    fetch(`https://viacep.com.br/ws/${cep}/json/`)
-                        .then(response => response.json())
-                        .then(data => {
-                            if (!data.erro) {
-                                document.getElementById("logradouroFaturamento").value = data.logradouro;
-                                document.getElementById("bairroFaturamento").value = data.bairro;
-                                document.getElementById("cidadeFaturamento").value = data.localidade;
-                                document.getElementById("ufFaturamento").value = data.uf;
-                            } else {
-                                alert("CEP não encontrado.");
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Erro ao buscar o CEP:', error);
-                            alert("Erro ao buscar o CEP.");
-                        });
-                } else {
-                    alert("CEP inválido. O CEP deve conter 8 dígitos.");
-                }
-            }
-
-            function mascaraCEP(cep) {
-                // Função para aplicar a máscara no CEP
-                cep.value = cep.value.replace(/^(\d{5})(\d)/, "$1-$2");
-            }
-
-</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

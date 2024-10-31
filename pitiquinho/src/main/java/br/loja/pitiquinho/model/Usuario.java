@@ -42,35 +42,13 @@ public class Usuario implements UserDetails {
     @Column(name = "ds_genero", nullable = false, length = 20)
     private String genero;
 
-    @Column(name = "ds_cep_faturamento", nullable = false, length = 9)
-    private String cepFaturamento;
-
-    @Column(name = "ds_logradouro_faturamento", nullable = false, length = 150)
-    private String logradouroFaturamento;
-
-    @Column(name = "ds_numero_faturamento", nullable = false, length = 10)
-    private String numeroFaturamento;
-
-    @Column(name = "ds_complemento_faturamento", length = 50)
-    private String complementoFaturamento;
-
-    @Column(name = "ds_bairro_faturamento", nullable = false, length = 100)
-    private String bairroFaturamento;
-
-    @Column(name = "ds_cidade_faturamento", nullable = false, length = 100)
-    private String cidadeFaturamento;
-
-    @Column(name = "ds_uf_faturamento", nullable = false, length = 10)
-    private String ufFaturamento;
-
-
-
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(grupo));
     }
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<EnderecoEntrega> enderecosEntrega = new ArrayList<>();
+    private List<Endereco> enderecosEntrega = new ArrayList<>();
+
 
     @Override
     public String getPassword() {
@@ -175,69 +153,12 @@ public class Usuario implements UserDetails {
         this.genero = genero;
     }
 
-    public String getCepFaturamento() {
-        return cepFaturamento;
-    }
 
-    public void setCepFaturamento(String cepFaturamento) {
-        this.cepFaturamento = cepFaturamento;
-    }
-
-    public String getLogradouroFaturamento() {
-        return logradouroFaturamento;
-    }
-
-    public void setLogradouroFaturamento(String logradouroFaturamento) {
-        this.logradouroFaturamento = logradouroFaturamento;
-    }
-
-    public String getNumeroFaturamento() {
-        return numeroFaturamento;
-    }
-
-    public void setNumeroFaturamento(String numeroFaturamento) {
-        this.numeroFaturamento = numeroFaturamento;
-    }
-
-    public String getComplementoFaturamento() {
-        return complementoFaturamento;
-    }
-
-    public void setComplementoFaturamento(String complementoFaturamento) {
-        this.complementoFaturamento = complementoFaturamento;
-    }
-
-    public String getBairroFaturamento() {
-        return bairroFaturamento;
-    }
-
-    public void setBairroFaturamento(String bairroFaturamento) {
-        this.bairroFaturamento = bairroFaturamento;
-    }
-
-    public String getCidadeFaturamento() {
-        return cidadeFaturamento;
-    }
-
-    public void setCidadeFaturamento(String cidadeFaturamento) {
-        this.cidadeFaturamento = cidadeFaturamento;
-    }
-
-    public String getUfFaturamento() {
-        return ufFaturamento;
-    }
-
-    public void setUfFaturamento(String ufFaturamento) {
-        this.ufFaturamento = ufFaturamento;
-    }
-
-
-
-    public List<EnderecoEntrega> getEnderecosEntrega() {
+    public List<Endereco> getEnderecosEntrega() {
         return enderecosEntrega;
     }
 
-    public void setEnderecosEntrega(List<EnderecoEntrega> enderecosEntrega) {
+    public void setEnderecosEntrega(List<Endereco> enderecosEntrega) {
         this.enderecosEntrega = enderecosEntrega;
     }
 }

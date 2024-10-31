@@ -51,7 +51,7 @@ public class LoginController {
                 return "redirect:/" + redirect;
             }
 
-            if (usuario.getGrupo().equals("Usuario")) {
+            if (usuario.getGrupo().equals("Cliente")) {
                 return "redirect:/";
             } else {
                 return "redirect:/backoffice";

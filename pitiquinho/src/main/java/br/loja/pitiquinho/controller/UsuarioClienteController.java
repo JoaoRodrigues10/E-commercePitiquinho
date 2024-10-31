@@ -1,11 +1,12 @@
 package br.loja.pitiquinho.controller;
 
-import br.loja.pitiquinho.model.EnderecoEntrega;
+import br.loja.pitiquinho.model.Endereco;
 import br.loja.pitiquinho.model.Usuario;
-import br.loja.pitiquinho.repository.UsuarioRepository;
-import br.loja.pitiquinho.service.EnderecoEntregaService;
+import br.loja.pitiquinho.service.EnderecoService;
 import br.loja.pitiquinho.service.UsuarioService;
 import br.loja.pitiquinho.util.util;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/usuario")
@@ -26,24 +31,10 @@ public class UsuarioClienteController {
     private UsuarioService usuarioService;
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
-
-    @Autowired
-    private EnderecoEntregaService enderecoEntregaService;
-
+    private EnderecoService enderecoService;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
-
-    private boolean isNomeValido(String nome) {
-        String[] partes = nome.split(" ");
-        if (partes.length < 2) return false; // Verifica se há pelo menos 2 palavras
-        for (String parte : partes) {
-            if (parte.length() < 3) return false; // Verifica se cada palavra tem pelo menos 3 letras
-        }
-        return true;
-    }
-
 
     @RequestMapping("/buscar-endereco")
     @ResponseBody
@@ -51,10 +42,8 @@ public class UsuarioClienteController {
         try {
             RestTemplate restTemplate = new RestTemplate();
             String url = "https://viacep.com.br/ws/" + cep + "/json/";
-            String response = restTemplate.getForObject(url, String.class);
-            return ResponseEntity.ok(response);
+            return ResponseEntity.ok(restTemplate.getForObject(url, String.class));
         } catch (Exception e) {
-            // Retorna um erro caso a consulta falhe
             return ResponseEntity.status(500).body("{\"error\": \"Erro ao buscar endereço.\"}");
         }
     }
@@ -65,142 +54,175 @@ public class UsuarioClienteController {
         return "cadastro-usuario";
     }
 
+
     @PostMapping("/cadastro")
-    public String cadastrarUsuario(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "cadastro-usuario";  // Retorne imediatamente se houver erros de validação
-        }
+    public String cadastrarUsuario(@Valid @ModelAttribute("usuario") Usuario usuario,
+                                   BindingResult result, Model model,HttpSession session) {
 
-        usuario.setGrupo("Usuario");
 
-        if (usuarioService.existsByEmail(usuario.getEmail())) {
-            result.rejectValue("email", "error.usuario", "Email já cadastrado");
-            return "cadastro-usuario";
-        }
-
-        if (usuarioService.existsByCpf(usuario.getCpf())) {
-            result.rejectValue("cpf", "error.usuario", "CPF inválido");  // Usando rejectValue
-            return "cadastro-usuario";
-        }
-
-        if (!util.validarCPF(usuario.getCpf())) {
-            result.rejectValue("cpf", "error.usuario", "CPF inválido");  // Usando rejectValue
-            return "cadastro-usuario";
-        }
-
-        // Verifique se o cepFaturamento é nulo antes de usar
-        String cep = usuario.getCepFaturamento();
-        if (cep == null || cep.isEmpty()) {  // Verifica se é nulo ou vazio
-            result.rejectValue("cepFaturamento", "error.usuario", "CEP não pode ser nulo ou vazio.");
-            return "cadastro-usuario";
-        }
-
-        cep = cep.replace("-", "");
-
-        ResponseEntity<String> response = buscarEndereco(cep);
-
-        if (!response.getStatusCode().is2xxSuccessful() || response.getBody() == null) {
-            result.rejectValue("cepFaturamento", "error.usuario", "CEP inválido. Por favor, verifique o CEP.");  // Usando rejectValue
+        if (result.hasErrors() || !validarCadastro(usuario, result)) {
             return "cadastro-usuario";
         }
 
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+        usuario.setGrupo("Cliente");
         usuarioService.criarUsuario(usuario);
-        return "redirect:/login";
+
+        model.addAttribute("usuario",  usuario);
+        session.setAttribute("usuario", usuario);
+
+        return "redirect:/usuario/endereco?usuarioId=" + usuario.getId();
+
     }
 
-    @GetMapping("/editar/{id}")
-    public String mostrarFormularioEdicao(@PathVariable Long id, Model model) {
-        Usuario usuario = usuarioService.buscarUsuarioPorId(id).orElse(null);
-        if (usuario == null) {
-            return "redirect:/"; // Redireciona se o usuário não for encontrado
-        }
+
+    @GetMapping("/endereco")
+    public String mostrarCadastroEndereco(@RequestParam("usuarioId") Long usuarioId, Model model,HttpSession session) {
+        Usuario usuario = usuarioService.findById(usuarioId);
+        List<Endereco> enderecos = enderecoService.buscarEnderecosPorUsuarioId(usuarioId);
         model.addAttribute("usuario", usuario);
-
-        List<EnderecoEntrega> enderecos = enderecoEntregaService.buscarEnderecosPorUsuarioId(usuario.getId());
         model.addAttribute("enderecos", enderecos);
+        model.addAttribute("endereco", new Endereco());
+
+        return "endereco";
+    }
+
+    @PostMapping("/cadastro-endereco")
+    public String cadastrarEndereco(@Valid @ModelAttribute("endereco") Endereco endereco,
+        BindingResult result, HttpSession session, Model model) {
+
+        Usuario usuarioLogado = (Usuario) session.getAttribute("usuario");
+
+
+        if (usuarioLogado == null || usuarioLogado.getGrupo() == null || usuarioLogado.getGrupo().isEmpty()) {
+            return "redirect:/login";
+        }
+
+
+        endereco.setUsuarioId(usuarioLogado.getId());
+
+        if (result.hasErrors()) {
+            return "redirect:/usuario/endereco?usuarioId=" + usuarioLogado.getId();
+        }
+
+        enderecoService.salvarEndereco(endereco);
+
+        //return "redirect:/usuario/editar/" + usuarioLogado.getId();
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/enderecos/{usuarioId}")
+    public String listarEnderecos(@PathVariable Long usuarioId, Model model, HttpSession session) {
+        Usuario usuario = usuarioService.findById(usuarioId);
+        Usuario usuarioLogado = (Usuario) session.getAttribute("usuario");
+
+        if (usuarioLogado == null || usuarioLogado.getGrupo() == null || usuarioLogado.getGrupo().isEmpty()) {
+            return "redirect:/login";
+        }
+
+        List<Endereco> enderecos = enderecoService.buscarEnderecosPorUsuarioId(usuarioLogado.getId());
+
+
+        boolean temEnderecoFaturamento = enderecos.stream()
+                .anyMatch(endereco -> "Faturamento".equals(endereco.getTipoEndereco()));
+
+        model.addAttribute("usuario", usuario);
+        model.addAttribute("enderecos", enderecos);
+        model.addAttribute("endereco", new Endereco());
+        model.addAttribute("temEnderecoFaturamento", temEnderecoFaturamento);
+
+        return "endereco";
+    }
 
 
 
+    @GetMapping("/excluir-endereco/{id}")
+    public String excluirEndereco(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        Endereco endereco = enderecoService.findById(id);
+
+        if ("Faturamento".equalsIgnoreCase(endereco.getTipoEndereco())) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Não é permitido apagar o endereço de faturamento.");
+            return "redirect:/enderecos"; // redireciona para a página de endereços
+        }
+
+        enderecoService.excluirEndereco(id);
+        redirectAttributes.addFlashAttribute("successMessage", "Endereço excluído com sucesso.");
+        return "redirect:/enderecos"; // redireciona para a página de endereços
+    }
+
+
+
+
+
+    @GetMapping("/editar/{id}")
+    public String mostrarFormularioEdicao( Model model,HttpSession session) {
+
+        Usuario usuarioLogado = (Usuario) session.getAttribute("usuario");
+
+        model.addAttribute("usuario", usuarioLogado);
+        session.setAttribute("usuario", usuarioLogado);
+
+        if (usuarioLogado == null || usuarioLogado.getGrupo() == null || usuarioLogado.getGrupo().isEmpty()) {
+            return "redirect:/login";
+        }
+
+        System.out.println(usuarioLogado.getId());
         return "editar-usuario";
     }
 
 
     @PostMapping("/editar/{id}")
-    public String alterarUsuario(@PathVariable Long id, @Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result, Model model) {
+    public String editarUsuario(@PathVariable Long id, @Valid @ModelAttribute("usuario") Usuario usuario,
+        BindingResult result, Model model, HttpSession session) {
+
         if (result.hasErrors()) {
-            return "editar-usuario";  // Retorna se houver erros de validação
-        }
-
-
-        Usuario usuarioExistente = usuarioService.buscarUsuarioPorId(id).orElse(null);
-        if (usuarioExistente == null) {
-            return "redirect:/usuario/listar";
-        }
-
-        EnderecoEntrega novoEndereco = new EnderecoEntrega();
-
-
-
-
-            String nome = usuario.getNome();
-            if (nome == null || nome.isEmpty() || !isNomeValido(nome)) {
-                result.rejectValue("nome", "error.usuario", "O nome deve ter pelo menos duas palavras, com no mínimo 3 letras em cada uma.");
-                return "editar-usuario";
-            }
-
-
-
-
-
-        String cep = usuario.getCepFaturamento();
-        if (cep == null || cep.isEmpty()) {
-            result.rejectValue("cepFaturamento", "error.usuario", "CEP não pode ser nulo ou vazio.");
             return "editar-usuario";
         }
 
-        cep = cep.replace("-", "");
-        ResponseEntity<String> response = buscarEndereco(cep);
+        Usuario usuarioLogado = (Usuario) session.getAttribute("usuario");
 
-        if (!response.getStatusCode().is2xxSuccessful() || response.getBody() == null) {
-            result.rejectValue("cepFaturamento", "error.usuario", "CEP inválido. Por favor, verifique o CEP.");
-            return "editar-usuario";
+        if (usuarioLogado == null || usuarioLogado.getGrupo() == null || usuarioLogado.getGrupo().isEmpty()) {
+            return "redirect:/login";
         }
 
-
-        usuarioExistente.setNome(usuario.getNome());
-
-
-        novoEndereco.setCep(usuario.getCepFaturamento());
-        novoEndereco.setLogradouro(usuario.getLogradouroFaturamento());
-        novoEndereco.setNumero(usuario.getNumeroFaturamento());
-        novoEndereco.setComplemento(usuario.getComplementoFaturamento());
-        novoEndereco.setBairro(usuario.getBairroFaturamento());
-        novoEndereco.setCidade(usuario.getCidadeFaturamento());
-        novoEndereco.setUf(usuario.getUfFaturamento());
-        novoEndereco.setUsuario(usuarioExistente);
-
-        if (usuario.getSenha() != null && !usuario.getSenha().isEmpty()) {
-            usuarioExistente.setSenha(passwordEncoder.encode(usuario.getSenha()));
+        if (!usuario.getSenha().isEmpty()) {
+            usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+        } else {
+            usuario.setSenha(usuarioLogado.getSenha());
         }
-        enderecoEntregaService.salvarEndereco(novoEndereco);
-        usuarioService.atualizarUsuario(usuarioExistente.getId(), usuarioExistente);
-        return "redirect:/";
+
+        usuario.setId(id);
+        usuario.setGrupo(usuarioLogado.getGrupo());
+        usuarioService.atualizarUsuario(usuario);
+
+        model.addAttribute("usuario", usuario);
+        session.setAttribute("usuario", usuario);
+
+        return "redirect:/usuario/detalhes/" + usuario.getId();
     }
 
 
-
-    @GetMapping("/enderecos")
-    public String listarEnderecos(Model model) {
-        List<EnderecoEntrega> enderecos = enderecoEntregaService.buscarEnderecosPorUsuarioId(6L);
-        model.addAttribute("enderecos", enderecos);
-        return "enderecos";
+    private boolean validarCadastro(Usuario usuario, BindingResult result) {
+        if (usuarioService.existsByEmail(usuario.getEmail())) {
+            result.rejectValue("email", "error.usuario", "Email já cadastrado");
+            return false;
+        }
+        if (usuarioService.existsByCpf(usuario.getCpf())) {
+            result.rejectValue("cpf", "error.usuario", "CPF já cadastrado");
+            return false;
+        }
+        if (!util.validarCPF(usuario.getCpf())) {
+            result.rejectValue("cpf", "error.usuario", "CPF inválido");
+            return false;
+        }
+        return true;
     }
 
-    @GetMapping("/excluir-endereco/{id}")
-    public String excluirEndereco(@PathVariable Long id) {
-        enderecoEntregaService.excluirEndereco(id);
-        return "redirect:/";
+    private boolean isNomeValido(String nome) {
+        String[] partes = nome.split(" ");
+        return partes.length >= 2 && partes.length > 0 && partes[0].length() >= 3;
     }
 
 }
+

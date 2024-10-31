@@ -2,7 +2,7 @@ package br.loja.pitiquinho.controller;
 
 import br.loja.pitiquinho.model.Pedido;
 import br.loja.pitiquinho.model.Usuario;
-import br.loja.pitiquinho.service.EnderecoEntregaService;
+import br.loja.pitiquinho.service.EnderecoService;
 import br.loja.pitiquinho.service.PedidoService;
 import br.loja.pitiquinho.service.UsuarioService;
 import jakarta.servlet.http.HttpSession;
@@ -11,9 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -28,7 +25,7 @@ public class CheckoutController {
 
 
     @Autowired
-    private EnderecoEntregaService enderecoEntregaService;
+    private EnderecoService enderecoService;
 
     @GetMapping("/checkout")
     public String checkout(HttpSession session, Model model) {
@@ -39,7 +36,7 @@ public class CheckoutController {
             return "redirect:/login";
         }
 
-        model.addAttribute("enderecos", enderecoEntregaService. buscarEnderecosPorUsuarioId(usuarioLogado.getId()));
+        model.addAttribute("enderecos", enderecoService. buscarEnderecosPorUsuarioId(usuarioLogado.getId()));
         model.addAttribute("itens", pedidoService.getItensDoCarrinho());
         return "checkout";
     }
