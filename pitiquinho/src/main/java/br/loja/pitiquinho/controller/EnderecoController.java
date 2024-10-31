@@ -67,7 +67,7 @@ public class EnderecoController {
 
         enderecoService.salvarEndereco(endereco);
 
-        return "redirect:/usuario/editar/" + usuarioLogado.getId();
+        return "redirect:/endereco/editar/" + usuarioLogado.getId();
     }
 
     @GetMapping("/cadastro-faturamento")

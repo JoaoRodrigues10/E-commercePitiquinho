@@ -92,7 +92,7 @@ public class UsuarioClienteController {
         usuario.setGrupo(usuarioLogado.getGrupo());
         usuarioService.atualizarUsuario(usuario);
 
-        // Atualiza a sessão com as informações do usuário
+
         session.setAttribute("usuario", usuario);
         return "redirect:/usuario/editar/" + usuario.getId();
     }
