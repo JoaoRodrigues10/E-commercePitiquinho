@@ -64,14 +64,13 @@ public class UsuarioClienteController {
     public String editarUsuario(@PathVariable Long id, @Valid @ModelAttribute("usuario") Usuario usuario,
                                 BindingResult result, Model model, HttpSession session) {
 
-        // Verifica se houve erros de validação inicial
         if (result.hasErrors()) {
             model.addAttribute("usuario", usuario);
             return "editar-usuario";
         }
 
-        // Valida cadastro do usuário
-        if (!validarCadastro(usuario, result)) {
+
+        if (!validarCadastro2(usuario, result)) {
             model.addAttribute("usuario", usuario);
             return "editar-usuario"; // Retorna à página de edição se houver erros de validação
         }
@@ -82,7 +81,7 @@ public class UsuarioClienteController {
             return "redirect:/login";
         }
 
-        // Se a senha não for preenchida, mantém a senha existente
+
         if (!usuario.getSenha().isEmpty()) {
             usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
         } else {
@@ -103,6 +102,19 @@ public class UsuarioClienteController {
             result.rejectValue("email", "error.usuario", "Email já cadastrado");
             return false;
         }
+        if (usuarioService.existsByCpf(usuario.getCpf())) {
+            result.rejectValue("cpf", "error.usuario", "CPF já cadastrado");
+            return false;
+        }
+        if (!util.validarCPF(usuario.getCpf())) {
+            result.rejectValue("cpf", "error.usuario", "CPF inválido");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validarCadastro2(Usuario usuario, BindingResult result) {
+
         if (usuarioService.existsByCpf(usuario.getCpf())) {
             result.rejectValue("cpf", "error.usuario", "CPF já cadastrado");
             return false;
