@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Confirmação do Pedido</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="mb-4">Confirmação do Pedido</h1>
+    <div class="alert alert-success" role="alert">
+        Pedido realizado com sucesso!
+    </div>
+    <p>Número do pedido: <strong th:text="${pedido.numero}"></strong></p>
+    <p>Valor Total: <strong th:text="${pedido.total}"></strong></p>
+    <a th:href="@{/meus-pedidos}" class="btn btn-primary">Ver Meus Pedidos</a>
+    <a th:href="@{/}" class="btn btn-secondary">Continuar Comprando</a>
+</div>
+</body>
+</html>

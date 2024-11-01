@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Meus Pedidos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="mb-4">Meus Pedidos</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Número do Pedido</th>
+            <th>Data</th>
+            <th>Valor Total</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pedido : ${pedidos}">
+            <td th:text="${pedido.numero}"></td>
+            <td th:text="${pedido.data}"></td>
+            <td th:text="${pedido.total}"></td>
+            <td th:text="${pedido.status}"></td>
+            <td>
+                <a th:href="@{/pedido/{id}(id=${pedido.id})}" class="btn btn-info">Detalhes</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/}" class="btn btn-secondary">Continuar Comprando</a>
+</div>
+</body>
+</html>

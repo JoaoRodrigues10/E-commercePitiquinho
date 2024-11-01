@@ -18,6 +18,12 @@ public class EnderecoService {
         return enderecoRepository.findByUsuarioId(usuarioId);
     }
 
+    public List<Endereco> buscarEnderecosPorUsuarioIdEntrega(Long usuarioId) {
+        return enderecoRepository.findByUsuarioIdAndTipoEndereco(usuarioId, "Entrega");
+    }
+
+
+
     public Endereco salvarEndereco(Endereco endereco) {
         return enderecoRepository.save(endereco);
     }

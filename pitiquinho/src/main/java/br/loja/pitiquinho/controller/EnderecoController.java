@@ -62,7 +62,7 @@ public class EnderecoController {
         endereco.setUsuarioId(usuarioLogado.getId());
 
         if (result.hasErrors()) {
-            return "redirect:/endereco/cadastro?usuarioId=" + usuarioLogado.getId();
+           return "redirect:/endereco/cadastro?usuarioId=" + usuarioLogado.getId();
         }
 
         enderecoService.salvarEndereco(endereco);
@@ -96,9 +96,9 @@ public class EnderecoController {
 
         enderecoService.salvarEndereco(endereco);
 
-        return "redirect:/endereco/editar/" + usuarioLogado.getId();
+        //return "redirect:/endereco/editar/" + usuarioLogado.getId();
+        return "redirect:/carrinho";
     }
-
 
     @GetMapping("/editar/{usuarioId}")
     public String listarEnderecos(@PathVariable Long usuarioId, Model model, HttpSession session) {
