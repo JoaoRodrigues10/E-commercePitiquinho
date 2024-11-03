@@ -1,15 +1,13 @@
 package br.loja.pitiquinho.model;
 
-
-import java.util.List;
-
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "tb_pedido")
+@Table(name = "tb_pedidos")
 public class Pedido {
 
     @Id
@@ -17,28 +15,35 @@ public class Pedido {
     @Column(name = "pk_id")
     private Long id;
 
-    @Column(name = "fk_cliente_id", nullable = false)
-    private Long clienteId;
+    @ManyToOne
+    @JoinColumn(name = "usuario_fk", nullable = false)
+    private Usuario usuario; // Relacionamento com a classe Usuario
 
-    @OneToMany(mappedBy = "pedido")
-    private List<ItemPedido> itens;
-
-    @Column(name = "ds_endereco_entrega", nullable = false)
-    private String enderecoEntrega;
-
-    @Column(name = "ds_forma_pagamento", nullable = false)
-    private String formaPagamento;
+    @ManyToOne
+    @JoinColumn(name = "endereco_fk", nullable = false)
+    private Endereco endereco; // Relacionamento com a classe Endereco
 
     @Column(name = "ds_status", nullable = false)
-    private String status;
+    private String status; // Status do pedido
 
-    @Column(name = "nr_total", nullable = false, precision = 10, scale = 2)
-    private BigDecimal total;
+    @Column(name = "vl_total", nullable = false, precision = 10, scale = 2)
+    private BigDecimal total; // Valor total do pedido
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "dt_criacao", nullable = false)
+    private Date dataCriacao; // Data de criação do pedido
+
+    @Column(name = "ds_forma_pagamento", nullable = false)
+    private String formaPagamento; // Forma de pagamento
+
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL) // Relacionamento com ItemPedido
+    private List<ItemPedido> itens;
 
     public Pedido() {
+        this.dataCriacao = new Date(); // Inicializa a data de criação
     }
 
+    // Getters e Setters
     public Long getId() {
         return id;
     }
@@ -47,36 +52,20 @@ public class Pedido {
         this.id = id;
     }
 
-    public Long getClienteId() {
-        return clienteId;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setClienteId(Long clienteId) {
-        this.clienteId = clienteId;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-    public List<ItemPedido> getItens() {
-        return itens;
+    public Endereco getEndereco() {
+        return endereco;
     }
 
-    public void setItens(List<ItemPedido> itens) {
-        this.itens = itens;
-    }
-
-    public String getEnderecoEntrega() {
-        return enderecoEntrega;
-    }
-
-    public void setEnderecoEntrega(String enderecoEntrega) {
-        this.enderecoEntrega = enderecoEntrega;
-    }
-
-    public String getFormaPagamento() {
-        return formaPagamento;
-    }
-
-    public void setFormaPagamento(String formaPagamento) {
-        this.formaPagamento = formaPagamento;
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
     public String getStatus() {
@@ -93,5 +82,29 @@ public class Pedido {
 
     public void setTotal(BigDecimal total) {
         this.total = total;
+    }
+
+    public Date getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(Date dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
+    public String getFormaPagamento() {
+        return formaPagamento;
+    }
+
+    public void setFormaPagamento(String formaPagamento) {
+        this.formaPagamento = formaPagamento;
+    }
+
+    public List<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItemPedido> itens) {
+        this.itens = itens;
     }
 }

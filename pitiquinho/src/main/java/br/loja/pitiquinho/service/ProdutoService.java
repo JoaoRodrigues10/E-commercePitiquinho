@@ -34,7 +34,6 @@ public class ProdutoService {
     }
 
 
-
     public Optional<Produto> buscarProdutoPorId(Long id) {
         return produtoRepository.findById(id);
     }

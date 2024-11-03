@@ -15,14 +15,15 @@ function carregarCarrinho() {
 
     let total = 0;
 
-    carrinho.forEach((item, index) => {
+    carrinho.forEach((item) => {
         const preco = parseFloat(item.preco);
         const quantidade = item.quantidade;
         const subtotal = preco * quantidade;
         total += subtotal;
 
+        // Adiciona o ID do produto ao elemento <tr> e ao span da quantidade
         carrinhoBody.innerHTML += `
-            <tr id="item-${index + 1}">
+            <tr id="item-${item.id}">
                 <td>
                     <img src="${item.imagem}" class="mr-3" alt="${item.nome}" style="width: 64px;">
                 </td>
@@ -33,14 +34,14 @@ function carregarCarrinho() {
                     <p>${item.id}</p>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-secondary btn-sm" onclick="alterarQuantidade(${index + 1}, -1)">-</button>
-                    <span id="quantidade-${index + 1}">${quantidade}</span>
-                    <button type="button" class="btn btn-secondary btn-sm" onclick="alterarQuantidade(${index + 1}, 1)">+</button>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="alterarQuantidade('${item.id}', -1)">-</button>
+                    <span id="quantidade-${item.id}">${quantidade}</span>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="alterarQuantidade('${item.id}', 1)">+</button>
                 </td>
                 <td>R$ ${preco.toFixed(2).replace('.', ',')}</td>
                 <td>R$ ${subtotal.toFixed(2).replace('.', ',')}</td>
                 <td>
-                    <button type="button" class="btn btn-danger btn-sm" onclick="removerItem(${index + 1})">Remover</button>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="removerItem('${item.id}')">Remover</button>
                 </td>
             </tr>
         `;
@@ -71,17 +72,23 @@ function adicionarProduto(produto) {
 }
 
 function alterarQuantidade(produtoId, delta) {
-    const quantidadeElement = document.getElementById(`quantidade-${produtoId}`);
-    let quantidade = parseInt(quantidadeElement.textContent) + delta;
-    if (quantidade < 1) quantidade = 1;
-    quantidadeElement.textContent = quantidade;
-
     const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-    carrinho[produtoId - 1].quantidade = quantidade;
-    localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    const produto = carrinho.find(item => item.id === produtoId);
 
-    carregarCarrinho();
+    if (produto) {
+        produto.quantidade += delta;
+        if (produto.quantidade < 1) produto.quantidade = 1;
+
+
+        document.getElementById(`quantidade-${produtoId}`).textContent = produto.quantidade;
+
+        localStorage.setItem('carrinho', JSON.stringify(carrinho));
+
+
+        carregarCarrinho();
+    }
 }
+
 
 function removerItem(produtoId) {
     const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
@@ -142,6 +149,42 @@ function verificarFrete() {
     }
     return true; 
 }
+
+
+function coletarItensCarrinho() {
+    let itensCarrinho = [];
+    $('#carrinho-body tr').each(function () {
+
+        let idProduto = $(this).find('td:nth-child(3)').text().trim();
+        let quantidade = parseInt($(this).find(`span[id^="quantidade-"]`).text().trim());
+        itensCarrinho.push({ id: idProduto, quantidade: quantidade });
+    });
+    return itensCarrinho;
+}
+
+function finalizarCompra(event) {
+    event.preventDefault();
+
+    let itensCarrinho = coletarItensCarrinho();
+
+    console.log(itensCarrinho);
+
+    $.ajax({
+        type: "POST",
+        url: "/finalizar/checkout-item",
+        contentType: "application/json",
+        data: JSON.stringify(itensCarrinho),
+        success: function (response) {
+            window.location.href = "/finalizar/checkout";
+        },
+        error: function (xhr, status, error) {
+            alert("Erro ao finalizar a compra: " + error);
+        }
+    });
+}
+
+
+
 
 
 window.onload = carregarCarrinho;

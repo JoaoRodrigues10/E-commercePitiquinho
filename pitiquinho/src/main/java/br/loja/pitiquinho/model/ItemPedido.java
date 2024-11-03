@@ -1,6 +1,5 @@
 package br.loja.pitiquinho.model;
 
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
@@ -15,13 +14,13 @@ public class ItemPedido {
     @Column(name = "pk_id")
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "fk_pedido_id", nullable = false)
+    private Pedido pedido;
 
     @ManyToOne
-    @JoinColumn(name = "pedido_id")
-    private Pedido pedido;
-    
-    @Column(name = "fk_pedido_id", nullable = false)
-    private Long pedidoId;
+    @JoinColumn(name = "fk_produto_id", nullable = false)
+    private Produto produto; // Associação com a entidade Produto
 
     @Column(name = "ds_nome", nullable = false, length = 200)
     @Size(max = 200, message = "O nome do item não pode exceder 200 caracteres")
@@ -34,7 +33,6 @@ public class ItemPedido {
     @Min(value = 1, message = "A quantidade deve ser pelo menos 1")
     private Integer quantidade; // Quantidade do item no pedido
 
-
     public ItemPedido() {
     }
 
@@ -46,12 +44,20 @@ public class ItemPedido {
         this.id = id;
     }
 
-    public Long getPedidoId() {
-        return pedidoId;
+    public Pedido getPedido() {
+        return pedido;
     }
 
-    public void setPedidoId(Long pedidoId) {
-        this.pedidoId = pedidoId;
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
     }
 
     public String getNome() {

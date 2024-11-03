@@ -10,4 +10,5 @@ public interface EnderecoRepository extends JpaRepository<Endereco, Long> {
     List<Endereco> findByUsuarioId(Long usuarioId);
     List<Endereco> findByUsuarioIdAndTipoEndereco(Long usuarioId, String tipoEndereco);
 
+    Endereco findByIdAndUsuarioId(Long id, Long usuarioId);
 }

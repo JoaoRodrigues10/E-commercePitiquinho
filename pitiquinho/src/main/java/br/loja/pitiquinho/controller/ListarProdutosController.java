@@ -70,8 +70,7 @@ public class ListarProdutosController {
             @RequestParam("id") Long id,
             Model model) {
 
-        Produto produto = produtoService.buscarProdutoPorId(id)
-                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+        Produto produto = produtoService.buscarProdutoPorId(id).orElseThrow(() -> new RuntimeException("Produto não encontrado"));
 
         model.addAttribute("produto", produto);
 

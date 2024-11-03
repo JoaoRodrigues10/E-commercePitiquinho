@@ -22,19 +22,26 @@ public class EnderecoService {
         return enderecoRepository.findByUsuarioIdAndTipoEndereco(usuarioId, "Entrega");
     }
 
-
-
     public Endereco salvarEndereco(Endereco endereco) {
         return enderecoRepository.save(endereco);
     }
 
     public void excluirEndereco(Long enderecoId) {
-        enderecoRepository.deleteById(enderecoId);
+        try {
+            enderecoRepository.deleteById(enderecoId);
+        } catch (NoSuchElementException e) {
+            throw new NoSuchElementException("Endereço com ID " + enderecoId + " não encontrado para exclusão.");
+        }
     }
-
 
     public Endereco findById(Long id) {
         return enderecoRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Endereço com ID " + id + " não encontrado."));
     }
+
+    public Endereco buscarEnderecoPorId(Long id) {
+        return enderecoRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Endereço com ID " + id + " não encontrado."));
+    }
+
 }
