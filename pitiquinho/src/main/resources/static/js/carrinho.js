@@ -21,7 +21,6 @@ function carregarCarrinho() {
         const subtotal = preco * quantidade;
         total += subtotal;
 
-        // Adiciona o ID do produto ao elemento <tr> e ao span da quantidade
         carrinhoBody.innerHTML += `
             <tr id="item-${item.id}">
                 <td>

@@ -14,8 +14,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/js/carrinho.js"></script>
 </head>
-
-
 <body>
 
 <div class="container mt-5">
@@ -62,7 +60,7 @@
             <option value="0">Selecione uma opção</option>
             <option value="10">Frete Normal - R$ 10,00</option>
             <option value="17">Frete Expresso - R$ 17,00</option>
-            <option value="25">Frete Super Expresso - R$ 25,00</option> <!-- Nova opção de frete -->
+            <option value="25">Frete Super Expresso - R$ 25,00</option>
         </select>
     </div>
 
@@ -80,7 +78,7 @@
         <hr>
         <div class="row mb-3">
             <div class="col text-left">Total Final:</div>
-            <div class="col text-right"><strong id="total-final">R$ 130,00</strong></div>
+            <div class="col text-right"><strong id="total-final">R$ 00,00</strong></div>
         </div>
 
         <div class="text-center">
@@ -89,15 +87,11 @@
                 <button type="submit" class="btn btn-success btn-lg">Finalizar Compra</button>
             </form>
 
-
-
             <div th:if="${usuario == null}" class="alert alert-warning" role="alert">
                 Você precisa estar logado para finalizar a compra.
                 <a href="/login?redirect=carrinho" class="alert-link">Clique aqui para fazer login</a>.
             </div>
         </div>
-
-
 
 
     </div>

@@ -29,21 +29,23 @@ public class Pedido {
     @Column(name = "vl_total", nullable = false, precision = 10, scale = 2)
     private BigDecimal total; // Valor total do pedido
 
+    @Column(name = "vl_frete", precision = 10, scale = 2) // Novo campo para o valor do frete
+    private BigDecimal valorFrete; // Valor do frete do pedido
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "dt_criacao", nullable = false)
     private Date dataCriacao; // Data de criação do pedido
 
     @Column(name = "ds_forma_pagamento", nullable = false)
-    private String formaPagamento; // Forma de pagamento
+    private String formaPagamento;
 
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL) // Relacionamento com ItemPedido
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ItemPedido> itens;
 
     public Pedido() {
-        this.dataCriacao = new Date(); // Inicializa a data de criação
+        this.dataCriacao = new Date();
     }
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }
@@ -82,6 +84,14 @@ public class Pedido {
 
     public void setTotal(BigDecimal total) {
         this.total = total;
+    }
+
+    public BigDecimal getValorFrete() {
+        return valorFrete; // Novo getter para o valor do frete
+    }
+
+    public void setValorFrete(BigDecimal valorFrete) {
+        this.valorFrete = valorFrete; // Novo setter para o valor do frete
     }
 
     public Date getDataCriacao() {
