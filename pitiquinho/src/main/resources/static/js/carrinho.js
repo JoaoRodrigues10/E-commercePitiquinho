@@ -1,3 +1,4 @@
+
 console.log(JSON.parse(localStorage.getItem('carrinho')));
 
 function carregarCarrinho() {
@@ -91,11 +92,11 @@ function alterarQuantidade(produtoId, delta) {
 
 function removerItem(produtoId) {
     const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-    carrinho.splice(produtoId - 1, 1);
-    localStorage.setItem('carrinho', JSON.stringify(carrinho));
-
+    const novoCarrinho = carrinho.filter(item => item.id !== produtoId);
+    localStorage.setItem('carrinho', JSON.stringify(novoCarrinho));
     carregarCarrinho();
 }
+
 
 function buscarFrete() {
     const cep = document.getElementById('cep').value;

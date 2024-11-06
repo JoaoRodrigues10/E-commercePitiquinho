@@ -152,6 +152,7 @@ public class CheckoutController {
 
         session.removeAttribute("itensCarrinho");
 
+
         model.addAttribute("usuario", usuario);
         session.setAttribute("usuario", usuario);
 

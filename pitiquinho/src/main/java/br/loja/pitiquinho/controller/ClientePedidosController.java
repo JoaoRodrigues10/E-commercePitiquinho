@@ -25,11 +25,22 @@ public class ClientePedidosController {
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         List<Pedido> pedidos = pedidoService.obterPedidosPorCliente(usuarioId);
         model.addAttribute("pedidos", pedidos);
-
         model.addAttribute("usuario", usuario);
         session.setAttribute("usuario", usuario);
 
         return "meus-pedidos";
     }
+
+    @GetMapping("/detalhes/{pedidoId}")
+    public String detalhesPedido(@PathVariable("pedidoId") Long pedidoId, Model model) {
+        Pedido pedido = pedidoService.obterPedidoPorId(pedidoId);
+        System.out.println("Pedido: " + pedido);
+        System.out.println("Itens do pedido: " + pedido.getItens());
+        model.addAttribute("pedido", pedido);
+        model.addAttribute("itens", pedido.getItens());
+        return "detalhes-pedido";
+    }
+
+
 
 }

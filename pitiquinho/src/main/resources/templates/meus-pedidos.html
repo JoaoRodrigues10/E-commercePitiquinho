@@ -40,7 +40,7 @@
             <td th:text="${pedido.total}">Valor Total</td>
             <td th:text="${pedido.status}">Status</td>
             <td>
-                <a class="btn btn-info" th:href="@{/meus-pedidos/{id}(id=${pedido.id})}">Ver Detalhes</a>
+                <a class="btn btn-info" th:href="@{/meus-pedidos/detalhes/{pedidoId}(pedidoId=${pedido.id})}">Ver Detalhes</a>
             </td>
         </tr>
         </tbody>
@@ -50,6 +50,10 @@
         Nenhum pedido encontrado.
     </div>
 </main>
+
+<script>
+    localStorage.removeItem('carrinho');
+</script>
 
 
 

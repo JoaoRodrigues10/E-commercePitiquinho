@@ -34,4 +34,8 @@ public class PedidoService {
 
         return pedidoSalvo;
     }
+
+    public Pedido obterPedidoPorId(Long pedidoId) {
+        return pedidoRepository.findById(pedidoId).orElse(null);
+    }
 }
