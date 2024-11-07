@@ -108,6 +108,7 @@ public class CheckoutController {
                                   Model model) {
 
         Usuario usuario = (Usuario) session.getAttribute("usuario");
+        session.setAttribute("usuario", usuario);
         if (usuario == null || usuario.getGrupo() == null || usuario.getGrupo().isEmpty()) {
             return "redirect:/login";
         }

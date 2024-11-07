@@ -23,6 +23,7 @@ public class CarrinhoController {
     public String carrinhoPage(Model model, HttpSession session) {
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         model.addAttribute("usuario", usuario);
+        session.setAttribute("usuario", usuario);
         return "carrinho";
     }
 
