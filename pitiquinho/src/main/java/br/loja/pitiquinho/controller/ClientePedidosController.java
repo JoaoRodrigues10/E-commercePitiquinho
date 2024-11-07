@@ -32,7 +32,10 @@ public class ClientePedidosController {
     }
 
     @GetMapping("/detalhes/{pedidoId}")
-    public String detalhesPedido(@PathVariable("pedidoId") Long pedidoId, Model model) {
+    public String detalhesPedido(@PathVariable("pedidoId") Long pedidoId, Model model,HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        model.addAttribute("usuario", usuario);
+        session.setAttribute("usuario", usuario);
         Pedido pedido = pedidoService.obterPedidoPorId(pedidoId);
         System.out.println("Pedido: " + pedido);
         System.out.println("Itens do pedido: " + pedido.getItens());
