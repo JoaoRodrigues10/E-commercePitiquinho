@@ -28,6 +28,15 @@
             <p><strong>Status:</strong> <span th:text="${pedido.status}">Status</span></p>
             <p><strong>Valor Total:</strong> R$ <span th:text="${pedido.total}">Valor</span></p>
             <p><strong>Forma de Pagamento:</strong> <span th:text="${pedido.formaPagamento}">Forma de Pagamento</span></p>
+            <p><strong>Valor Frete:</strong> <span th:text="${pedido.valorFrete}">Forma de Pagamento</span></p>
+
+            <h5 class="mt-3">Endereço de Entrega</h5>
+            <p><strong>CEP:</strong> <span th:text="${pedido.endereco.cep}">CEP</span></p>
+            <p><strong>Logradouro:</strong> <span th:text="${pedido.endereco.logradouro}">Logradouro</span>, <strong>Número:</strong> <span th:text="${pedido.endereco.numero}">Número</span></p>
+            <p><strong>Complemento:</strong> <span th:text="${pedido.endereco.complemento}">Complemento</span></p>
+            <p><strong>Bairro:</strong> <span th:text="${pedido.endereco.bairro}">Bairro</span></p>
+            <p><strong>Cidade:</strong> <span th:text="${pedido.endereco.cidade}">Cidade</span> - <span th:text="${pedido.endereco.uf}">UF</span></p>
+
         </div>
     </div>
 

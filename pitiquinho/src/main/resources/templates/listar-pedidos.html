@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Pedidos</title>
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+<div class="container mt-5">
+    <h2>Lista de Pedidos</h2>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Data do Pedido</th>
+            <th>Número do Pedido</th>
+            <th>Valor Total</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pedido : ${pedidos}">
+            <td th:text="${#dates.format(pedido.dataCriacao, 'dd/MM/yyyy')}">Data do Pedido</td>
+            <td th:text="${pedido.id}">Número do Pedido</td>
+            <td th:text="${pedido.total}">Valor Total</td>
+            <td th:text="${pedido.status}">Status</td>
+            <td>
+                <a th:href="@{/pedidos/editar/{id}(id=${pedido.id})}" class="btn btn-primary btn-sm">Editar Pedido</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -18,6 +18,10 @@ public class PedidoService {
     @Autowired
     private ItemPedidoService itemPedidoService;
 
+    public List<Pedido> listarPedidos() {
+        return pedidoRepository.findAllOrderByDataDesc();
+    }
+
     public List<Pedido> obterPedidosPorCliente(Long usuarioId) {
         return pedidoRepository.findByUsuarioId(usuarioId);
     }
@@ -33,6 +37,10 @@ public class PedidoService {
 
 
         return pedidoSalvo;
+    }
+
+    public void salvarPedido(Pedido pedido) {
+        pedidoRepository.save(pedido);
     }
 
     public Pedido obterPedidoPorId(Long pedidoId) {

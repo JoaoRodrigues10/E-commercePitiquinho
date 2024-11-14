@@ -34,7 +34,10 @@
                 </span>
             <span th:if="${usuario == null || usuario.grupo != 'Adm'}" class="disabled">Listar Usuário</span>
         </li>
-        <li><span class="disabled">Listar Pedidos</span></li>
+        <li>
+            <a href="/pedidos">Listar Pedidos</a>
+
+        </li>
     </ul>
 </div>
 </body>
