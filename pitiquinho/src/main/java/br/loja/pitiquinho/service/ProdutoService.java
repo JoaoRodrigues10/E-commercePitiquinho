@@ -72,5 +72,22 @@ public class ProdutoService {
     }
 
 
+    public List<Produto> filtrarProdutos(String nome, String categoria) {
+        if (nome != null && !nome.isEmpty() && categoria != null && !categoria.isEmpty()) {
+            return produtoRepository.findByNomeContainingIgnoreCaseAndCategoriaIgnoreCase(nome, categoria);
+        } else if (nome != null && !nome.isEmpty()) {
+            return produtoRepository.findByNomeContainingIgnoreCase(nome);
+        } else if (categoria != null && !categoria.isEmpty()) {
+            return produtoRepository.findByCategoria(categoria);
+        } else {
+            return produtoRepository.findAll();
+        }
+    }
+
+    public List<String> listarCategorias() {
+        return produtoRepository.findDistinctCategorias();
+    }
+
+
 
 }

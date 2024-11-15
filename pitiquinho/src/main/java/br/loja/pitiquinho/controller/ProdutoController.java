@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -63,5 +64,20 @@ public class ProdutoController {
         }
     }
 
+    @GetMapping("/produtos")
+    public String listarProdutos(@RequestParam(required = false) String nome,
+                                 @RequestParam(required = false) String categoria,
+                                 Model model, HttpSession session) {
+        List<Produto> produtos = produtoService.filtrarProdutos(nome, categoria);
+        model.addAttribute("produtos", produtos);
+
+        List<String> categorias = produtoService.listarCategorias();
+        model.addAttribute("categorias", categorias);
+
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        model.addAttribute("usuario", usuario);
+
+        return "produtos";
+    }
 
 }

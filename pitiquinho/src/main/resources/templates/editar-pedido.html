@@ -10,6 +10,11 @@
 
 <body>
 <div class="container mt-5">
+    <div class="button-container d-flex justify-content-between align-items-center">
+        <a href="/pedidos" >
+            <img src="/images/SetaVoltar.png">
+        </a>
+    </div>
     <h2>Editar Pedido</h2>
     <form th:action="@{/pedidos/salvar}" th:object="${pedido}" method="post">
         <input type="hidden" th:field="*{id}"/> <!-- Passa o ID para o controller -->

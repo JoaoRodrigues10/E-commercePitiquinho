@@ -52,7 +52,7 @@ public class LoginController {
             }
 
             if (usuario.getGrupo().equals("Cliente")) {
-                return "redirect:/";
+                return "redirect:/produtos?nome=&categoria=";
             } else {
                 return "redirect:/backoffice";
             }
