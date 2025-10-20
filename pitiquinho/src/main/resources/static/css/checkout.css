@@ -1,0 +1,110 @@
+:root {
+    --primary-color: #3BBAB6;
+    --secondary-color: #2E7D7A;
+    --light-bg: #F9FBFB;
+    --card-bg: #FFFFFF;
+}
+
+body {
+    background-color: var(--light-bg);
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+}
+
+/* ===== CONTAINER ===== */
+.container {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    padding: 2rem 2.5rem;
+    margin-bottom: 4rem;
+}
+
+/* ===== TÍTULOS ===== */
+h1, h2, h5, label {
+    color: var(--secondary-color);
+}
+
+h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+h2 {
+    font-size: 1.4rem;
+    margin-top: 1.5rem;
+    font-weight: 600;
+}
+
+/* ===== BOTÕES ===== */
+.btn-primary {
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-color);
+}
+
+.btn-secondary {
+    background-color: #ddd;
+    color: #333;
+    border: none;
+    border-radius: 8px;
+}
+
+/* ===== FORMULÁRIOS ===== */
+.form-control {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: 0.3s;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(59, 186, 182, 0.2);
+}
+
+/* ===== CHECKBOX E RADIO ===== */
+.form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+/* ===== CARD RESUMO ===== */
+.card {
+    border: 1px solid var(--primary-color);
+    border-radius: 12px;
+    background-color: var(--light-bg);
+    margin-top: 1rem;
+}
+
+.card-body {
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.table th {
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+}
+
+.table td {
+    background-color: #fff;
+}
+
+/* ===== TOTAL ===== */
+#total-produtos, #total-geral {
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 768px) {
+    .container {
+        padding: 1.2rem;
+    }
+}

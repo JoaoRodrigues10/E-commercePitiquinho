@@ -2,64 +2,38 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Checkout</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Checkout | Pitiquinho</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/inputmask@5.0.7/dist/inputmask.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/checkout.css">
 </head>
 <body>
-<div class="container mt-5">
-    <div th:replace="~{fragments/header :: header}"></div>
 
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div class="container mt-5">
     <div class="d-flex justify-content-between mb-3">
-        <a href="/carrinho" class="btn btn-secondary">Voltar</a>
+        <a href="/carrinho" class="btn btn-secondary"><i class="fas fa-arrow-left me-2"></i>Voltar</a>
     </div>
 
-    <h1 class="mb-4">Finalizar Compra</h1>
+    <h1 class="mb-4 text-center">Finalizar Compra</h1>
 
     <div th:if="${erro}" class="alert alert-info" role="alert">
-        <p th:text="${erro }">Mensagem aqui</p>
+        <p th:text="${erro}">Mensagem aqui</p>
     </div>
-
-    <script>
-        $(document).ready(function () {
-            $('input[name="formaPagamento"]').on('change', function () {
-                if ($('#cartao').is(':checked')) {
-                    $('#cartao-details').removeClass('d-none');
-                    // Tornar os campos obrigatórios quando "Cartão" está selecionado
-                    $('#cartao-details input').prop('required', true);
-                } else {
-                    $('#cartao-details').addClass('d-none');
-                    // Remover o atributo "required" dos campos ao ocultá-los
-                    $('#cartao-details input').prop('required', false);
-                }
-            });
-        });
-
-        function validarFormulario() {
-            // Verifica se um endereço foi selecionado
-            if (!$('#endereco').val()) {
-                alert("Selecione um endereço de entrega.");
-                return false;
-            }
-
-            // Verifica se uma forma de pagamento foi selecionada
-            if (!$('input[name="formaPagamento"]:checked').length) {
-                alert("Selecione uma forma de pagamento.");
-                return false;
-            }
-
-            return true;
-        }
-    </script>
 
     <form th:action="@{/finalizar/finalizar-compra}" method="post" onsubmit="return validarFormulario();">
 
+        <!-- ENDEREÇO -->
         <div class="form-group">
             <label for="endereco">Escolher Endereço de Entrega</label>
             <select id="endereco" name="endereco" class="form-control" required>
@@ -68,10 +42,13 @@
                         th:value="${endereco.getId()}"
                         th:text="${endereco.getCep()} + ' - ' + ${endereco.getLogradouro()} + ', ' + ${endereco.getCidade()} + ', ' + ${endereco.getNumero()}"></option>
             </select>
-            <a th:href="@{/endereco/editar/{id}(id=${usuario.id})}" class="btn btn-primary mt-4">Adicionar novo endereço</a>
+            <a th:href="@{/endereco/editar/{id}(id=${usuario.id})}" class="btn btn-primary mt-3">
+                <i class="fas fa-map-marker-alt me-2"></i>Adicionar novo endereço
+            </a>
         </div>
 
-        <div id="frete-opcoes" class="mb-3">
+        <!-- FRETE -->
+        <div class="mt-4">
             <label for="opcao-frete">Escolha a opção de frete:</label>
             <select id="opcao-frete" name="opcaoFrete" class="form-control" onchange="atualizarTotal()">
                 <option value="0">Selecione uma opção</option>
@@ -81,56 +58,57 @@
             </select>
         </div>
 
-        <h2 class="mt-4">Escolher Forma de Pagamento</h2>
+        <!-- PAGAMENTO -->
+        <h2 class="mt-4">Forma de Pagamento</h2>
         <div class="form-check">
             <input type="radio" class="form-check-input" name="formaPagamento" value="cartao" id="cartao" required />
-            <label class="form-check-label" for="cartao">Cartão</label>
+            <label class="form-check-label" for="cartao">Cartão de Crédito</label>
         </div>
-        <div id="cartao-details" class="d-none">
+
+        <div id="cartao-details" class="d-none mt-3">
             <div class="form-group">
                 <label for="numeroCartao">Número do Cartão</label>
-                <input type="text" name="numeroCartao" id="numeroCartao" class="form-control" placeholder="Número do Cartão" required data-inputmask="'mask': '9999 9999 9999 9999'" />
+                <input type="text" name="numeroCartao" id="numeroCartao" class="form-control" data-inputmask="'mask': '9999 9999 9999 9999'">
             </div>
             <div class="form-group">
                 <label for="codigoSeguranca">Código de Segurança</label>
-                <input type="text" name="codigoSeguranca" id="codigoSeguranca" class="form-control" placeholder="Código de Segurança" required data-inputmask="'mask': '999'" />
+                <input type="text" name="codigoSeguranca" id="codigoSeguranca" class="form-control" data-inputmask="'mask': '999'">
             </div>
             <div class="form-group">
                 <label for="nomeTitular">Nome do Titular</label>
-                <input type="text" name="nomeTitular" id="nomeTitular" class="form-control" placeholder="Nome do Titular" required />
+                <input type="text" name="nomeTitular" id="nomeTitular" class="form-control">
             </div>
             <div class="form-group">
                 <label for="vencimento">Data de Vencimento</label>
-                <input type="text" name="vencimento" id="vencimento" class="form-control" placeholder="MM/AAAA" required data-inputmask="'mask': '99/9999'" />
+                <input type="text" name="vencimento" id="vencimento" class="form-control" data-inputmask="'mask': '99/9999'">
             </div>
             <div class="form-group">
-                <label for="parcelas">Número de Parcelas (Máximo 6)</label>
-                <select name="parcelas" id="parcelas" class="form-control" required>
-                    <option value="1">1 parcela</option>
-                    <option value="2">2 parcelas</option>
-                    <option value="3">3 parcelas</option>
-                    <option value="4">4 parcelas</option>
-                    <option value="5">5 parcelas</option>
-                    <option value="6">6 parcelas</option>
+                <label for="parcelas">Parcelas</label>
+                <select name="parcelas" id="parcelas" class="form-control">
+                    <option value="1">1x sem juros</option>
+                    <option value="2">2x sem juros</option>
+                    <option value="3">3x sem juros</option>
+                    <option value="4">4x sem juros</option>
+                    <option value="5">5x sem juros</option>
+                    <option value="6">6x sem juros</option>
                 </select>
             </div>
         </div>
 
-        <div class="form-check">
+        <div class="form-check mt-2">
             <input type="radio" class="form-check-input" name="formaPagamento" value="boleto" id="boleto" required />
-            <label class="form-check-label" for="boleto">Boleto</label>
+            <label class="form-check-label" for="boleto">Boleto Bancário</label>
         </div>
 
-
-
-        <h2 class="mt-4">Resumo do Pedido</h2>
+        <!-- RESUMO -->
+        <h2 class="mt-5">Resumo do Pedido</h2>
         <div class="card">
             <div class="card-body">
-                <table class="table table-bordered">
+                <table class="table table-bordered text-center">
                     <thead>
                     <tr>
                         <th>Produto</th>
-                        <th>Quantidade</th>
+                        <th>Qtd</th>
                         <th>Preço Unitário</th>
                         <th>Subtotal</th>
                     </tr>
@@ -139,92 +117,71 @@
                     <tr th:each="item : ${itensCarrinho}" th:with="subtotal=${item.quantidade * item.preco}">
                         <td th:text="${item.nome}"></td>
                         <td th:text="${item.quantidade}"></td>
-                        <td th:text="${item.preco}" class="text-right">R$</td>
-                        <td th:text="${subtotal}" class="text-right">R$</td>
+                        <td th:text="'R$ ' + ${item.preco}"></td>
+                        <td th:text="'R$ ' + ${subtotal}"></td>
                     </tr>
                     </tbody>
                 </table>
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-between mt-3">
                     <h5>Total dos Produtos:</h5>
-                    <h5 id="total-produtos" class="text-right">R$ 0,00</h5>
+                    <h5 id="total-produtos">R$ 0,00</h5>
                 </div>
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-between mt-2">
                     <h5>Total com Frete:</h5>
-                    <h5 id="total-geral" class="text-right">R$ 0,00</h5>
+                    <h5 id="total-geral">R$ 0,00</h5>
                 </div>
             </div>
         </div>
 
-        <script>
-
-            function atualizarTotal() {
-                // Atualizando o valor total dos produtos
-                let totalProdutos = 0;
-                $("tbody tr").each(function() {
-                    const preco = parseFloat($(this).find("td:nth-child(3)").text().replace("R$", "").trim().replace(",", "."));
-                    const quantidade = parseInt($(this).find("td:nth-child(2)").text());
-                    totalProdutos += preco * quantidade;
-                });
-
-                // Obtendo o valor do frete
-                const valorFrete = parseFloat($("#opcao-frete").val());
-                const totalGeral = (totalProdutos + valorFrete).toFixed(2);
-
-                // Atualizando o total na tela
-                $("#total-produtos").text("R$ " + totalProdutos.toFixed(2).replace(".", ","));
-                $("#total-geral").text("R$ " + totalGeral.replace(".", ","));
-            }
-
-
-            // Função para lidar com a mudança de frete
-            $(document).ready(function () {
-                // Atualiza o total quando a opção de frete mudar
-                $('#opcao-frete').on('change', function () {
-                    atualizarTotal();
-                });
-
-                // Inicializa o total ao carregar a página
-                atualizarTotal();
-            });
-        </script>
-
-
-        <script>
-            $(document).ready(function () {
-
-              $("input[name='pagamento']").change(function () {
-                  if ($(this).val() === "cartao") {
-                      $("#cartao-details").removeClass("d-none");
-                  } else {
-                      $("#cartao-details").addClass("d-none");
-                  }
-              });
-
-            Inputmask().mask(document.querySelectorAll("input"));
-
-              $("#checkoutForm").on("submit", function (event) {
-                  const endereco = $("#endereco").val();
-                  const pagamento = $("input[name='pagamento']:checked").val();
-
-                  if (!endereco) {
-                      alert("Por favor, selecione um endereço de entrega.");
-                      event.preventDefault();
-                  }
-
-                  if (!pagamento) {
-                      alert("Por favor, selecione uma forma de pagamento.");
-                      event.preventDefault();
-                  }
-              });
-          });
-
-        </script>
-
-
-
-
-        <button type="submit" class="btn btn-primary btn-lg btn-block mt-4">Finalizar Compra</button>
+        <button type="submit" class="btn btn-primary btn-lg btn-block mt-4">
+            <i class="fas fa-check-circle me-2"></i>Finalizar Compra
+        </button>
     </form>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('input[name="formaPagamento"]').on('change', function () {
+            if ($('#cartao').is(':checked')) {
+                $('#cartao-details').removeClass('d-none');
+            } else {
+                $('#cartao-details').addClass('d-none');
+            }
+        });
+
+        Inputmask().mask(document.querySelectorAll("input"));
+
+        $('#opcao-frete').on('change', atualizarTotal);
+        atualizarTotal();
+    });
+
+    function atualizarTotal() {
+        let totalProdutos = 0;
+        $("tbody tr").each(function() {
+            const preco = parseFloat($(this).find("td:nth-child(3)").text().replace("R$", "").trim().replace(",", "."));
+            const qtd = parseInt($(this).find("td:nth-child(2)").text());
+            totalProdutos += preco * qtd;
+        });
+
+        const frete = parseFloat($("#opcao-frete").val());
+        const total = (totalProdutos + frete).toFixed(2);
+
+        $("#total-produtos").text("R$ " + totalProdutos.toFixed(2).replace(".", ","));
+        $("#total-geral").text("R$ " + total.replace(".", ","));
+    }
+
+    function validarFormulario() {
+        if (!$('#endereco').val()) {
+            alert("Selecione um endereço de entrega.");
+            return false;
+        }
+        if (!$('input[name="formaPagamento"]:checked').length) {
+            alert("Selecione uma forma de pagamento.");
+            return false;
+        }
+        return true;
+    }
+</script>
+
 </body>
 </html>

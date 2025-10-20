@@ -1,82 +1,82 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.w3.org/1999/xhtml">
-
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produtos</title>
-    <link rel="stylesheet" href="/css/produtos.css">
-    <script src="/js/produtos.js"></script>
+    <title>Pitiquinho | Produtos</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script type="text/javascript">
-        window.onload = function() {
-            // Verifica se a flag "filtroEnviado" está setada
-            if (!sessionStorage.getItem("filtroEnviado")) {
-                // Se não estiver setada, envia o formulário
-                document.getElementById("filtroForm").submit();
-                // Define a flag para que não envie novamente
-                sessionStorage.setItem("filtroEnviado", "true");
-            }
-        };
-    </script>
+    <link rel="stylesheet" href="/css/produtos.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <script src="/js/produtos.js"></script>
 </head>
+
+
+
 <body>
 
+<div th:replace="~{fragments/header :: header}"></div>
 <div class="container mt-5">
-
-    <div th:replace="~{fragments/header :: header}"></div>
-
-
-    <h2 class="text-center mb-4">Nossos Produtos</h2>
+    <h2 class="text-center titulo mb-4">Nossos Produtos</h2>
 
     <form id="filtroForm" th:action="@{/produtos}" method="get" class="mb-4">
-        <div class="row">
+        <div class="row g-2">
             <div class="col-md-6">
-                <input type="text" name="nome" class="form-control" placeholder="Buscar por nome do produto">
+                <input type="text" name="nome" class="form-control" placeholder="Buscar por nome do produto" th:value="${nome}">
             </div>
             <div class="col-md-4">
-                <select name="categoria" class="form-control">
+                <select name="categoria" class="form-select">
                     <option value="">Selecione uma categoria</option>
-                    <option th:each="categoria : ${categorias}" th:value="${categoria}" th:text="${categoria}"></option>
+                    <option value="Vestuário" th:selected="${selectedCategoria == 'Vestuário'}">Vestuário</option>
+                    <option value="Acessórios de Passeio" th:selected="${selectedCategoria == 'Acessórios de Passeio'}">Acessórios de Passeio</option>
+                    <option value="Acessórios de Alimentação" th:selected="${selectedCategoria == 'Acessórios de Alimentação'}">Acessórios de Alimentação</option>
+                    <option value="Higiene e Cuidado" th:selected="${selectedCategoria == 'Higiene e Cuidado'}">Higiene e Cuidado</option>
+                    <option value="Móveis e Decoração" th:selected="${selectedCategoria == 'Móveis e Decoração'}">Móveis e Decoração</option>
+                    <option value="Brinquedos" th:selected="${selectedCategoria == 'Brinquedos'}">Brinquedos</option>
+                    <option value="Livros Infantis" th:selected="${selectedCategoria == 'Livros Infantis'}">Livros Infantis</option>
+                    <option value="Segurança e Monitoramento" th:selected="${selectedCategoria == 'Segurança e Monitoramento'}">Segurança e Monitoramento</option>
+                    <option value="Carrinhos e Cadeiras de Bebê" th:selected="${selectedCategoria == 'Carrinhos e Cadeiras de Bebê'}">Carrinhos e Cadeiras de Bebê</option>
+                    <option value="Alimentação e Mamadeiras" th:selected="${selectedCategoria == 'Alimentação e Mamadeiras'}">Alimentação e Mamadeiras</option>
+                    <option value="Roupas de Dormir / Pijamas" th:selected="${selectedCategoria == 'Roupas de Dormir / Pijamas'}">Roupas de Dormir / Pijamas</option>
+                    <option value="Fraldas e Descartáveis" th:selected="${selectedCategoria == 'Fraldas e Descartáveis'}">Fraldas e Descartáveis</option>
+                    <option value="Chupetas e Mordedores" th:selected="${selectedCategoria == 'Chupetas e Mordedores'}">Chupetas e Mordedores</option>
                 </select>
             </div>
             <div class="col-md-2">
-                <button type="submit" class="btn btn-primary btn-block">Filtrar</button>
+                <button type="submit" class="btn btn-filtrar w-100">Filtrar</button>
             </div>
         </div>
     </form>
 
-    <form th:action="@{/produtos}" method="get" class="mb-4">
-        <button type="submit" class="btn btn-secondary btn-block">Limpar Filtro</button>
-    </form>
 
     <div class="row">
         <div class="col-md-3 mb-4" th:each="produto : ${produtos}">
-            <div class="card">
+            <div class="card produto-card h-100">
                 <img th:src="@{${produto.imagem}}" class="card-img-top" alt="Imagem do Produto">
-                <div class="card-body">
+                <div class="card-body text-center">
                     <h5 class="card-title" th:text="${produto.nome}"></h5>
-                    <p class="card-text" th:text="'R$ ' + ${produto.preco}"></p>
-                    <p class="card-text"><small class="text-muted" th:text="'Categoria: ' + ${produto.categoria}"></small></p>
-                    <a th:href="@{/produtos/detalhe/{id}(id=${produto.id})}" class="btn btn-info">Detalhe</a>
+                    <p class="categoria text-muted mb-2" th:text="${produto.categoria}"></p>
+                    <p class="preco fw-bold" th:text="'R$ ' + ${produto.preco}"></p>
+                    <p class="descricao text-muted small"
+                       th:text="${#strings.abbreviate(produto.descricao, 80)}">
+                    </p>
+                    <a th:href="@{/produtos/detalhe/{id}(id=${produto.id})}" class="btn btn-detalhe mt-2">Detalhes</a>
                 </div>
             </div>
+        </div>
+
+        <div class="col-12" th:if="${#lists.isEmpty(produtos)}">
+            <p class="text-center text-muted mt-4">Nenhum produto encontrado para a pesquisa.</p>
         </div>
     </div>
 
 
 
-    <div th:if="${#lists.isEmpty(produtos)}" class="text-center">
-        <p>Nenhum produto encontrado.</p>
-    </div>
-
 </div>
-
-
 </body>
 </html>

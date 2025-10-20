@@ -84,8 +84,16 @@ public class ProdutoService {
         }
     }
 
-    public List<String> listarCategorias() {
-        return produtoRepository.findDistinctCategorias();
+    public List<Produto> buscarProdutosRelacionados(Produto produto) {
+        // Busca até 4 produtos da mesma categoria ou com nome parecido,
+        // excluindo o próprio produto atual pelo ID
+        List<Produto> relacionados = produtoRepository
+                .findTop4ByCategoriaOrNomeContainingIgnoreCase(produto.getCategoria(), produto.getNome());
+
+        // Filtra o próprio produto para garantir que não apareça
+        relacionados.removeIf(p -> p.getId().equals(produto.getId()));
+
+        return relacionados;
     }
 
 

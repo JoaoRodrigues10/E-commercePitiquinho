@@ -23,4 +23,8 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
     @Query("SELECT DISTINCT p.categoria FROM Produto p")
     List<String> findDistinctCategorias();
 
+    List<Produto> findTop4ByCategoriaOrNomeContainingIgnoreCase( String categoria, String nome);
+
+
+
 }

@@ -37,7 +37,6 @@ public class ListarUsuariosController {
         }
 
 
-        System.out.println(nome);
 
         if (nome.isEmpty()) {
             usuarios = usuarioService.listarTodosUsuarios();

@@ -1,0 +1,92 @@
+/* ====== BODY ====== */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ====== CONTAINER PRINCIPAL ====== */
+main.container {
+    max-width: 900px;
+    margin: 2rem auto;
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+/* ====== TITULO ====== */
+h2 {
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 1.5rem;
+}
+
+/* ====== TABELA ====== */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+table th {
+    background-color: #f1f3f5;
+    color: #333;
+    font-weight: 600;
+    text-align: left;
+    padding: 0.75rem 1rem;
+}
+
+table td {
+    padding: 0.75rem 1rem;
+    color: #555;
+}
+
+table tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+table tr:hover {
+    background-color: #f0f8ff;
+}
+
+/* ====== BOTÕES ====== */
+.btn-info {
+    background-color: #4fc3c8;
+    border: none;
+    border-radius: 8px;
+    padding: 0.4rem 0.9rem;
+    color: white;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.btn-info:hover {
+    background-color: #41adb1;
+}
+
+/* ====== ALERTAS ====== */
+.alert {
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin-top: 1rem;
+}
+
+/* ====== RESPONSIVO ====== */
+@media (max-width: 576px) {
+    main.container {
+        padding: 1.5rem;
+    }
+
+    table th, table td {
+        padding: 0.5rem;
+        font-size: 0.875rem;
+    }
+
+    .btn-info {
+        width: 100%;
+        margin-top: 0.3rem;
+    }
+}

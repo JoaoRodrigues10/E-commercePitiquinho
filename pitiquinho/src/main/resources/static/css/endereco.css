@@ -1,0 +1,116 @@
+/* ====== CONTAINER ====== */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+    max-width: 900px;
+    margin: 2rem auto;
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* ====== TITULOS ====== */
+h2, h3 {
+    color: #333333;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+/* ====== FORMULÁRIO ====== */
+.form-group label {
+    font-weight: 500;
+    color: #555555;
+}
+
+.form-control {
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #ced4da;
+    transition: 0.3s;
+}
+
+.form-control:focus {
+    border-color: #4fc3c8;
+    box-shadow: 0 0 5px rgba(79, 195, 200, 0.4);
+    outline: none;
+}
+
+/* Botões */
+.btn-success, .btn-primary, .btn-secondary {
+    border-radius: 8px;
+    padding: 0.5rem 1.2rem;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.btn-success {
+    background-color: #4fc3c8;
+    border: none;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #41adb1;
+}
+
+.btn-primary {
+    background-color: #4fc3c8;
+    border: none;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #41adb1;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border: none;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Input group botão */
+.input-group-append button {
+    border-radius: 0 8px 8px 0;
+}
+
+/* ====== ALERTAS ====== */
+.alert {
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+}
+
+/* ====== TABELA ====== */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+table th {
+    background-color: #f1f3f5;
+    color: #333;
+    font-weight: 600;
+    text-align: left;
+    padding: 0.75rem 1rem;
+}
+
+table td {
+    padding: 0.75rem 1rem;
+    color: #555;
+}
+
+table tr:nth-child(even) {
+    background-color: #fafafa;
+}

@@ -1,0 +1,93 @@
+/* ====== BODY ====== */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ====== CONTAINER ====== */
+.container {
+    max-width: 700px;
+    margin: 2rem auto;
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* ====== TITULOS ====== */
+h4, h5 {
+    color: #333333;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+/* ====== FORMULÁRIO ====== */
+.form-group label {
+    font-weight: 500;
+    color: #555555;
+}
+
+.form-control {
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #ced4da;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #4fc3c8;
+    box-shadow: 0 0 5px rgba(79, 195, 200, 0.4);
+    outline: none;
+}
+
+/* ====== BOTÕES ====== */
+.btn-success, .btn-primary {
+    border-radius: 8px;
+    padding: 0.5rem 1.2rem;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.btn-success {
+    background-color: #4fc3c8;
+    border: none;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #41adb1;
+}
+
+.btn-primary {
+    background-color: #4fc3c8;
+    border: none;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #41adb1;
+}
+
+/* ====== ALERTAS ====== */
+.alert {
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    margin-top: 0.3rem;
+}
+
+/* ====== LINKS ====== */
+a.btn {
+    text-decoration: none;
+}
+
+/* ====== RESPONSIVO ====== */
+@media (max-width: 576px) {
+    .container {
+        padding: 1.5rem;
+    }
+
+    .btn-success, .btn-primary {
+        width: 100%;
+        margin-top: 0.5rem;
+    }
+}

@@ -1,50 +1,79 @@
 body {
-    background-color: #f8f9fa;
+    background-color: #FAFAFA;
+    font-family: 'Poppins', sans-serif;
 }
 
-.container {
-    margin-top: 20px;
+.titulo {
+    color: #333;
+    font-weight: 600;
+    letter-spacing: 0.5px;
 }
 
-.card {
+.btn-filtrar {
+    background-color: #4FC3C8;
+    color: white;
     border: none;
     border-radius: 8px;
-    overflow: hidden;
-    width: 250px; /* Largura reduzida dos cards */
-    margin: 0 auto; /* Centraliza os cards */
+    font-weight: 500;
+    transition: 0.3s;
 }
 
-.card-img-top {
-    width: 100%; /* Faz a imagem ocupar toda a largura do card */
-    height: 200px; /* Altura fixa da imagem */
+.btn-filtrar:hover {
+    background-color: #3BA5A9;
+}
+
+.produto-card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+    overflow: hidden;
+}
+
+.produto-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.produto-card img {
+    height: 220px;
     object-fit: cover;
+    border-bottom: 1px solid #eee;
 }
 
 .card-body {
-    background-color: #ffffff;
-    padding: 15px; /* Espaçamento reduzido no corpo do card */
-    text-align: left;
+    padding: 1rem;
 }
 
 .card-title {
-    font-size: 1.2rem; /* Tamanho reduzido do título */
-    font-weight: bold;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #444;
 }
 
-.card-text {
-    font-size: 1rem; /* Tamanho reduzido do texto */
-    margin-bottom: 8px; /* Espaçamento inferior reduzido entre os textos */
+.preco {
+    font-size: 1.1rem;
+    color: #4FC3C8;
+    font-weight: 600;
 }
 
-.header img {
-    max-width: 200px;
+.descricao {
+    font-size: 0.9rem;
+    color: #777;
+    margin: 0.5rem 0 1rem 0;
 }
 
-.btn {
-    margin-top: 5px; /* Espaçamento superior reduzido para os botões */
+.btn-detalhe {
+    background-color: #4FC3C8;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
 }
 
-.text-center p {
-    font-size: 1.2rem; /* Aumenta o tamanho da fonte quando não há produtos */
-    color: #dc3545;
+.btn-detalhe:hover {
+    background-color: #3BA5A9;
 }

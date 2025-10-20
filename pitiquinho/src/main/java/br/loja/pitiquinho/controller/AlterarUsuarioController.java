@@ -31,15 +31,9 @@ public class AlterarUsuarioController {
     @RequestMapping("/alterar-usuario")
     public String alterarUsuario(@RequestParam Long id, @RequestParam String nome, @RequestParam String email, @RequestParam String cpf, @RequestParam String grupo, @RequestParam(required = false) String senha, @RequestParam(required = false) String confirmarSenha, Model model) {
 
-        System.out.println(id);
 
         Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        System.out.println("Atualizando usuário: ID = " + id);
-        System.out.println("Nome = " + nome);
-        System.out.println("Email = " + email);
-        System.out.println("CPF = " + cpf);
-        System.out.println("Grupo = " + grupo);
 
         usuario.setNome(nome);
         String cpfLimpo = cpf.replaceAll("[^\\d]", "");
@@ -47,14 +41,13 @@ public class AlterarUsuarioController {
         usuario.setGrupo(grupo);
 
         if (!util.validarCPF(cpf)) {
-            System.out.println("CPF inválido");
+
             model.addAttribute("error", "CPF inválido");
             return "redirect:/lista-usuario";
         }
 
         if (senha != null && !senha.isEmpty() && senha != "") {
             if (!senha.equals(confirmarSenha)) {
-                System.out.println("As senhas não correspondem");
                 model.addAttribute("error", "As senhas não correspondem");
                 return "redirect:/lista-usuario";
             }

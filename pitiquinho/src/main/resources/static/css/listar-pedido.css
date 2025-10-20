@@ -1,0 +1,100 @@
+/* ====== BODY ====== */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ====== CONTAINER ====== */
+.container {
+    max-width: 900px;
+    margin: 2rem auto;
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* ====== TITULO ====== */
+h2 {
+    color: #333333;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+/* ====== BOTÃO VOLTAR ====== */
+.button-container a img {
+    width: 40px;
+    height: 40px;
+    transition: transform 0.2s ease;
+}
+
+.button-container a img:hover {
+    transform: scale(1.1);
+}
+
+/* ====== TABELA ====== */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+table th {
+    background-color: #f1f3f5;
+    color: #333;
+    font-weight: 600;
+    text-align: left;
+    padding: 0.75rem 1rem;
+}
+
+table td {
+    padding: 0.75rem 1rem;
+    color: #555;
+}
+
+table tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+table tr:hover {
+    background-color: #f0f8ff;
+}
+
+/* ====== BOTÕES DA TABELA ====== */
+.btn-primary {
+    border-radius: 8px;
+    padding: 0.35rem 0.75rem;
+    background-color: #4fc3c8;
+    border: none;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #41adb1;
+}
+
+/* ====== RESPONSIVO ====== */
+@media (max-width: 576px) {
+    .container {
+        padding: 1rem;
+    }
+
+    table th, table td {
+        padding: 0.5rem;
+        font-size: 0.875rem;
+    }
+
+    .btn-primary {
+        width: 100%;
+        margin-top: 0.3rem;
+    }
+
+    .button-container {
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+}

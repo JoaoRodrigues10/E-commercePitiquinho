@@ -1,0 +1,148 @@
+/* ===== Reset e Body ===== */
+body {
+    background-color: #F9FBFB;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* ===== Container do Login ===== */
+.login-container {
+    background-color: #FFFFFF;
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 380px;
+    text-align: center;
+}
+
+/* ===== Logo ===== */
+.logo {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== Títulos ===== */
+.project-title {
+    font-size: 28px;
+    color: #3BBAB6;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #2E7D7A;
+    margin-bottom: 30px;
+}
+
+/* ===== Inputs ===== */
+.input-container {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.input-container label {
+    display: block;
+    font-size: 14px;
+    color: #2E7D7A;
+    margin-bottom: 5px;
+}
+
+.input-container input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 15px;
+    outline: none;
+    transition: 0.3s ease;
+}
+
+.input-container input:focus {
+    border-color: #3BBAB6;
+    box-shadow: 0 0 0 3px rgba(59, 186, 182, 0.2);
+}
+
+/* ===== Botões ===== */
+.btn-login {
+    width: 100%;
+    background-color: #3BBAB6;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.btn-login:hover {
+    background-color: #2E7D7A;
+    transform: scale(1.02);
+}
+
+.btn-create {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    text-decoration: none;
+    background-color: #F2F2F2;
+    color: #2E7D7A;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 15px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.btn-create:hover {
+    background-color: #E0E0E0;
+}
+
+/* ===== Mensagens de Erro ===== */
+.error-msg {
+    color: #c62828;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 600px) {
+    .login-container {
+        padding: 25px 20px;
+    }
+
+    .logo {
+        width: 90px;
+        height: 90px;
+    }
+}
+
+.navbar-brand {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+}
+
+.navbar-brand i {
+    color: #4FC3C8;
+}
+
+.navbar-toggler {
+    border: none;
+    background: transparent;
+}
+
+.navbar-nav .nav-item {
+    margin-left: 1rem;
+}

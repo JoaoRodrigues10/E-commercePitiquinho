@@ -13,14 +13,15 @@
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/meus-pedidos.css">
 
 </head>
 <body>
 
-
+<div th:replace="~{fragments/header :: header}"></div>
 
 <main class="container mt-5">
-    <div th:replace="~{fragments/header :: header}"></div>
     <h2>Lista de Pedidos</h2>
 
     <table class="table table-striped">

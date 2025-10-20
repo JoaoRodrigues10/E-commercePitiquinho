@@ -1,0 +1,88 @@
+/* ====== HEADER ====== */
+.navbar {
+    background-color: #FAFAFA;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    padding: 0.8rem 1.5rem;
+}
+
+.container-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.navbar-brand {
+    font-size: 1.4rem;
+    color: #333;
+    text-decoration: none;
+}
+
+.navbar-brand i {
+    color: #4FC3C8;
+}
+
+.navbar-toggler {
+    border: none;
+    background: transparent;
+}
+
+.navbar-nav .nav-item {
+    margin-left: 1rem;
+}
+
+.btn-login,
+.btn-user {
+    color: #fff;
+    background-color: #4FC3C8;
+    border: none;
+    padding: 0.4rem 0.9rem;
+    border-radius: 8px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-login:hover,
+.btn-user:hover {
+    background-color: #4FC3C8;
+}
+
+.dropdown-menu {
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-item:hover {
+    background-color: #FAFAFA;
+}
+
+.carrinho-btn {
+    display: flex;
+    align-items: center;
+    background-color: #FAFAFA;
+    border: 1px solid #4FC3C8;
+    border-radius: 10px;
+    padding: 0.4rem 0.8rem;
+    text-decoration: none;
+    color: #333;
+    transition: 0.3s;
+}
+
+.carrinho-btn i {
+    color: #4FC3C8;
+    margin-right: 0.4rem;
+}
+
+.carrinho-btn:hover {
+    background-color: #ffebee;
+}
+
+.badge {
+    background-color: #4FC3C8;
+    color: white;
+    font-size: 0.75rem;
+    margin-left: 0.4rem;
+    padding: 0.2rem 0.45rem;
+    border-radius: 50%;
+}

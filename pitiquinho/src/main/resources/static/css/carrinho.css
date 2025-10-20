@@ -1,0 +1,181 @@
+:root {
+    --primary-color: #3BBAB6;      /* Azul menta */
+    --secondary-color: #2E7D7A;    /* Azul petróleo */
+    --light-bg: #F9FBFB;           /* Fundo claro */
+    --card-bg: #FFFFFF;            /* Fundo dos cards */
+}
+
+/* ====== Carrinho Container ====== */
+.container {
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+}
+
+/* Título */
+h2 {
+    color: var(--secondary-color);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+/* Botão voltar */
+.btn-secondary {
+    background-color: var(--light-bg);
+    color: var(--secondary-color);
+    border: 1px solid var(--secondary-color);
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+/* ====== Tabela Carrinho ====== */
+.table {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.table th {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    text-align: center;
+}
+
+.table td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.table img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+/* Inputs de quantidade */
+input[type="number"] {
+    width: 60px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+/* Botões de ação (remover) */
+.btn-remove {
+    background-color: #FF6B6B;
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-remove:hover {
+    background-color: #E55A5A;
+}
+
+/* ====== CEP e Frete ====== */
+#cep {
+    border-radius: 6px 0 0 6px;
+    border: 1px solid #ddd;
+    padding: 6px 10px;
+}
+
+.input-group-append .btn {
+    border-radius: 0 6px 6px 0;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    transition: background-color 0.2s;
+}
+
+.input-group-append .btn:hover {
+    background-color: #2EA29E;
+}
+
+#frete-opcoes select {
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    padding: 6px 10px;
+}
+
+/* ====== Resumo do Pedido ====== */
+.card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.card h4 {
+    color: var(--secondary-color);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.card hr {
+    border-color: #eee;
+}
+
+.card .row div {
+    font-weight: 500;
+}
+
+#total, #valor-frete, #total-final {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+/* Botão Finalizar Compra */
+.btn-success {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    border-radius: 6px;
+    font-weight: 600;
+    padding: 10px 20px;
+    transition: background-color 0.2s;
+}
+
+.btn-success:hover {
+    background-color: #2EA29E;
+}
+
+/* Alert para usuário não logado */
+.alert {
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+.alert a {
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+.alert a:hover {
+    text-decoration: underline;
+}
+
+/* ====== Responsivo ====== */
+@media (max-width: 768px) {
+    .table img {
+        width: 50px;
+        height: 50px;
+    }
+
+    input[type="number"] {
+        width: 50px;
+    }
+
+    #frete-opcoes select {
+        width: 100%;
+    }
+}

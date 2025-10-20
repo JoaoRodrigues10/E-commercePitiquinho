@@ -37,8 +37,7 @@ public class ClientePedidosController {
         model.addAttribute("usuario", usuario);
         session.setAttribute("usuario", usuario);
         Pedido pedido = pedidoService.obterPedidoPorId(pedidoId);
-        System.out.println("Pedido: " + pedido);
-        System.out.println("Itens do pedido: " + pedido.getItens());
+
         model.addAttribute("pedido", pedido);
         model.addAttribute("itens", pedido.getItens());
         return "detalhes-pedido";
