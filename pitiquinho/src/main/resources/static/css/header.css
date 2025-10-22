@@ -1,88 +1,212 @@
-/* ====== HEADER ====== */
-.navbar {
-    background-color: #FAFAFA;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-    padding: 0.8rem 1.5rem;
-}
-
-.container-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+/* ======= HEADER GERAL ======= */
+.header-wrapper {
+    display: block;
     width: 100%;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+}
+.header-btn-user,
+.header-btn-user:hover,
+.header-btn-user:focus {
+    text-decoration: none !important; /* remove sublinhado */
+    color: white; /* mantém a cor */
 }
 
-.navbar-brand {
-    font-size: 1.4rem;
-    color: #333;
-    text-decoration: none;
+
+
+/* Navbar */
+.header-navbar {
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 0.8rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 9999;
 }
 
-.navbar-brand i {
-    color: #4FC3C8;
+.header-cart,
+.header-cart:hover,
+.header-cart:focus {
+    text-decoration: none !important; /* remove underline */
+    color: inherit; /* mantém a cor */
 }
 
-.navbar-toggler {
-    border: none;
-    background: transparent;
-}
 
-.navbar-nav .nav-item {
-    margin-left: 1rem;
-}
-
-.btn-login,
-.btn-user {
-    color: #fff;
-    background-color: #4FC3C8;
-    border: none;
-    padding: 0.4rem 0.9rem;
-    border-radius: 8px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: 0.3s;
-}
-
-.btn-login:hover,
-.btn-user:hover {
-    background-color: #4FC3C8;
-}
-
-.dropdown-menu {
-    border-radius: 10px;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
-}
-
-.dropdown-item:hover {
-    background-color: #FAFAFA;
-}
-
-.carrinho-btn {
+/* Container principal */
+.header-container {
     display: flex;
     align-items: center;
-    background-color: #FAFAFA;
+    justify-content: space-between;
+    width: 100%;
+    gap: 1.5rem;
+}
+
+/* ======= ESQUERDA ======= */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    flex-shrink: 0;
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+}
+
+.header-logo-text {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+}
+
+.header-logo,
+.header-logo:hover,
+.header-logo:focus {
+    text-decoration: none !important;
+     color: inherit; /* mantém a cor original */
+}
+
+
+.header-endereco {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.header-endereco i {
+    color: #4FC3C8;
+    margin-right: 0.3rem;
+}
+
+/* ======= CENTRO: PESQUISA ======= */
+.header-search {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    max-width: 750px; /* barra maior */
+    height: 44px;
     border: 1px solid #4FC3C8;
     border-radius: 10px;
-    padding: 0.4rem 0.8rem;
-    text-decoration: none;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+/* Filtro de categoria (esquerda) */
+.header-search-select {
+    border: none;
+    background-color: #E0F7FA;
     color: #333;
-    transition: 0.3s;
+    height: 100%;
+    padding: 0 0.8rem;
+    font-size: 0.9rem;
+    font-weight: 200;
+    cursor: pointer;
+    outline: none;
+    border-right: 1px solid #4FC3C8;
 }
 
-.carrinho-btn i {
-    color: #4FC3C8;
-    margin-right: 0.4rem;
+/* Campo de texto (centro) */
+.header-search-input {
+    flex: 1;
+    border: none;
+    padding: 0 1rem;
+    font-size: 0.95rem;
+    outline: none;
+    background-color: transparent;
 }
 
-.carrinho-btn:hover {
-    background-color: #ffebee;
+/* Botão de pesquisa (direita) */
+.header-search-btn {
+    background-color: #4FC3C8;
+    color: #fff;
+    border: none;
+    width: 52px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s ease;
 }
 
-.badge {
+.header-search-btn:hover {
+    background-color: #3BA8AC;
+}
+
+/* ======= DIREITA ======= */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+}
+
+.header-btn-login,
+.header-btn-user {
     background-color: #4FC3C8;
     color: white;
-    font-size: 0.75rem;
-    margin-left: 0.4rem;
+    border-radius: 8px;
+    padding: 0.5rem 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: 0.2s ease;
+}
+
+.header-btn-login:hover,
+.header-btn-user:hover {
+    background-color: #3BA8AC;
+}
+
+.header-cart {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background-color: #fff;
+    padding: 0.5rem 0.9rem;
+    border-radius: 10px;
+    border: 1.5px solid #4FC3C8;
+    font-weight: 500;
+    text-decoration: none;
+    color: #333;
+    transition: 0.2s ease;
+}
+
+.header-cart:hover {
+    background-color: #E0F7FA;
+}
+
+.header-cart i {
+    color: #4FC3C8;
+}
+
+.header-cart-badge {
+    background-color: #4FC3C8;
+    color: #fff;
+    font-size: 0.7rem;
     padding: 0.2rem 0.45rem;
     border-radius: 50%;
+}
+
+/* ======= RESPONSIVO ======= */
+@media (max-width: 992px) {
+    .header-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.8rem;
+    }
+
+    .header-left, .header-right {
+        justify-content: center;
+    }
+
+    .header-search {
+        max-width: 100%;
+        width: 100%;
+    }
 }

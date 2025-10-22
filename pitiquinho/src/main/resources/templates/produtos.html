@@ -16,43 +16,12 @@
     <script src="/js/produtos.js"></script>
 </head>
 
-
-
 <body>
 
 <div th:replace="~{fragments/header :: header}"></div>
-<div class="container mt-5">
-    <h2 class="text-center titulo mb-4">Nossos Produtos</h2>
 
-    <form id="filtroForm" th:action="@{/produtos}" method="get" class="mb-4">
-        <div class="row g-2">
-            <div class="col-md-6">
-                <input type="text" name="nome" class="form-control" placeholder="Buscar por nome do produto" th:value="${nome}">
-            </div>
-            <div class="col-md-4">
-                <select name="categoria" class="form-select">
-                    <option value="">Selecione uma categoria</option>
-                    <option value="Vestuário" th:selected="${selectedCategoria == 'Vestuário'}">Vestuário</option>
-                    <option value="Acessórios de Passeio" th:selected="${selectedCategoria == 'Acessórios de Passeio'}">Acessórios de Passeio</option>
-                    <option value="Acessórios de Alimentação" th:selected="${selectedCategoria == 'Acessórios de Alimentação'}">Acessórios de Alimentação</option>
-                    <option value="Higiene e Cuidado" th:selected="${selectedCategoria == 'Higiene e Cuidado'}">Higiene e Cuidado</option>
-                    <option value="Móveis e Decoração" th:selected="${selectedCategoria == 'Móveis e Decoração'}">Móveis e Decoração</option>
-                    <option value="Brinquedos" th:selected="${selectedCategoria == 'Brinquedos'}">Brinquedos</option>
-                    <option value="Livros Infantis" th:selected="${selectedCategoria == 'Livros Infantis'}">Livros Infantis</option>
-                    <option value="Segurança e Monitoramento" th:selected="${selectedCategoria == 'Segurança e Monitoramento'}">Segurança e Monitoramento</option>
-                    <option value="Carrinhos e Cadeiras de Bebê" th:selected="${selectedCategoria == 'Carrinhos e Cadeiras de Bebê'}">Carrinhos e Cadeiras de Bebê</option>
-                    <option value="Alimentação e Mamadeiras" th:selected="${selectedCategoria == 'Alimentação e Mamadeiras'}">Alimentação e Mamadeiras</option>
-                    <option value="Roupas de Dormir / Pijamas" th:selected="${selectedCategoria == 'Roupas de Dormir / Pijamas'}">Roupas de Dormir / Pijamas</option>
-                    <option value="Fraldas e Descartáveis" th:selected="${selectedCategoria == 'Fraldas e Descartáveis'}">Fraldas e Descartáveis</option>
-                    <option value="Chupetas e Mordedores" th:selected="${selectedCategoria == 'Chupetas e Mordedores'}">Chupetas e Mordedores</option>
-                </select>
-            </div>
-            <div class="col-md-2">
-                <button type="submit" class="btn btn-filtrar w-100">Filtrar</button>
-            </div>
-        </div>
-    </form>
-
+<div class="container mt-3">
+    <h3 class="text-center titulo mb-4">Nossos Produtos</h3>
 
     <div class="row">
         <div class="col-md-3 mb-4" th:each="produto : ${produtos}">
@@ -74,9 +43,7 @@
             <p class="text-center text-muted mt-4">Nenhum produto encontrado para a pesquisa.</p>
         </div>
     </div>
-
-
-
 </div>
+
 </body>
 </html>

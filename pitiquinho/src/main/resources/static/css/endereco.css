@@ -1,116 +1,194 @@
-/* ====== CONTAINER ====== */
+/* ===== Base ===== */
 body {
-    background-color: #f8f9fa;
+    background-color: #F9FBFB;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
 }
 
+/* ===== Container ===== */
 .container {
     max-width: 900px;
     margin: 2rem auto;
-    background-color: #ffffff;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    padding: 1rem 1.5rem;
 }
 
-/* ====== TITULOS ====== */
-h2, h3 {
-    color: #333333;
-    font-weight: 600;
-    margin-bottom: 1rem;
-}
-
-/* ====== FORMULÁRIO ====== */
-.form-group label {
+.btn-add-address {
+    background-color: #fff; /* fundo branco */
+    color: #4FC3C8; /* cor do texto e ícone */
+    border: 1px solid #4FC3C8;
+    border-radius: 8px;
+    padding: 0.45rem 1rem;
+    font-size: 0.9rem;
     font-weight: 500;
-    color: #555555;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: 0.2s;
+    cursor: pointer;
 }
 
-.form-control {
+.btn-add-address:hover {
+    background-color: #4FC3C8;
+    color: #fff;
+}
+
+.btn-add-address i {
+    color: inherit; /* garante que o ícone herde a cor do botão */
+}
+
+
+
+.btn-add-address2 {
+    background-color: #4FC3C8; /* fundo branco */
+    color: #fff; /* cor do texto e ícone */
     border-radius: 8px;
-    padding: 0.5rem 0.75rem;
-    border: 1px solid #ced4da;
-    transition: 0.3s;
-}
-
-.form-control:focus {
-    border-color: #4fc3c8;
-    box-shadow: 0 0 5px rgba(79, 195, 200, 0.4);
-    outline: none;
-}
-
-/* Botões */
-.btn-success, .btn-primary, .btn-secondary {
-    border-radius: 8px;
-    padding: 0.5rem 1.2rem;
+    border: none;
+    padding: 0.45rem 1rem;
+    font-size: 0.9rem;
     font-weight: 500;
-    transition: 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: 0.2s;
+    cursor: pointer;
 }
 
-.btn-success {
-    background-color: #4fc3c8;
-    border: none;
-    color: white;
+.btn-add-address2:hover {
+    background-color:  #fff;
+    color: #4FC3C8;
+     border: 1px solid #4FC3C8;
 }
 
-.btn-success:hover {
-    background-color: #41adb1;
+
+
+/* ===== Título ===== */
+h2 {
+    font-size: 1.4rem;
+    font-weight: 300; /* texto fino */
+    color: #000;
+    margin-bottom: 1.2rem;
 }
 
-.btn-primary {
-    background-color: #4fc3c8;
-    border: none;
-    color: white;
+/* ===== Grid de Endereços ===== */
+.address-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem; /* cards mais juntos */
 }
 
-.btn-primary:hover {
-    background-color: #41adb1;
-}
-
-.btn-secondary {
-    background-color: #6c757d;
-    border: none;
-    color: white;
-}
-
-.btn-secondary:hover {
-    background-color: #5a6268;
-}
-
-/* Input group botão */
-.input-group-append button {
-    border-radius: 0 8px 8px 0;
-}
-
-/* ====== ALERTAS ====== */
-.alert {
-    border-radius: 8px;
-    padding: 0.6rem 1rem;
-}
-
-/* ====== TABELA ====== */
-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
+.address-grid .card {
+    flex: 1 1 calc(25% - 0.6rem); /* até 4 por linha */
+    min-width: 180px;
+    background-color: #fff;
     border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    border: 1px solid #E0E0E0;
+    padding: 0.8rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.15s, box-shadow 0.15s;
 }
 
-table th {
-    background-color: #f1f3f5;
-    color: #333;
-    font-weight: 600;
-    text-align: left;
-    padding: 0.75rem 1rem;
+.address-grid .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
-table td {
-    padding: 0.75rem 1rem;
+.card p {
+    font-size: 0.85rem;
+    margin: 0.2rem 0;
     color: #555;
 }
 
-table tr:nth-child(even) {
-    background-color: #fafafa;
+/* ===== Badge de endereço padrão ===== */
+.badge-padrao {
+    background-color: #4FC3C8;
+    color: #fff;
+    font-size: 0.75rem;
+    padding: 0.2em 0.5em;
+    border-radius: 8px;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+}
+
+/* ===== Botões ===== */
+.btn {
+    border-radius: 8px;
+    padding: 0.35rem 0.9rem;
+    font-size: 0.85rem;
+    font-weight: 400;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-outline-primary {
+    color: #4FC3C8;
+    border: 1px solid #4FC3C8;
+}
+
+.btn-outline-primary:hover {
+    background-color: #4FC3C8;
+    color: #fff;
+}
+
+.btn-outline-secondary {
+    color: #6c757d;
+    border: 1px solid #6c757d;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+/* ===== Inputs ===== */
+.form-control {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 0.9rem;
+    outline: none;
+    transition: 0.2s;
+}
+
+.form-control:focus {
+    border-color: #4FC3C8;
+    box-shadow: 0 0 0 2px rgba(79, 195, 200, 0.15);
+}
+
+/* ===== Checkbox ===== */
+.form-check-input {
+    width: 1rem;
+    height: 1rem;
+}
+
+.form-check-label {
+    font-size: 0.85rem;
+    color: #555;
+}
+
+/* ===== Modal ===== */
+.modal-dialog {
+    margin-top: 60px;
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 768px) {
+    .address-grid .card {
+        flex: 1 1 calc(50% - 0.6rem); /* 2 por linha no mobile */
+        min-width: 140px;
+    }
+}
+
+@media (max-width: 480px) {
+    .address-grid .card {
+        flex: 1 1 100%; /* 1 por linha no celular */
+        min-width: 0;
+    }
 }

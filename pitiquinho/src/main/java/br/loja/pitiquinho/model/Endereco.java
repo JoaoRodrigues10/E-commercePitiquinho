@@ -45,6 +45,11 @@ public class Endereco {
     private String tipoEndereco;
 
     @NotNull
+    @Column(name = "tg_padrao", nullable = false) // nome da coluna no banco
+    private Boolean padrao = false; // valor padrão opcional
+
+
+    @NotNull
     @Column(name = "usuario_fk", nullable = false) // Nome da coluna para o ID do usuário
     private Long usuarioId;
 
@@ -136,5 +141,14 @@ public class Endereco {
     public Usuario getUsuario() {
         return usuario;
     }
+
+    public boolean isPadrao() {
+        return padrao;
+    }
+
+    public void setPadrao(boolean padrao) {
+        this.padrao = padrao;
+    }
+
 
 }

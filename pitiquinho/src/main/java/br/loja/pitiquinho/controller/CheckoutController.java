@@ -87,7 +87,7 @@ public class CheckoutController {
 
         pedido.setTotal(total);
 
-        model.addAttribute("enderecos", enderecoService.buscarEnderecosPorUsuarioIdEntrega(usuario.getId()));
+        model.addAttribute("enderecos", enderecoService.buscarEnderecoPadrao(usuario.getId()));
         model.addAttribute("itensCarrinho", itensCarrinho);
         model.addAttribute("pedido", pedido);
         session.setAttribute("usuario", usuario);

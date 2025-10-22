@@ -133,6 +133,19 @@ body {
     color: #333;
     text-decoration: none;
 }
+.login-container .navbar-brand {
+    display: flex;
+    align-items: center; /* alinha verticalmente SVG e texto */
+    justify-content: center; /* centraliza horizontalmente dentro do container */
+    margin-bottom: 20px;
+}
+
+.logo-text {
+    margin-left: 10px; /* espaço entre SVG e texto */
+    font-family: 'Fredoka One', cursive; /* se quiser fonte divertida */
+    font-weight: 400;
+    font-size: 1.6rem;
+}
 
 .navbar-brand i {
     color: #4FC3C8;

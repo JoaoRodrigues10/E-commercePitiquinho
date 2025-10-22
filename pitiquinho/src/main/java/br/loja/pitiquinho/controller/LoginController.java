@@ -1,5 +1,7 @@
 package br.loja.pitiquinho.controller;
 
+import br.loja.pitiquinho.model.Endereco;
+import br.loja.pitiquinho.service.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,9 @@ public class LoginController {
 
     @Autowired
     private UsuarioService usuarioService;
+    @Autowired
+    private EnderecoService enderecoService;
+
 
     @GetMapping("/login")
     public String loginPage(@RequestParam(value = "redirect", required = false) String redirect, Model model) {
@@ -39,6 +44,7 @@ public class LoginController {
                         @RequestParam String password,
                         @RequestParam(value = "redirect", required = false) String redirect,
                         HttpSession session) {
+
         Usuario usuario = usuarioService.buscarLogin(email, password);
 
         if (usuario != null) {
@@ -46,6 +52,13 @@ public class LoginController {
             session.setAttribute("usuario", usuario);
             session.setAttribute("token", token);
 
+
+            Endereco endereco = enderecoService.buscarEnderecoPadrao(usuario.getId());
+
+            if (endereco == null) {
+                endereco = new Endereco();
+            }
+            session.setAttribute("enderecoUsuario", endereco);
 
             if (redirect != null && !redirect.isEmpty()) {
                 return "redirect:/" + redirect;
@@ -61,6 +74,7 @@ public class LoginController {
             return "redirect:/login?error";
         }
     }
+
 
 
 }
