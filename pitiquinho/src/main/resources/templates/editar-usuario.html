@@ -1,88 +1,98 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Usuário</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Pitiquinho | Perfil</title>
+
+    <!-- Bootstrap & FontAwesome -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- CSS personalizado -->
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/editar-usuario.css">
 </head>
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
-<div class="container mt-5">
 
+<div class="container mt-5 perfil-container">
 
+    <!-- Links rápidos do usuário -->
+    <div class="d-flex flex-wrap justify-content-center justify-content-md-between gap-3 mb-4 perfil-links">
+        <a th:href="@{/endereco/listar}" class="btn btn-outline-primary perfil-btn">
+            <i class="fas fa-home me-2"></i> Endereços
+        </a>
+        <a th:href="@{/pedidos/meus-pedidos}" class="btn btn-outline-primary perfil-btn">
+            <i class="fas fa-box me-2"></i> Pedidos
+        </a>
+        <a th:href="@{/carrinho}" class="btn btn-outline-primary perfil-btn">
+            <i class="fas fa-shopping-cart me-2"></i> Carrinho
+        </a>
+        <a th:href="@{/cartoes}" class="btn btn-outline-primary perfil-btn">
+            <i class="fas fa-credit-card me-2"></i> Cartões
+        </a>
+    </div>
 
-    <form th:action="@{/usuario/editar/{id}(id=${usuario.id})}" method="post" id="usuarioEnderecoForm" th:object="${usuario}" onsubmit="return validateForm()">
+    <!-- Formulário -->
+    <form th:action="@{/usuario/editar/{id}(id=${usuario.id})}" method="post" th:object="${usuario}" class="perfil-form p-4 rounded shadow-sm" onsubmit="return validateForm()">
+        <h4 class="mb-4 text-center">Editar Perfil</h4>
 
-    <h4>Dados do Usuário</h4>
-
-        <div class="form-group">
-            <label for="nome">Nome</label>
-            <input type="text" class="form-control" id="nome" name="nome" th:field="*{nome}" required>
-            <div th:if="${#fields.hasErrors('nome')}" class="alert alert-danger">
-                <p th:text="${#fields.errors('nome')}"></p>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nome" th:field="*{nome}" required>
+            </div>
+            <div class="col-md-6">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" th:field="*{email}" required>
             </div>
         </div>
 
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" th:field="*{email}" required>
-            <div th:if="${#fields.hasErrors('email')}" class="alert alert-danger">
-                <p th:text="${#fields.errors('email')}"></p>
+        <div class="row g-3 mt-2">
+            <div class="col-md-6">
+                <label for="cpf" class="form-label">CPF</label>
+                <input type="text" class="form-control" id="cpf" th:field="*{cpf}" required>
+            </div>
+            <div class="col-md-6">
+                <label for="telefone" class="form-label">Telefone</label>
+                <input type="text" class="form-control" id="telefone" th:field="*{telefone}" placeholder="(00) 00000-0000" required>
             </div>
         </div>
 
-        <div class="form-group">
-            <label for="cpf">CPF</label>
-            <input type="text" class="form-control" id="cpf" name="cpf" th:field="*{cpf}" required>
-            <div th:if="${#fields.hasErrors('cpf')}" class="alert alert-danger">
-                <p th:text="${#fields.errors('cpf')}"></p>
+        <div class="row g-3 mt-2">
+            <div class="col-md-6">
+                <label for="dataNascimento" class="form-label">Data de Nascimento</label>
+                <input type="date" class="form-control" id="dataNascimento" th:field="*{dataNascimento}" required>
+            </div>
+            <div class="col-md-6">
+                <label for="genero" class="form-label">Gênero</label>
+                <select class="form-select" id="genero" th:field="*{genero}" required>
+                    <option value="" disabled selected>Selecione</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Feminino">Feminino</option>
+                    <option value="Outro">Outro</option>
+                </select>
             </div>
         </div>
 
-        <div class="form-group">
-            <label for="dataNascimento">Data de Nascimento</label>
-            <input type="date" class="form-control" id="dataNascimento" name="dataNascimento" th:field="*{dataNascimento}" required>
+        <div class="row g-3 mt-2">
+            <div class="col-md-6">
+                <label for="senha" class="form-label">Senha</label>
+                <input type="password" class="form-control" id="senha" th:field="*{senha}">
+            </div>
+            <div class="col-md-6">
+                <label for="confirmarSenha" class="form-label">Confirmar Senha</label>
+                <input type="password" class="form-control" id="confirmarSenha">
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="genero">Gênero</label>
-            <select class="form-control" id="genero" name="genero" th:field="*{genero}" required>
-                <option value="" disabled selected>Selecione o gênero</option>
-                <option value="Masculino">Masculino</option>
-                <option value="Feminino">Feminino</option>
-                <option value="Outro">Outro</option>
-            </select>
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-success px-5">Salvar Alterações</button>
         </div>
-
-        <div class="form-group">
-            <label for="senha">Senha</label>
-            <input type="password" class="form-control" id="senha" name="senha" th:field="*{senha}">
-        </div>
-
-        <div class="form-group">
-            <label for="confirmarSenha">Confirmar Senha</label>
-            <input type="password" class="form-control" id="confirmarSenha" name="confirmarSenha">
-        </div>
-
-        <button type="submit" class="btn btn-success">Editar Usuário</button>
-
-        <div class="mt-4">
-            <h5>Meus Endereços</h5>
-            <a th:href="@{/endereco/listar}" class="btn btn-primary">Visualizar / Editar Endereços</a>
-        </div>
-
-
-
-
     </form>
 </div>
 
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -42,6 +42,9 @@ public class Usuario implements UserDetails {
     @Column(name = "ds_genero", nullable = false, length = 20)
     private String genero;
 
+    @Column(name = "ds_telefone", nullable = false, length = 15)
+    private String telefone;
+
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(grupo));
     }
@@ -153,6 +156,13 @@ public class Usuario implements UserDetails {
         this.genero = genero;
     }
 
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
 
     public List<Endereco> getEnderecosEntrega() {
         return enderecosEntrega;

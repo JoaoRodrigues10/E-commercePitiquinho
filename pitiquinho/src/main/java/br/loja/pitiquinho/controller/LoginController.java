@@ -14,6 +14,8 @@ import br.loja.pitiquinho.model.Usuario;
 import br.loja.pitiquinho.service.UsuarioService;
 import jakarta.servlet.http.HttpSession;
 
+import java.util.Optional;
+
 
 @Controller
 public class LoginController {

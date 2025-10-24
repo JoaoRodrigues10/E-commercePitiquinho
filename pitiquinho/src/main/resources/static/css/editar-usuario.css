@@ -1,93 +1,60 @@
-/* ====== BODY ====== */
 body {
-    background-color: #f8f9fa;
+    background-color: #f0f2f5;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* ====== CONTAINER ====== */
-.container {
-    max-width: 700px;
-    margin: 2rem auto;
-    background-color: #ffffff;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+/* Container principal */
+.perfil-container {
+    max-width: 800px;
 }
 
-/* ====== TITULOS ====== */
-h4, h5 {
-    color: #333333;
-    font-weight: 600;
-    margin-bottom: 1rem;
-}
-
-/* ====== FORMULÁRIO ====== */
-.form-group label {
+/* Links do perfil */
+.perfil-links a {
+    min-width: 160px;
+    text-align: center;
     font-weight: 500;
-    color: #555555;
 }
 
-.form-control {
-    border-radius: 8px;
-    padding: 0.5rem 0.75rem;
-    border: 1px solid #ced4da;
-    transition: all 0.3s ease;
-}
-
-.form-control:focus {
-    border-color: #4fc3c8;
-    box-shadow: 0 0 5px rgba(79, 195, 200, 0.4);
-    outline: none;
-}
-
-/* ====== BOTÕES ====== */
-.btn-success, .btn-primary {
-    border-radius: 8px;
+/* Botões perfil */
+.perfil-btn {
+    border-radius: 10px;
     padding: 0.5rem 1.2rem;
-    font-weight: 500;
     transition: 0.3s;
 }
 
+.perfil-btn:hover {
+    background-color: #41adb1;
+    color: #fff;
+}
+
+/* Formulário */
+.perfil-form {
+    background-color: #fff;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.form-label {
+    font-weight: 500;
+}
+
+/* Botão de salvar */
 .btn-success {
     background-color: #4fc3c8;
     border: none;
-    color: white;
+    font-weight: 500;
 }
 
 .btn-success:hover {
     background-color: #41adb1;
 }
 
-.btn-primary {
-    background-color: #4fc3c8;
-    border: none;
-    color: white;
-}
-
-.btn-primary:hover {
-    background-color: #41adb1;
-}
-
-/* ====== ALERTAS ====== */
-.alert {
-    border-radius: 8px;
-    padding: 0.6rem 1rem;
-    margin-top: 0.3rem;
-}
-
-/* ====== LINKS ====== */
-a.btn {
-    text-decoration: none;
-}
-
-/* ====== RESPONSIVO ====== */
+/* Responsivo */
 @media (max-width: 576px) {
-    .container {
-        padding: 1.5rem;
+    .perfil-links {
+        flex-direction: column;
+        align-items: stretch;
     }
-
-    .btn-success, .btn-primary {
+    .perfil-links a {
         width: 100%;
-        margin-top: 0.5rem;
     }
 }

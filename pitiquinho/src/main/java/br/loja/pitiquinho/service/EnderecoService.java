@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class EnderecoService {
@@ -64,11 +65,9 @@ public class EnderecoService {
 
     public Endereco buscarEnderecoPadrao(Long usuarioId) {
         Endereco endereco = enderecoRepository.findFirstByUsuarioIdAndPadraoTrue(usuarioId);
-        if (endereco == null) {
-            throw new NoSuchElementException("Endereço padrão do usuário " + usuarioId + " não encontrado.");
-        }
         return endereco;
     }
+
 
 }
 

@@ -51,21 +51,25 @@
 
             <!-- DIREITA: USUÁRIO + CARRINHO -->
             <div class="header-right">
-                <div th:if="${usuario == null}">
+                <!-- Usuário não logado -->
+                <div th:if="${usuario == null or usuario.nome == null}">
                     <a href="/login" class="header-btn-login">
                         <i class="fas fa-sign-in-alt me-2"></i>Entrar
                     </a>
                 </div>
 
-                <div class="dropdown" th:if="${usuario != null}">
+                <!-- Usuário logado -->
+                <div class="dropdown" th:if="${usuario != null and usuario.nome != null}">
                     <a class="header-btn-user dropdown-toggle" href="#" id="perfilDropdown" data-bs-toggle="dropdown">
                         <i class="fas fa-user me-2"></i>
-                        <span th:text="${#strings.arraySplit(usuario.nome, ' ')[0]}">Usuário</span>
+                        <span th:text="${#strings.arraySplit(usuario.nome, ' ')[0]}"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="/" class="dropdown-item">Início</a></li>
-                        <li><a th:href="@{/usuario/editar/{id}(id=${usuario.id})}" class="dropdown-item">Meu Perfil</a></li>
-                        <li><a th:href="@{/meus-pedidos/{id}(id=${usuario.id})}" class="dropdown-item">Meus Pedidos</a></li>
+                        <li><a th:href="@{/usuario/editar}" class="dropdown-item">Meu Perfil</a></li>
+                        <li><a th:href="@{/pedidos/meus-pedidos}" class="dropdown-item">Meus Pedidos</a></li>
+                        <li><a th:href="@{/endereco/listar}" class="dropdown-item">Meus Endereços</a></li>
+                        <li><a th:href="@{/cartoes}" class="dropdown-item">Meus Cartões</a></li>
+
                         <li><hr class="dropdown-divider"></li>
                         <li><a href="/logout" class="dropdown-item text-danger">Sair</a></li>
                     </ul>
@@ -77,6 +81,7 @@
                     <span id="quantidadeCarrinho" class="header-cart-badge ms-1">0</span>
                 </a>
             </div>
+
 
         </div>
     </nav>

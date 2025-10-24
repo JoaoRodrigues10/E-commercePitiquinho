@@ -4,6 +4,8 @@ import br.loja.pitiquinho.model.Endereco;
 import br.loja.pitiquinho.model.Usuario;
 import br.loja.pitiquinho.service.EnderecoService;
 import br.loja.pitiquinho.service.UsuarioService;
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
+
+import java.util.Optional;
 
 @ControllerAdvice
 public class HeaderController {
@@ -22,15 +26,18 @@ public class HeaderController {
     private UsuarioService usuarioService;
 
     @ModelAttribute
-    public void adicionarDadosHeader(Model model,
-                                     @SessionAttribute(name="usuario", required=false) Usuario usuarioSessao) {
-        if (usuarioSessao != null) {
+    public void adicionarDadosHeader(Model model, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        model.addAttribute("usuario", usuario);
 
-            Usuario usuarioAtualizado = usuarioService.findById(usuarioSessao.getId());
-            model.addAttribute("usuario", usuarioAtualizado);
-
-            Endereco endereco = enderecoService.buscarEnderecoPadrao(usuarioAtualizado.getId());
-            model.addAttribute("enderecoUsuario", endereco);
+        if (usuario != null) {
+            // Busca endereço padrão, que pode ser null
+            Endereco enderecoPadrao = enderecoService.buscarEnderecoPadrao(usuario.getId());
+            model.addAttribute("enderecoUsuario", enderecoPadrao); // será null se não existir
+        } else {
+            model.addAttribute("enderecoUsuario", null);
         }
     }
+
+
 }

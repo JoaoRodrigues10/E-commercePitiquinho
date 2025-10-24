@@ -161,6 +161,8 @@
 .header-btn-login:hover,
 .header-btn-user:hover {
     background-color: #3BA8AC;
+    text-decoration: none;
+     color: white;
 }
 
 .header-cart {

@@ -157,7 +157,7 @@ public class CheckoutController {
         model.addAttribute("usuario", usuario);
         session.setAttribute("usuario", usuario);
 
-        return "redirect:/meus-pedidos/" + usuario.getId();
+        return "redirect:/pedidos/meus-pedidos/" + usuario.getId();
 
     }
 

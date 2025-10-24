@@ -18,19 +18,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="/js/carrinho.js"></script>
 </head>
-
-<body>
 <!-- HEADER -->
 <div th:replace="~{fragments/header :: header}"></div>
+<body>
+
 
 <!-- CONTEÚDO -->
 <div class="container mt-5 mb-5" style="max-width: 650px;">
     <div class="form-box p-4 shadow rounded">
-        <h2 class="text-center mb-4">
-            <i class="fas fa-user-plus me-2"></i> Cadastro de Usuário
-        </h2>
 
-        <form th:action="@{/usuario/cadastro}" method="post" id="usuarioEnderecoForm" th:object="${usuario}" onsubmit="return validateForm()">
+        <h3 class="text-center mb-4" style="font-weight: 700;">
+            <i class="fas fa-user-plus me-2"></i> Cadastro de Usuário
+        </h3>
+
+        <form th:action="@{/usuario/cadastro}" method="post" id="usuarioEnderecoForm" th:object="${novoUsuario}" onsubmit="return validateForm()">
             <div class="mb-3">
                 <label for="nome" class="form-label">Nome</label>
                 <input type="text" class="form-control" id="nome" th:field="*{nome}" required>
@@ -61,6 +62,17 @@
             </div>
 
             <div class="mb-3">
+                <label for="telefone" class="form-label">Telefone</label>
+                <input type="text" class="form-control" id="telefone" th:field="*{telefone}" required>
+            </div>
+            <script>
+                $(document).ready(function(){
+                    $('#telefone').mask('(00) 00000-0000');
+                });
+            </script>
+
+
+            <div class="mb-3">
                 <label for="genero" class="form-label">Gênero</label>
                 <select class="form-select" id="genero" th:field="*{genero}" required>
                     <option value="" disabled selected>Selecione o gênero</option>
@@ -82,7 +94,7 @@
             </div>
 
             <div class="d-flex justify-content-between mt-4">
-                <a href="/" class="btn btn-outline-secondary">
+                <a href="/login" class="btn btn-outline-secondary">
                     <i class="fas fa-arrow-left me-1"></i> Voltar
                 </a>
                 <button type="submit" class="btn btn-primary">
